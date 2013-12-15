@@ -1,1 +1,5 @@
-function chordfit(gaDat)
+function  value=objfun_chordfit(x)
+
+
+
+

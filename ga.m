@@ -93,7 +93,7 @@ if not(isempty(gaDat.indini))  %fill with randomly initial data without user ins
     gaDat.Chrom(posicion0,:)=gaDat.indini;
 end
 
-
+%{
 while (gaDat.gen<gaDat.MAXGEN),
     gaDat.gen=gen;
     gaDat=gaevolucion(gaDat);  
@@ -102,7 +102,7 @@ while (gaDat.gen<gaDat.MAXGEN),
     gaDat.fxmingen(gen+1,:)=gaDat.fxmin;
     gen=gen+1;
 end
-
+%}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % End main loop
@@ -124,7 +124,7 @@ Nvar = size(FieldDR,2);
 aux = rand(Nind,Nvar);
 m=[-1 1]*FieldDR;
 ublb=ones(Nind,1)*m;
-lb=ones(Nind,1)*FieldDR(1,:);
+lb=ones(Nind,1)*FieldDR(1,:);  %change the chromesome variable
 chrom=ublb.*aux+lb;
 
 %% ----------------------------------------------------
