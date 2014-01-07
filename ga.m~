@@ -93,7 +93,7 @@ if not(isempty(gaDat.indini))  %fill with randomly initial data without user ins
     gaDat.Chrom(posicion0,:)=gaDat.indini;
 end
 
-%{
+
 while (gaDat.gen<gaDat.MAXGEN),
     gaDat.gen=gen;
     gaDat=gaevolucion(gaDat);  
@@ -102,7 +102,8 @@ while (gaDat.gen<gaDat.MAXGEN),
     gaDat.fxmingen(gen+1,:)=gaDat.fxmin;
     gen=gen+1;
 end
-%}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % End main loop
@@ -131,16 +132,25 @@ chrom=ublb.*aux+lb;
 function gaDat=gaevolucion(gaDat)
 % One generation -------
 Chrom=gaDat.Chrom;
-nind=size(Chrom,1);
-ObjV=inf(nind,1);
-for i=1:nind
-    if isempty(gaDat.ObjfunPar)
-        ObjV(i)=feval(gaDat.Objfun,Chrom(i,:));
-    else
-        ObjV(i)=feval(gaDat.Objfun,Chrom(i,:),gaDat.ObjfunPar);
+%nind=size(Chrom,1);
+nind = 20;
+ObjV = inf(20,32);
+
+for i = 1: 32 %(population have 32 chromsomes)
+    for j=1:nind %(every chromsome needs to calculating 1times/bar 
+                         %so every chromsome totally 20 times needed)
+        if isempty(gaDat.ObjfunPar)
+            %ObjV(i)=feval(gaDat.Objfun,Chrom(i,:),gaDat.mainMelodyIngaDat(i,:));
+            ObjV(j,i) = objfun_chordfit(Chrom(:,i),gaDat.mainMelodyIngaDat);   
+            %A=1; B = 1;
+            %objfun_chordfit(A,B);  
+        else
+            %ObjV(i)=feval(gaDat.Objfun,Chrom(i,:),gaDat.ObjfunPar,gaDat.mainMelodyIngaDat(i,:));
+            ObjV(j,i) = objfun_chordfit(Chrom(:,i),gaDat.mainMelodyIngaDat,gaDat.ObjfunPar);
+        end
+        %disp(['(i:j) is '  num2str(j)])
+        %disp(['ObjV(i:j) ' ,num2str(ObjV(i:j))])
     end
-    disp(['(i) is '  num2str(i)])
-    disp(['ObjV(i) ' ,num2str(ObjV(i))])
 end
 gaDat.ObjV=ObjV;
 

@@ -1,5 +1,5 @@
-gaDat.Objfun='objfun_chordfit';
-%gaDat.Objfun='objfun_schwefel';
+%gaDat.Objfun='objfun_chordfit';
+gaDat.Objfun='objfun_schwefel';
 %lb=[-500 -500];
 
 %ub=[500 500];
@@ -8,7 +8,7 @@ ub = ones(1,32)*107; % maxium  to octave-3 / C1    middle c is 4 (remember)
 lb = ones(1,32)*24; %maximun to octave3 /  C7
 gaDat.FieldD=[lb; ub];
 
-gaDat.NIND = 320; %create 320 length per chrosome
+gaDat.NIND = 400; %reapeat 400times generation
 
 %mainmelody create to GADat , make the ga caculating
 mainMelodyInCreate = Mainmelodyimport();
