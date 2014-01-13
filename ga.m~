@@ -141,14 +141,17 @@ for i = 1: 32 %(population have 32 chromsomes)
                          %so every chromsome totally 20 times needed)
         if isempty(gaDat.ObjfunPar)
             %ObjV(i)=feval(gaDat.Objfun,Chrom(i,:),gaDat.mainMelodyIngaDat(i,:));
-            ObjV(j,i) = objfun_chordfit(Chrom(:,i),gaDat.mainMelodyIngaDat);   
+            
+           returnToObjV=objfun_chordfit(gaDat.Chrom(:,i),gaDat.mainMelodyIngaDat);
+            ObjV(:,i) =  returnToObjV ;
             %A=1; B = 1;
             %objfun_chordfit(A,B);  
+            
         else
             %ObjV(i)=feval(gaDat.Objfun,Chrom(i,:),gaDat.ObjfunPar,gaDat.mainMelodyIngaDat(i,:));
             ObjV(j,i) = objfun_chordfit(Chrom(:,i),gaDat.mainMelodyIngaDat,gaDat.ObjfunPar);
         end
-        %disp(['(i:j) is '  num2str(j)])
+        %disp(['(i:j) is '  , num2str(j)])
         %disp(['ObjV(i:j) ' ,num2str(ObjV(i:j))])
     end
 end
