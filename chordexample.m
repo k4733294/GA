@@ -9,9 +9,21 @@ lb = ones(1,32)*24; %maximun to octave3 /  C7
 gaDat.FieldD=[lb; ub];
 
 gaDat.NIND = 320; %create 320 length per chrosome
+gaDat.MAXGEN = 100;
+rfMatrix = ones(320,32);
+rfCloumn =  (1:gaDat.NIND);
 
+%{
+for i = 1 : 32
+    rfMatrix(:,i) = rfCloumn ;
+end
+gaDat.rf = rfMatrix;
+%}
+
+gaDat.rf = (1:32)';
 %mainmelody create to GADat , make the ga caculating
-mainMelodyInCreate = Mainmelodyimport();
+mainMelodyNeedToTranslate = Mainmelodyimport();
+mainMelodyInCreate = Mainmelodytranslate(mainMelodyNeedToTranslate);
 gaDat.mainMelodyIngaDat = mainMelodyInCreate;
 % Execute GA
 gaDat=ga(gaDat);
