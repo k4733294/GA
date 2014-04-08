@@ -1,4 +1,4 @@
-function NewChrom=mutbga(OldChrom,FieldDR,MutOpt)
+function NewChrom=Mutbga(OldChrom,FieldDR,MutOpt)
 % Mutation function
 % Real coded mutation. 
 % Mutation is produced adding a low random value
@@ -18,12 +18,6 @@ elseif (nargin==2)
 else
     error('Incorrect number of parameters');
 end
-
-FieldDR
-MutOpt
-pm
-shr
-
 
 for i = 1 : 2
     

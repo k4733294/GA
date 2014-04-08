@@ -1,4 +1,4 @@
-function NewChrom =lxov(OldChrom, XOVR, alpha)
+function NewChrom =lxov(OldChrom, XOVR, alpha,barsize)
 
 % Linear crossover
 % Produce a new population by linear crossover and XOVR crossover probability
@@ -11,7 +11,7 @@ function NewChrom =lxov(OldChrom, XOVR, alpha)
 %   Child2 = beta2*Parent1+(1-beta2)*Parent2
 
 
-length = 16;
+length = barsize;
 
 if nargin==1
     XOVR = 0.7;
@@ -23,7 +23,7 @@ end
 choiceNum=XOVR*19;
 choiceNum=round(choiceNum);
 
-
+%Create the array with non repeat  random num and set choose num
 x = randperm(choiceNum);
 x = x(1:choiceNum);
 FirstChromeChoicedPoint=x;
@@ -32,6 +32,8 @@ y = randperm(choiceNum);
 y = y(1:choiceNum);
 SndChromeChoicedPoint=y;
 
+
+%change selected bar one by one 
 for i = 1 : choiceNum
     
 Fpointstart= FirstChromeChoicedPoint(1,i)*length;

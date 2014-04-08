@@ -1,4 +1,4 @@
-function gaiteracion(gaDat)
+function GaIteration(gaDat,plotGraph)
 %  Optional user task executed at the end of each iteration
 %
 
@@ -7,4 +7,12 @@ function gaiteracion(gaDat)
  disp(['Iteration: ' num2str(gaDat.gen)])
  disp(['   xmin: ' mat2str(gaDat.xmin) ' -- f(xmin): ',num2str(gaDat.fxmin)])
  disp(['   xmax: ' mat2str(gaDat.xmax) ' -- f(xmax): ',num2str(gaDat.fxmax)])
+ 
+%lineGraphDataX = gaDat.gen;
+%lineGraphDataY = gaDat.fxmaxgen;
+%set( plotGraph,'XData' , [1:lineGraphDataX] );
+%set( plotGraph,'YData', lineGraphDataY );
+%refreshdata
+%drawnow
+ 
 %% --------------------------------------------------------

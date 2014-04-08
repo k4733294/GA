@@ -1,4 +1,4 @@
-function gaDat=ga(g) 
+function gaDat=Ga(g) 
 %
 % Basic Genetic Algorithm
 %
@@ -33,9 +33,12 @@ else
     error('It is necessary to pass a data structure: gaDat.FieldD and gaDat.Objfun')
 end
 % If the parameter doesn't exist in the data structure it is created with the default value
+%{
 if ~isfield(gaDat,'NVAR')
     gaDat.NVAR=size(gaDat.FieldD,2);
 end
+%}
+
 if ~isfield(gaDat,'MAXGEN')
     gaDat.MAXGEN=gaDat.NVAR*20+10;
 end
@@ -57,7 +60,6 @@ end
 if ~isfield(gaDat,'indini')
     gaDat.indini=[];
 end
-%------------------------
 if ~isfield(gaDat,'rf')
    gaDat.rf= (1:gaDat.NIND)';
 end
@@ -66,7 +68,6 @@ end
 % Internal parameters
 gaDat.Chrom=[];
 gaDat.ObjV=[];
-% attation~~~ the xmin is maximun using in here, checkout !!!@@
 gaDat.xmin=[];
 gaDat.fxmin=inf;
 gaDat.xmax=[];
@@ -77,17 +78,25 @@ gaDat.xmaxgen=[];
 gaDat.fxmaxgen=[];
 gaDat.gen=0;
 
+y=0;
+x=0;
+%figure;
+plotGraph=plot(x,y);
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Main loop
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+tic;
 % Generation counter
 gen=0;
 
 % Initial population      ---------------------------------------
- tempNIND = gaDat.NIND; tempFieldD = gaDat.FieldD;
- TempChrom= crtrp(tempNIND,tempFieldD);
- gaDat.Chrom = TempChrom;
+ %tempNIND = gaDat.NIND; tempFieldD = gaDat.FieldD; 
+ tempBarSize=gaDat.barsize; pSize=gaDat.populaitonsize;
+ majorNote = gaDat.majorNote; tempBarNum=gaDat.barnum;
+ 
+ tempChrom= Crtrp(tempBarSize,majorNote,tempBarNum,pSize);
+ gaDat.Chrom = tempChrom;
 % Real codification
 % Individuals of gaDat.indini are randomly added in the initial population
 
@@ -108,7 +117,7 @@ end
 while (gaDat.gen<gaDat.MAXGEN),
     
     gaDat.gen=gen;
-    gaDat=gaevolucion(gaDat);  
+    gaDat=Gaevolucion(gaDat,plotGraph);  
    % Increase generation counter ------------------
     gaDat.xmingen(:,gen+1)=gaDat.xmin;
     gaDat.fxmingen(:,gen+1)=gaDat.fxmin;
@@ -129,12 +138,14 @@ for i = 1 : 20
         maxMainMelody(i,j) = gaDat.xmax(i+j);
     end
 end
-minMainMelody
-maxMainMelody
 
-version = '_minimum';
+%------testing-----------
+%minMainMelody
+%maxMainMelody
+
+version = '_minimum 100pop 1000ga';
 Melodyexport(minMainMelody,version);
-version = '_maximum';
+version = '_maximum 100pop 1000ga';
 Melodyexport(maxMainMelody,version);
 
 
@@ -142,8 +153,8 @@ Melodyexport(maxMainMelody,version);
 % End main loop
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Present final results
-
-garesults(gaDat)
+t=toc;
+GaResults(gaDat,t)
 
 
 %% Subfunction  -----------------------------------------
@@ -172,25 +183,25 @@ chrom=aux;
 %}
 
 %% ----------------------------------------------------
-function gaDat=gaevolucion(gaDat)
+function gaDat=Gaevolucion(gaDat,plotGraph)
 % One generation -------
 Chrom=gaDat.Chrom;
 %nind=size(Chrom,1);
-nind = 20;
-ObjV = inf(20,32);
+nind = gaDat.barnum;
+ObjV = inf(gaDat.barnum,gaDat.populationsize);
 
-for i = 1: 32 %(population have 32 chromsomes)
+for i = 1: gaDat.populationsize %(population have size of chromsomes)
     %for j=1:nind %(every chromsome needs to calculating 1times/bar 
                          %so every chromsome totally 20 times needed)
         if isempty(gaDat.ObjfunPar)
             %ObjV(i)=feval(gaDat.Objfun,Chrom(i,:),gaDat.mainMelodyIngaDat(i,:));
-           returnToObjV = objfun_chordfit(gaDat.Chrom(:,i),gaDat.mainMelodyIngaDat);
+           returnToObjV = Objfunchordfit(gaDat.Chrom(:,i),gaDat.mainMelodyIngaDat);
             ObjV(:,i) =  returnToObjV ;
             %A=1; B = 1;
             %objfun_chordfit(A,B);  
         else
             %ObjV(i)=feval(gaDat.Objfun,Chrom(i,:),gaDat.ObjfunPar,gaDat.mainMelodyIngaDat(i,:));
-            ObjV(:,i) = objfun_chordfit(Chrom(:,i),gaDat.mainMelodyIngaDat,gaDat.ObjfunPar);
+            ObjV(:,i) = Objfunchordfit(Chrom(:,i),gaDat.mainMelodyIngaDat,gaDat.ObjfunPar);
         end
         %disp(['(i:j) is '  , num2str(j)])
         %disp(['ObjV(i:j) ' ,num2str(ObjV(i:j))])
@@ -218,34 +229,34 @@ end
      % Next
      % generation*******************************************************************
      %SumFitnessinChromesomeBeforeRanking---------------------------------
-     for i = 1 : 32  
+     for i = 1 : gaDat.populationsize  
          objVToSort(i) = sum(gaDat.ObjV(:,i));
      end
      objVToSort = objVToSort' ;
      
      %Ranking-----------------------------------------------------------
-     FitnV = ranking(objVToSort,gaDat.rf);
+     FitnV = Ranking(objVToSort,gaDat.rf);
     
     % SELECTION ---------------------------------------------------------
     % Stochastic Universal Sampling (SUS).
-    [SelCh,Indices] = select('rws',Chrom,FitnV,1);
+    [SelCh,Indices] = Select('rws',Chrom,FitnV,1);
     
     % CROSSOVER ---------------------------------------------------
     % Uniform crossover.
-    SelCh = lxov(SelCh,gaDat.Pc,gaDat.alfa);
+    SelCh = lxov(SelCh,gaDat.Pc,gaDat.alfa,gaDat.barsize);
     
     % MUTATION ------------------------------------------------
-    SelCh = mutbga(SelCh,gaDat.FieldD,[gaDat.Pm 1]); % Codificaci�n Real.
+    SelCh = Mutbga(SelCh,gaDat.FieldD,[gaDat.Pm 1]); % Codificaci�n Real.
     
     % Reinsert the best individual  ----------------------------------
     Chrom(:,Indices) = SelCh;
     gaDat.Chrom=Chrom;
     
     % Optional additional task required by user
-    gaiteration(gaDat)
+    GaIteration(gaDat,plotGraph)
 
 %% ---------------------------------------------------------
-function FitV=ranking(ObjV,RFun)
+function FitV=Ranking(ObjV,RFun)
 % Ranking function
 if nargin==1
     error('Ranking function needs two parameters');
@@ -261,7 +272,7 @@ FitV(pos)=flipud(RFun);
 FitV=FitV';
 
 %% ---------------------------------------------------------
-function [SelCh,Indices]=select(SEL_F, Chrom, FitnV, GGAP)
+function [SelCh,Indices]=Select(SEL_F, Chrom, FitnV, GGAP)
 % Selection Function
 if (nargin==3) %  No overlap -------------------
     if (SEL_F=='rws')
@@ -279,9 +290,9 @@ if (nargin==3) %  No overlap -------------------
 elseif (nargin==4) % With overlap -----------------------------
 	% Indexes of new individuals
     if (SEL_F=='rws')
-        indices=rws2(FitnV,round(length(FitnV)*GGAP));
+        indices=Rws2(FitnV,round(length(FitnV)*GGAP));
     elseif (SEL_F=='sus')
-        indices=sus2(FitnV,round(length(FitnV)*GGAP));
+        indices=Sus2(FitnV,round(length(FitnV)*GGAP));
        
     else
         error('Incorrect selection method');
@@ -401,7 +412,7 @@ NewChrom1 =(NewChrom<=auxf2 & NewChrom>=auxf1);
 NewChrom = (NewChrom>auxf2).*auxf2+(NewChrom<auxf1).*auxf1+(NewChrom<=auxf2 & NewChrom>=auxf1).*NewChrom;
 %}
 %% ----------------------------------------------------------
-function NewChrIx=sus2(FitnV, Nsel)
+function NewChrIx=Sus2(FitnV, Nsel)
 %indices=sus2(FitnV,round(length(FitnV)*GGAP));
 
  
@@ -428,7 +439,7 @@ for i=1:Nsel
 end
 
 %% --------------------------------------------------------
-function NewChrlx=rws2(FitnV,Nsel)
+function NewChrlx=Rws2(FitnV,Nsel)
 
 
 choicednum=2;
@@ -437,54 +448,61 @@ suma = sum(FitnV);
 sumfit(1)= FitnV(1)/suma;
 for i=2:Nsel
     sumfit(i) = sumfit(i-1) + FitnV(i)/suma;
+    
 end
-
 NewChrlx(Nsel,1) = 0;
 selFitnV=randi([1 100],1,choicednum);
 selFitnV=selFitnV/100;
 
 for j= 1:choicednum
     search = selFitnV(j);
-    find = binarysearch(sumfit,search,Nsel);
+    find = Binarysearch(sumfit,search,Nsel);
     selFinVfind(j)=find;
 end
 
 NewChrlx = selFinVfind;
 
-function find=binarysearch(sumfit,search,Nsel)
+function find=Binarysearch(sumfit,search,Nsel)
 
 low =1;
 high = Nsel -1;
 
 % Testing-------------------------
-%{
-high
+
 search
 sumfit
-%}
+
 
 while(low<=high)
     mid = (low + high) / 2;
-    %mid
+    mid = int16(mid);
+    
+    %----------------------
+    a = 'inThelowHigh---';
+    a
+    mid
+    testsumfit=sumfit(mid);
+    testsumfit
+    search
+    %----------------------
+    
     if (sumfit(mid)>search)
-        
-        if (mid == low)
+            if (mid == low)
               find = mid ; 
+            break
         else    
             midlow= mid-1;
             if (sumfit(midlow)<search)
                 find = mid ; 
-                  %find
+                find
             break
             end
         end
-        
         high = mid -1;
-        
     elseif (sumfit(mid)<search)
-        
         if(mid == high)
             find = high;
+            break
         else
             midlow= mid+1;
             if (sumfit(midlow)>search)

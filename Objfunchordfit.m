@@ -1,4 +1,4 @@
-function returnToObjV = objfun_chordfit(whichChrosomeToBeCal,mainMelodyInChordfitToEvaluate)
+function returnToObjV = Objfunchordfit(whichChrosomeToBeCal,mainMelodyInChordfitToEvaluate)
 
 %disp(['i am handsome boy wctbc is ' ,  num2str(a)] );
 %whichChrosomeToBeCal
@@ -55,7 +55,6 @@ for i = 1:20
         end
     end
 end
-                barValue
                 returnToObjV = barValue;
               
 
