@@ -9,15 +9,13 @@ initial population rules
  rule 2 : give this bar a pretty good chord like 3 major or minor for defult setting
 %rule 3 : at a range of +-2 scales 
 %}
-melodyProgressContant=[];
-tempChrom=[];
+
+
   for i = 1 :pSize
   tonalVariableContant =Tonalgenerate(tempBarNum,majorNote);
   melodyProgressContant = Melodygenerate(tonalVariableContant,tempBarNum,tempBarSize); 
   tempChrom(:,i)=melodyProgressContant;
   end
-  
-   % onePopulationGenerate = 
 
 function tonalVariableContant = Tonalgenerate(tempBarNum,majorNote)
 

@@ -77,7 +77,7 @@ gaDat.fxmingen=[];
 gaDat.xmaxgen=[];
 gaDat.fxmaxgen=[];
 gaDat.gen=0;
-
+gaDat.rhythm=[];
 y=0;
 x=0;
 %figure;
@@ -92,13 +92,13 @@ gen=0;
 
 % Initial population      ---------------------------------------
  %tempNIND = gaDat.NIND; tempFieldD = gaDat.FieldD; 
- tempBarSize=gaDat.barsize; pSize=gaDat.populaitonsize;
- majorNote = gaDat.majorNote; tempBarNum=gaDat.barnum;
  
- tempChrom= Crtrp(tempBarSize,majorNote,tempBarNum,pSize);
+ %tempChrom= Crtrp(tempBarSize,majorNote,tempBarNum,pSize);
+ %tempChrom= CrtrpV2(tempBarSize,majorNote,tempBarNum,pSize);
+ tempChrom= CrtrpV2(gaDat);
  gaDat.Chrom = tempChrom;
-% Real codification
-% Individuals of gaDat.indini are randomly added in the initial population
+ % Real codification
+ % Individuals of gaDat.indini are randomly added in the initial population
 
     disp('------------------------------------------------')
     disp('######   if when indini   #########')
@@ -184,28 +184,30 @@ chrom=aux;
 
 %% ----------------------------------------------------
 function gaDat=Gaevolucion(gaDat,plotGraph)
-% One generation -------
+
+% One times templating created in this funtion
+%-----------------------------------------
 Chrom=gaDat.Chrom;
 %nind=size(Chrom,1);
 nind = gaDat.barnum;
 ObjV = inf(gaDat.barnum,gaDat.populationsize);
+%-----------------------------------------
+
 
 for i = 1: gaDat.populationsize %(population have size of chromsomes)
-    %for j=1:nind %(every chromsome needs to calculating 1times/bar 
-                         %so every chromsome totally 20 times needed)
         if isempty(gaDat.ObjfunPar)
             %ObjV(i)=feval(gaDat.Objfun,Chrom(i,:),gaDat.mainMelodyIngaDat(i,:));
            returnToObjV = Objfunchordfit(gaDat.Chrom(:,i),gaDat.mainMelodyIngaDat);
-            ObjV(:,i) =  returnToObjV ;
+           ObjV(:,i) =  returnToObjV ;
             %A=1; B = 1;
             %objfun_chordfit(A,B);  
         else
             %ObjV(i)=feval(gaDat.Objfun,Chrom(i,:),gaDat.ObjfunPar,gaDat.mainMelodyIngaDat(i,:));
             ObjV(:,i) = Objfunchordfit(Chrom(:,i),gaDat.mainMelodyIngaDat,gaDat.ObjfunPar);
+            ObjV(:,i) =  returnToObjV ;
         end
         %disp(['(i:j) is '  , num2str(j)])
         %disp(['ObjV(i:j) ' ,num2str(ObjV(i:j))])
-    %end
 end
     
     gaDat.ObjV=ObjV;
@@ -467,23 +469,19 @@ function find=Binarysearch(sumfit,search,Nsel)
 low =1;
 high = Nsel -1;
 
-% Testing-------------------------
-
-search
-sumfit
-
-
 while(low<=high)
     mid = (low + high) / 2;
     mid = int16(mid);
     
-    %----------------------
+    %------TESTING---------
+    %{
     a = 'inThelowHigh---';
     a
     mid
     testsumfit=sumfit(mid);
     testsumfit
     search
+    %}
     %----------------------
     
     if (sumfit(mid)>search)
@@ -494,7 +492,7 @@ while(low<=high)
             midlow= mid-1;
             if (sumfit(midlow)<search)
                 find = mid ; 
-                find
+                
             break
             end
         end
