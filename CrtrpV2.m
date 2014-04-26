@@ -84,7 +84,7 @@ function Transportmeasure(notesInTheMeasure,midiInfoStruct)
 %notesInTheMeasure(i,3)  tonal 
 %notesInTheMeasure(i,5) pitch
 
-%tonal = notesInTheMeasure(i,3)2 ==
+%tonal = notesInTheMeasure(i,3)2 ===
 
 
 
