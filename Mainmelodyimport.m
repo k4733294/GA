@@ -1,7 +1,8 @@
 function mainMelodyInCreate = Mainmelodyimport()
 % initialize matrix:
 
-filename= '/home/hooshuu/Documents/MATLAB/matlab-midi/tests/midi/mainMelodyTenuto.txt';
+filename= '/Users/hooshuu/Documents/MATLAB/GA/matlab-midi/tests/midi/mainMelodyTenuto.txt';
+%filename='/Users/hooshuu/Music/midi/pitbull-timber_ft_kesha.mid';
 delimiterIn = ' ';
 %headerlinesIn = 1;
 mainMelody  =  importdata(filename,delimiterIn);

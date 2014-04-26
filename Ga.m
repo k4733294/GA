@@ -1,7 +1,8 @@
 function gaDat=Ga(g) 
-%
-% Basic Genetic Algorithm
-%
+
+%% Basic Genetic Algorithm
+% 
+% 
 %    gaDat=ga(gaDat)
 %    gaDat : Data structure used by the algorithm.
 %    
@@ -22,8 +23,8 @@ function gaDat=Ga(g)
 % gaDat.indini={[]};             % Initialized members of the initial population, empty
 %                                %  by default
 %
-% Grupo de Control Predictivo y Optimizaci�n - CPOH
-% Universitat Polit�cnica de Val�ncia.
+% Grupo de Control Predictivo y Optimizaci???n - CPOH
+% Universitat Polit???cnica de Val???ncia.
 % http://cpoh.upv.es
 % (c) CPOH  1995 - 2012
 
@@ -95,8 +96,8 @@ gen=0;
  
  %tempChrom= Crtrp(tempBarSize,majorNote,tempBarNum,pSize);
  %tempChrom= CrtrpV2(tempBarSize,majorNote,tempBarNum,pSize);
- tempChrom= CrtrpV2(gaDat);
- gaDat.Chrom = tempChrom;
+ chrom= CrtrpV2(gaDat);
+ gaDat.Chrom = chrom;
  % Real codification
  % Individuals of gaDat.indini are randomly added in the initial population
 
@@ -189,12 +190,12 @@ function gaDat=Gaevolucion(gaDat,plotGraph)
 %-----------------------------------------
 Chrom=gaDat.Chrom;
 %nind=size(Chrom,1);
-nind = gaDat.barnum;
-ObjV = inf(gaDat.barnum,gaDat.populationsize);
+nind = gaDat.barNum;
+ObjV = inf(gaDat.barNum,gaDat.populationSize);
 %-----------------------------------------
 
 
-for i = 1: gaDat.populationsize %(population have size of chromsomes)
+for i = 1: gaDat.populationSize %(population have size of chromsomes)
         if isempty(gaDat.ObjfunPar)
             %ObjV(i)=feval(gaDat.Objfun,Chrom(i,:),gaDat.mainMelodyIngaDat(i,:));
            returnToObjV = Objfunchordfit(gaDat.Chrom(:,i),gaDat.mainMelodyIngaDat);
@@ -248,7 +249,7 @@ end
     SelCh = lxov(SelCh,gaDat.Pc,gaDat.alfa,gaDat.barsize);
     
     % MUTATION ------------------------------------------------
-    SelCh = Mutbga(SelCh,gaDat.FieldD,[gaDat.Pm 1]); % Codificaci�n Real.
+    SelCh = Mutbga(SelCh,gaDat.FieldD,[gaDat.Pm 1]); % Codificaci???n Real.
     
     % Reinsert the best individual  ----------------------------------
     Chrom(:,Indices) = SelCh;

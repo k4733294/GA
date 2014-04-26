@@ -1,8 +1,8 @@
-gaDat.Objfun='objfun_Chordfit';
+gaDat.Objfun='Objfunchordfit';
 %gaDat.Objfun='objfun_schwefel';
 %lb=[-500 -500];
 %ub=[500 500];
-%create  matrix with maximum and minimum 
+%create  matrix with maximum and minimum                
 
 
 %////mainMelodyimport////
