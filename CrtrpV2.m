@@ -31,60 +31,49 @@ initial population rules
  rule 5 : decide the rhythm import or created by initial in my strategy
  rule 6 : loop and add the count at the noteNum
 %}
-rhythmImport();
-chrom = 0;
+chordImportInfo.Objfun='chordMelody';
+chordImportInfo.midiString = '/Users/hooshuu/Music/midi/pitbull-timber_ft_kesha.mid';
+chordImportInfo.rhythm=1;
+chordImportInfo.mainOrChord=1; % 0 = main melody 1=import chord melody
+chordImportInfo.track=10;
+chordImportInfo.whichLengthWeWant=3;
+chordImportInfo = RhythmImport(chordImportInfo);
+if chordImportInfo.timeSignatureDenominator ~= gaDat.mainImportInfo.timeSignatureDenominator||chordImportInfo.timeSignatureNumerator ~= gaDat.mainImportInfo.timeSignatureNumerator
+    chordImportInfo = AdjustMeasureLength(chordImportInfo,gaDat.mainImporInfo);
+end
+%if the chordmesurelenth is not fit with mainmesurelengh , we need to
+%fitness the chordmeasurelength to main....
+%ATTATION!!!! I have not done this funtion yet.
+if chordImportInfo.notesInTheMeasure(1,3)~=gaDat.mainImportInfo.notesInTheMeasure(1,3)
+    gaDat=Transportmeasure(gaDat);
+    chordImportInfo.sameTonalasMeinMelody = 0;
+else
+    chordImportInfo.notesInTheMeasure(:,7)=0;
+    chordImportInfo.notesInTheMeasure(:,8)=0;
+    chordImportInfo.sameTonalasMeinMelody = 1;
+end
+gaDat.chordImportInfo=chordImportInfo;
 
-%{
+%chordImportInfo = GanerateChrom(chordImportInfo);
+
+%must output the result here;
+gaDat.Chrom=0;
+
+function midiInfoStruct=AdjustMeasureLength(midiInfoStruct)
+
+function chordImportInfo = GanerateChrom(chordImportInfo)
 for i = 1 :pSize
   tonalVariableContant =Tonalgenerate(tempBarNum,majorNote);
   melodyProgressContant = Melodygenerate(tonalVariableContant,tempBarNum,tempBarSize); 
   tempChrom(:,i)=melodyProgressContant;
 end
-%}
-
-function rhythmImport()
-midi = readmidi('/Users/hooshuu/Music/midi/pitbull-timber_ft_kesha.mid');
-%midi = readmidi('/Users/hooshuu/Music/Logic/test1.mid');
-%midi = readmidi('/Users/hooshuu/Documents/MATLAB/GA/matlab-midi/tests/midi/testout.mid');
-midiInfoStruct.Objfun='rhythm';
-midiInfoStruct.rhythm=1;
-%--------------------------------------------------------------------------------------------------------------------------------------------
-%WARNING it is not all track in some MIDI PROJECT existing  numerator & denominator 
-%GIVE a if else to make a situation without both of two variable have a...
-%chanece to find the info from another track
-midiInfoStruct = midiMsg(midi,1,1,0,midiInfoStruct);
-midiInfoStruct = midiMsg(midi,1,10,0,midiInfoStruct);
-%--------------------------------------------------------------------------------------------------------------------------------------------
-%KNOW which Number of Measure do you want and contain in it 
-midiInfoStruct=Numofmeasure(midiInfoStruct);
 
 
 
 
-function midiInfoStruct=Numofmeasure(midiInfoStruct)
-%%
-notesInTheMeasure = [];
-%% one measure length ppqn*BeatsPerMeasure;
-%     structure ppqn*tsDenominator*(4/tsNumerator)   
-%     like    2/4   = ppqn* 4 * [4/2]  4/2 is based from quartornote
-midiInfoStruct.measureLength = midiInfoStruct.ticksPerQuarterNote*midiInfoStruct.timeSignatureDenominator*(4/midiInfoStruct.timeSignatureNumerator);
-whichLengthWeWant = 3; %default
 
-%% --------------------------------------------------------------------------------------------------------
-%sum delta time and add variable in midiInfoStruct
-%add tempCalMatrix to midiInfoStruct.deltaMsgMatrix
-midiInfoStruct.totalDeltalTime = sum(midiInfoStruct.midiMsgData(:,1));
 
-%% get the content of which note we want here
-notesInTheMeasure = Getmeasurecontent(whichLengthWeWant,midiInfoStruct);
-%% transport the tonal to same as main melody
-midiInfoStruct=Transportmeasure(notesInTheMeasure,midiInfoStruct);
 
-function Transportmeasure(notesInTheMeasure,midiInfoStruct)
-%notesInTheMeasure(i,3)  tonal 
-%notesInTheMeasure(i,5) pitch
-
-%tonal = notesInTheMeasure(i,3)2 ===
 
 
 

@@ -78,7 +78,6 @@ midiMsgData = [];
   Msg{1,3} = 'time';
   Msg{1,4} = 'name';
   Msg{1,5} = 'data';
-  
   for msgNum=1:length(midi.track(tracknum).messages)
 
     currMsg = midi.track(tracknum).messages(msgNum);
@@ -204,7 +203,8 @@ Notes(:,5) = Notes(:,5) - first_t;
 Notes(:,6) = Notes(:,6) - first_t;
 
 if size(midiMsgData) ~= [0,0];
-firstDeltaTime = min(midiMsgData(:,1));
+%firstDeltaTime = min(midiMsgData(:,1));
+firstDeltaTime = 0;
 midiMsgData(:,1) = midiMsgData(:,1) -firstDeltaTime;
 midiMsgData(:,2) = midiMsgData(:,2) -firstDeltaTime;
 end
@@ -233,7 +233,6 @@ for i=1:size(Msg,2)
     end
   end
 end
-
 
 s='';
 s=[s sprintf('--------------------------------------------------\n')];
@@ -406,11 +405,11 @@ if (midimeta==0)
   elseif (type==89); name = 'Key Signature';              len=2;   
     % num sharps/flats (flats negative)
     if (data(1)>=0)
-       %       1   2    3    4   5     6    7   
+       %       1   2    3    4   5     6    7    8
       ss={'C','G','D', 'A', 'E','B',  'F#', 'C#'};
       dataStr = ss{data(1)+1};
     else
-       %    1   2    3    4   5     6    7   
+       %    1     2      3     4     5      6     7   
        ss={'F','Bb','Eb','Ab','Db','Gb','Cb'};
        dataStr = ss{abs(data(1))};
     end

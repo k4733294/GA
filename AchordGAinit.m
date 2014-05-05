@@ -8,34 +8,43 @@ gaDat.Objfun='Objfunchordfit';
 %////mainMelodyimport////
 %----------------------------------------------------------
 %mainmelody create to GADat , make the ga caculating
-mainMelodyNeedToTranslate = Mainmelodyimport();
-mainMelodyInCreate = Mainmelodytranslate(mainMelodyNeedToTranslate);
-gaDat.mainMelodyIngaDat = mainMelodyInCreate;
+mainImportInfo.Objfun='mainMelody';
+mainImportInfo.midiString = '/Users/hooshuu/Music/midi/pitbull-timber_ft_kesha.mid';
+mainImportInfo.mainOrChord=0; % 0 = main melody 1=import chord melody
+mainImportInfo.track=10;
+mainImportInfo.howManyMeasureWeWant=4;
+mainImportInfo.whichMeasureWeStart=2;
+mainImportInfo.rhythm=1;
+mainImportInfo= RhythmImport(mainImportInfo);
+a=1;
+%gaDat.mainMelodyIngaDat = mainMelodyInCreate;
 %-------------------------------------------------------------
 
 %/////adjust//////
 %-------------------------------------------------------------
 %the population pool
 psize = 100;
-gaDat.populationSize = psize;
+gaDat.populationdSize = psize;
 %how many time will generate
 gaDat.MAXGEN = 1000;
 %tonal means : major note  default  65F 64E 62D 60C 59B 57A 55G 
 gaDat.majorNote = 57;
 %-------------------------------------------------------------
 %create size of numbers in the bar  which is the same length with others 
-gaDat.barSize = numel(mainMelodyInCreate(1,:));
+measureLength = mainImportInfo.notesInTheMeasure(end,1);
+gaDat.barSize = numel(measureLength);
 %create number of the bar  which is the same length with others 
-gaDat.barNum= numel(mainMelodyInCreate(:,1));
+gaDat.barNum= mainImportInfo.howManyMeasureWeWant;
 %create total length of the chrosome  is the same length with others 
-gaDat.NIND = numel(mainMelodyInCreate); 
+%%ATTATION --- here we need to change the evalute variable
+gaDat.NIND = numel(mainImportInfo.notesInTheMeasure); 
 %evaluation in the ranking function
 gaDat.rf = (1:psize)';
 %evaluation in the objfun  
 ub = ones(1,psize)*107; % maxium  to octave-3 / C1    middle c is 4 (remember)
 lb = ones(1,psize)*24; %maximun to octave3 /  C7
 gaDat.FieldD=[lb; ub];                                 
-
+gaDat.mainImportInfo=mainImportInfo;
 % ////Execute GA/////
 %---------------------------------------------------------------
 gaDat=Ga(gaDat);
