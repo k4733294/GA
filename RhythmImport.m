@@ -32,7 +32,8 @@ midiInfoStruct.meausreLength = midiInfoStruct.ticksPerQuarterNote*(4/midiInfoStr
 %% --------------------------------------------------------------------------------------------------------
 %sum delta time and add variable in midiInfoStruct
 %add tempCalMatrix to midiInfoStruct.deltaMsgMatrix
-midiInfoStruct.totalDeltalTime = sum(midiInfoStruct.midiMsgData(:,1));
+
+%midiInfoStruct.totalDeltalTime = sum(midiInfoStruct.midiMsgData(:,1));
 
 %% get the content of which note we want here
 midiInfoStruct = Getmeasurecontent(midiInfoStruct);

@@ -1,4 +1,4 @@
-function chrom= CrtrpV2(gaDat)
+function Chrom= CrtrpV2(gaDat)
 %{
 define the datastructure
     noteNum     type      tonal   octave      notePitch   (EXTENed)  rhythm
@@ -31,16 +31,28 @@ initial population rules
  rule 5 : decide the rhythm import or created by initial in my strategy
  rule 6 : loop and add the count at the noteNum
 %}
-chordImportInfo.Objfun='chordMelody';
-chordImportInfo.midiString = '/Users/hooshuu/Music/midi/pitbull-timber_ft_kesha.mid';
-chordImportInfo.rhythm=1;
-chordImportInfo.mainOrChord=1; % 0 = main melody 1=import chord melody
-chordImportInfo.track=10;
-chordImportInfo.whichLengthWeWant=3;
-chordImportInfo = RhythmImport(chordImportInfo);
-if chordImportInfo.timeSignatureDenominator ~= gaDat.mainImportInfo.timeSignatureDenominator||chordImportInfo.timeSignatureNumerator ~= gaDat.mainImportInfo.timeSignatureNumerator
-    chordImportInfo = AdjustMeasureLength(chordImportInfo,gaDat.mainImporInfo);
-end
+rhythmNum=1;
+chordImportInfo(rhythmNum).Objfun='chordMelody';
+chordImportInfo(rhythmNum).midiString = '/Users/hooshuu/Music/midi/pitbull-timber_ft_kesha.mid';
+chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
+chordImportInfo(rhythmNum).track=11;
+chordImportInfo(rhythmNum).howManyMeasureWeWant=2;
+chordImportInfo(rhythmNum).whichMeasureWeStart=2;
+chordImportInfo(rhythmNum).rhythm=rhythmNum;
+
+chordImport = RhythmImport(chordImportInfo(rhythmNum));
+chordImportInfo(rhythmNum).tempo = chordImport.tempo;
+chordImportInfo(rhythmNum).tonal = chordImport.tonal;
+chordImportInfo(rhythmNum).midiMsgData = chordImport.midiMsgData;
+chordImportInfo(rhythmNum).midiNote = chordImport.midiNote;
+chordImportInfo(rhythmNum).timeSignatureNumerator = chordImport.timeSignatureNumerator;
+chordImportInfo(rhythmNum).timeSignatureDenominator = chordImport.timeSignatureDenominator;
+chordImportInfo(rhythmNum).stementLength = chordImport.stementLength;
+chordImportInfo(rhythmNum).meausreLength = chordImport.meausreLength;
+chordImportInfo(rhythmNum).notesInTheMeasure = chordImport.notesInTheMeasure;
+
+gaDat.chordImportInfoRhythmNum=rhythmNum;
+
 %if the chordmesurelenth is not fit with mainmesurelengh , we need to
 %fitness the chordmeasurelength to main....
 %ATTATION!!!! I have not done this funtion yet.
@@ -48,18 +60,47 @@ if chordImportInfo.notesInTheMeasure(1,3)~=gaDat.mainImportInfo.notesInTheMeasur
     gaDat=Transportmeasure(gaDat);
     chordImportInfo.sameTonalasMeinMelody = 0;
 else
-    chordImportInfo.notesInTheMeasure(:,7)=0;
-    chordImportInfo.notesInTheMeasure(:,8)=0;
+    chordImportInfo.notesInTheMeasure(:,9)=0;
+    chordImportInfo.notesInTheMeasure(:,10)=0;
     chordImportInfo.sameTonalasMeinMelody = 1;
 end
 gaDat.chordImportInfo=chordImportInfo;
 
+Chrom=AdjustMeasureLength(gaDat);
 %chordImportInfo = GanerateChrom(chordImportInfo);
 
 %must output the result here;
-gaDat.Chrom=0;
 
-function midiInfoStruct=AdjustMeasureLength(midiInfoStruct)
+function Chrom=AdjustMeasureLength(gaDat)
+
+number=gaDat.populationSize;
+rhythmNumber = gaDat.chordImportInfoRhythmNum;
+mNITMs=size(gaDat.mainImportInfo(rhythmNumber).notesInTheMeasure,1);
+cNITMs=size(gaDat.chordImportInfo(rhythmNumber).notesInTheMeasure,1);
+
+for i = 1 : number
+count=1;
+    if cNITMs>mNITMs
+          Chrom(number).chromNotes(1:mNITMs,:) = gaDat.chordImportInfo(rhythmNumber).notesInTheMeasure(1:mNITMs,:);
+    elseif cNITMs<mNITMs    
+        for i= 1 : mNITMs
+                Chrom(number).chromNotes(i,:) = gaDat.chordImportInfo(rhythmNumber).notesInTheMeasure(count,:);
+                if count == cNITMs
+                    count=1;
+                else
+                    count=count+1;
+                end
+        end
+    else
+         Chrom(number).chromNotes= gaDat.chordImportInfo(rhythmNumber).notesInTheMeasure;
+    end
+end
+   
+   
+
+
+
+
 
 function chordImportInfo = GanerateChrom(chordImportInfo)
 for i = 1 :pSize

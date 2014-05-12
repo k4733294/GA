@@ -11,20 +11,19 @@ gaDat.Objfun='Objfunchordfit';
 mainImportInfo.Objfun='mainMelody';
 mainImportInfo.midiString = '/Users/hooshuu/Music/midi/pitbull-timber_ft_kesha.mid';
 mainImportInfo.mainOrChord=0; % 0 = main melody 1=import chord melody
-mainImportInfo.track=10;
-mainImportInfo.howManyMeasureWeWant=4;
+mainImportInfo.track=6;
+mainImportInfo.howManyMeasureWeWant=8;
 mainImportInfo.whichMeasureWeStart=2;
 mainImportInfo.rhythm=1;
 mainImportInfo= RhythmImport(mainImportInfo);
-a=1;
 %gaDat.mainMelodyIngaDat = mainMelodyInCreate;
 %-------------------------------------------------------------
 
 %/////adjust//////
 %-------------------------------------------------------------
 %the population pool
-psize = 100;
-gaDat.populationdSize = psize;
+psize = 5;
+gaDat.populationSize = psize;
 %how many time will generate
 gaDat.MAXGEN = 1000;
 %tonal means : major note  default  65F 64E 62D 60C 59B 57A 55G 
