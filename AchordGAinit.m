@@ -13,19 +13,20 @@ mainImportInfo.midiString = '/Users/hooshuu/Music/midi/pitbull-timber_ft_kesha.m
 mainImportInfo.mainOrChord=0; % 0 = main melody 1=import chord melody
 mainImportInfo.track=6;
 mainImportInfo.howManyMeasureWeWant=8;
-mainImportInfo.whichMeasureWeStart=2;
+mainImportInfo.whichMeasureWeStart=3;
 mainImportInfo.rhythm=1;
-mainImportInfo= RhythmImport(mainImportInfo);
+mainImportInfo.blockSize=2;
+mainImportInfo=RhythmImport(mainImportInfo);
 %gaDat.mainMelodyIngaDat = mainMelodyInCreate;
 %-------------------------------------------------------------
 
-%/////adjust//////
+%//////adjust//////
 %-------------------------------------------------------------
 %the population pool
 psize = 5;
 gaDat.populationSize = psize;
 %how many time will generate
-gaDat.MAXGEN = 1000;
+gaDat.MAXGEN = 100;
 %tonal means : major note  default  65F 64E 62D 60C 59B 57A 55G 
 gaDat.majorNote = 57;
 %-------------------------------------------------------------
@@ -44,6 +45,7 @@ ub = ones(1,psize)*107; % maxium  to octave-3 / C1    middle c is 4 (remember)
 lb = ones(1,psize)*24; %maximun to octave3 /  C7
 gaDat.FieldD=[lb; ub];                                 
 gaDat.mainImportInfo=mainImportInfo;
+gaDat.NoteInfoNum=9;
 % ////Execute GA/////
 %---------------------------------------------------------------
 gaDat=Ga(gaDat);

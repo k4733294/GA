@@ -2,7 +2,7 @@ function midiInfoStruct = Getmeasurecontent(midiInfoStruct)
 %%
 whichMeasureWeStart = midiInfoStruct.whichMeasureWeStart;
 startDeltaTime = (whichMeasureWeStart-1)*midiInfoStruct.meausreLength;
-endDeltaTime = (startDeltaTime)*midiInfoStruct.howManyMeasureWeWant+midiInfoStruct.meausreLength;
+endDeltaTime = (startDeltaTime)+midiInfoStruct.meausreLength*midiInfoStruct.howManyMeasureWeWant;
 deltaTimeQuarterNote = midiInfoStruct.ticksPerQuarterNote;
 deltaTimeSixteenthNote = deltaTimeQuarterNote/4;
 %% make the meaureLength to the parts of SixteenthNote in the notesInTheMeasure
@@ -16,6 +16,7 @@ measureStartNote = find(midiInfoStruct.midiMsgData(:,1)>=startDeltaTime);
 measureStartNote = min(measureStartNote);
 measureEndNote = find(midiInfoStruct.midiMsgData(:,2)<=endDeltaTime);
 measureEndNote = max(measureEndNote);
+
 
 totalMeasureNote=(measureEndNote-measureStartNote+1)/2;
 notesTimeMaping = zeros(numsMeasurePieceOfSixteenthNote,totalMeasureNote);

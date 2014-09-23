@@ -82,7 +82,7 @@ gaDat.rhythm=[];
 y=0;
 x=0;
 %figure;
-plotGraph=plot(x,y);
+%plotGraph=plot(x,y);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Main loop
@@ -97,9 +97,10 @@ gen=0;
  %tempChrom= Crtrp(tempBarSize,majorNote,tempBarNum,pSize);
  %tempChrom= CrtrpV2(tempBarSize,majorNote,tempBarNum,pSize);
  %ATTATION!!!-----------------------
- Chrom= CrtrpV2(gaDat);
+ gaDat= ChordImport(gaDat);
+ gaDat= CrtrpV2(gaDat);
  %-------------------------------------------
- gaDat.Chrom = Chrom;
+ %gaDat.Chrom = Chrom;
  % Real codification
  % Individuals of gaDat.indini are randomly added in the initial population
 
@@ -155,7 +156,7 @@ end
 %minMainMelody
 %maxMainMelody
 
-version = '_maximum 100pop 1000ga';
+version = '_testMidiToMidiOutput';
 Melodyexport(gaDat.mainImportInfo,version);
 
 
