@@ -10,7 +10,7 @@ function NewChrom =lxov(OldChrom, XOVR, alpha,barsize)
 %   Child1 = beta1*Parent1+(1-beta1)*Parent2
 %   Child2 = beta2*Parent1+(1-beta2)*Parent2
 
-%%old GA CROSSOVER stratage
+%%???????????GA CROSSOVER?????
 %{ 
 length = barsize;
 
@@ -50,9 +50,12 @@ OldChrom(Spointstart:Spointend,1)=temp;
 end
 %}
 
-%dialog change here
-%one (DIALOG)consist of 4 block (a block represent measure)
+%?????
+%????? ?????????????????????
+%?????(DIALOG)???(???????)
+%PS: ?????????????????
 
+%??????????
 choiceDialog = randi([1,2]);
 pointStart = 1;
 pointEnd = 1;
@@ -61,12 +64,12 @@ if choiceDialog == 1
    pointStart = 1;
    pointEnd = 4;
 else
-   pointStart = pointStart*4;  %4 represent the  how many BLOCK in one dialog
+   pointStart = pointStart*4;  %4??????????BLOCK??
    pointEnd = (pointStart+1)*4;
-   pointStart = pointStart+1; %forward the index  1 2 3 4   (4->"5") 6 7 8   (8->"9") 10 11 12
+   pointStart = pointStart+1; %?????  1 2 3 4   (4->"5") 6 7 8   (8->"9") 10 11 12
 end
 
-%cross CHROMSOME here
+%??????CHROMSOME???
 temp=OldChrom(2,pointStart:pointEnd);
 OldChrom(2,pointStart:pointEnd)=OldChrom(1,pointStart:pointEnd);
 OldChrom(1,pointStart:pointEnd)=temp;

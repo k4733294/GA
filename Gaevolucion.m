@@ -1,76 +1,90 @@
 function gaDat=Gaevolucion(gaDat,plotGraph)
 
-% One times templating created in this funtion
-%-----------------------------------------
-%nind=size(Chrom,1);
-nind = gaDat.barNum;
-ObjV = inf(gaDat.barNum,gaDat.populationSize);
-%-----------------------------------------
+%One times templating created in this funtion
+ObjV = inf(gaDat.BlockSize,gaDat.populationSize);
 
+
+disp('######   FitnessProcess   #########')
+%% FITNESSS ---------------------------------------------------------
 
 for i = 1: gaDat.populationSize %(population have size of chromsomes)
+    for j = 1:gaDat.blockSize
         if isempty(gaDat.ObjfunPar)
-            %ObjV(i)=feval(gaDat.Objfun,Chrom(i,:),gaDat.mainMelodyIngaDat(i,:));
-           returnToObjV = Objfunchordfit(gaDat.Chrom(i),gaDat.mainImportInfo);
+           returnToObjV = Objfunchordfit2(gaDat.Chrom(i,j),gaDat.mainImportInfo);
            ObjV(:,i) =  returnToObjV ;
-            %A=1; B = 1;
-            %objfun_chordfit(A,B);  
         else
-            %ObjV(i)=feval(gaDat.Objfun,Chrom(i,:),gaDat.ObjfunPar,gaDat.mainMelodyIngaDat(i,:));
-            ObjV(:,i) = Objfunchordfit(gaDat.Chrom(i),gaDat.mainImportInfo,gaDat.ObjfunPar);
-            ObjV(:,i) =  returnToObjV ;
+            %% no needed 
+            %ObjV(:,i) = Objfunchordfit2(gaDat.Chrom(i),gaDat.mainImportInfo,gaDat.ObjfunPar);
+            %ObjV(:,i) =  returnToObjV ;
         end
+        %% display the var variation
         %disp(['(i:j) is '  , num2str(j)])
         %disp(['ObjV(i:j) ' ,num2str(ObjV(i:j))])
+    end
 end
+
+% ######   Next   #########
+%%
+%Generation*******************************************************************
+
+% Best individual of the generation ---------------------------------------------------------
+%{
     
     gaDat.ObjV=ObjV;
     sumObjV=sum(ObjV,1);
-
-    % Best individual of the generation -------------------------
-    [v,p]=max(sumObjV); %[v,p] is [ value , position ]
-    [x,q]=min(sumObjV);
+    [v,maxIndex]=max(sumObjV); %[v,p] is [ value , position ]
+    [x,minIndex]=min(sumObjV);
     
     if v>=gaDat.fxmax        % the new maximun replace previous one
-        gaDat.xmax=gaDat.Chrom(p).chromNotes;
+        gaDat.xmax=gaDat.Chrom(maxIndex).chromNotes;
         gaDat.fxmax=v;
     end
     
     if x<=gaDat.fxmin        % the new minimun replace previous one
-        gaDat.xmin=gaDat.Chrom(q).chromNotes;
+        gaDat.xmin=gaDat.Chrom(minIndex).chromNotes;
         gaDat.fxmin=x;
     end
- 
-     % Next
-     % generation*******************************************************************
-     %SumFitnessinChromesomeBeforeRanking---------------------------------
+%}
+%SumFitnessinChromesomeBeforeRanking---------------------------------
+%{
      for i = 1 : gaDat.populationsize  
          objVToSort(i) = sum(gaDat.ObjV(:,i));
      end
      objVToSort = objVToSort' ;
-     
-     %Ranking-----------------------------------------------------------
+%} 
+%Ranking-----------------------------------------------------------
+%{
      FitnV = Ranking(objVToSort,gaDat.rf);
-    
-    % SELECTION ---------------------------------------------------------
-    % Stochastic Universal Sampling (SUS).
-    [SelCh,Indices] = Select('rws',gaDat.Chrom,FitnV,1);
-    
-    % CROSSOVER ---------------------------------------------------
-    % Uniform crossover.
+%}
+     %%make a fake FitnV result here
+    FitnV = randi(100,[1,100]);
+
+%% 
+%SELECTION ---------------------------------------------------------
+% Stochastic Universal Sampling (SUS).
+
+   [SelCh,Indices] = Select('rws',gaDat.Chrom,FitnV,1);
+
+% CROSSOVER-------------------------------------------------------
+% Uniform crossover.
+    %{
+    % give a fack SELCH result  pick up  from POPULATION pool certainly
+    % SelCh = gaDat.Chrom(1:2,:);   
+    %}
     SelCh = lxov(SelCh,gaDat.Pc,gaDat.alfa,gaDat.barsize);
+ 
+% MUTATION----------------------------------------------------------
+%  SelCh = Mutbga(SelCh,gaDat.FieldD,[gaDat.Pm 1]); % Codificaci???n Real.
     
-    % MUTATION ------------------------------------------------
-    SelCh = Mutbga(SelCh,gaDat.FieldD,[gaDat.Pm 1]); % Codificaci???n Real.
+% Reinsert the best individual  --------------------------------
+ %minIndex just one but i have two of CHROM result here so.... how should i
+ %do
+ % gaDat.Chrom(Indices,:) = SelCh;
     
-    % Reinsert the best individual  ----------------------------------
-    Chrom(:,Indices) = SelCh;
-    gaDat.Chrom=Chrom;
+% Optional additional task required by user
+% GaIteration(gaDat,plotGraph)
     
-    % Optional additional task required by user
-    GaIteration(gaDat,plotGraph)
-    
-    %% ---------------------------------------------------------
+%% ---------------------------------------------------------
 function FitV=Ranking(ObjV,RFun)
 % Ranking function
 if nargin==1
@@ -81,7 +95,7 @@ if ~(length(ObjV(:,1))==length(RFun))
     error('RFun have to be of the same size than ObjV.');
 end
 
-% (sum the fitness from every part of chromesome in 32 block(chromesome))
+% (sum the fitness from every part of chromesome at 32 chromesome)
 [val,pos]=sort(ObjV);
 FitV(pos)=flipud(RFun);
 FitV=FitV';
@@ -90,6 +104,7 @@ FitV=FitV';
 function [SelCh,Indices]=Select(SEL_F, Chrom, FitnV, GGAP)
 % Selection Function
 if (nargin==3) %  No overlap -------------------
+    %{
     if (SEL_F=='rws')
         % Roulette wheel selection method
         indices=rws(FitnV,length(FitnV));
@@ -102,13 +117,13 @@ if (nargin==3) %  No overlap -------------------
     else
         error('Incorrect selection method');
     end
+    %}
 elseif (nargin==4) % With overlap -----------------------------
 	% Indexes of new individuals
     if (SEL_F=='rws')
         indices=Rws2(FitnV,round(length(FitnV)*GGAP));
     elseif (SEL_F=='sus')
-        indices=Sus2(FitnV,round(length(FitnV)*GGAP));
-       
+        %indices=Sus2(FitnV,round(length(FitnV)*GGAP));
     else
         error('Incorrect selection method');
     end
@@ -132,10 +147,9 @@ else
     error('Incorrect number of paramenters');
 end
 
+%{
 function NewChrIx=Sus2(FitnV, Nsel)
-%indices=sus2(FitnV,round(length(FitnV)*GGAP));
 
- 
 suma=sum(FitnV);   
 
 % Position of the roulette pointersXS
@@ -157,27 +171,25 @@ for i=1:Nsel
         
     end
 end
+%}
 
-%% --------------------------------------------------------
 function NewChrlx=Rws2(FitnV,Nsel)
-
 
 choicednum=2;
 suma = sum(FitnV);
-
 sumfit(1)= FitnV(1)/suma;
+
 for i=2:Nsel
     sumfit(i) = sumfit(i-1) + FitnV(i)/suma;
-    
 end
 NewChrlx(Nsel,1) = 0;
 selFitnV=randi([1 100],1,choicednum);
 selFitnV=selFitnV/100;
 
-for j= 1:choicednum
+for j = 1:choicednum
     search = selFitnV(j);
     find = Binarysearch(sumfit,search,Nsel);
-    selFinVfind(j)=find;
+    selFinVfind(j) = find;
 end
 
 NewChrlx = selFinVfind;

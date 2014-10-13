@@ -39,7 +39,6 @@ chordImportInfo(rhythmNum).track=11;
 chordImportInfo(rhythmNum).howManyMeasureWeWant=2;
 chordImportInfo(rhythmNum).whichMeasureWeStart=2;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
-chordImportInfo(rhythmNum).blockSize=2;
 
 chordImport = RhythmImport(chordImportInfo(rhythmNum));
 chordImportInfo(rhythmNum).tempo = chordImport.tempo;

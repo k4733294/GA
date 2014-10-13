@@ -91,26 +91,22 @@ tic;
 % Generation counter
 gen=0;
 
-% Initial population      ---------------------------------------
- %tempNIND = gaDat.NIND; tempFieldD = gaDat.FieldD; 
- 
- %tempChrom= Crtrp(tempBarSize,majorNote,tempBarNum,pSize);
- %tempChrom= CrtrpV2(tempBarSize,majorNote,tempBarNum,pSize);
- %ATTATION!!!-----------------------
+% Initial population
+% -------------------------------------------
  gaDat= ChordImport(gaDat);
  gaDat= CrtrpV2(gaDat);
  %-------------------------------------------
- %gaDat.Chrom = Chrom;
+ % gaDat.Chrom = Chrom;
  % Real codification
  % Individuals of gaDat.indini are randomly added in the initial population
 
-    disp('------------------------------------------------')
-    disp('######   if when indini   #########')
+    %disp('------------------------------------------------')
+    %disp('######   if when indini   #########')
     %disp()
     %disp('gadat indini'  , gaDat.indini)
     %disp(['nind0' num2str(nind0)])
     %disp(['posicion0' num2str(posicion0)])
-    disp('------------------------------------------------')
+    %disp('------------------------------------------------')
     
 %{
     if not(isempty(gaDat.indini))  %fill with randomly initial data without user insert in gaDat
@@ -120,27 +116,29 @@ gen=0;
     end
 %}
  
-    %{  
-    % algorithm Kernel using later 
+ 
+% Algorithm Kernel using later 
+disp('######   StartGaAlgorithmHere   #########')
+
 while (gaDat.gen<gaDat.MAXGEN),
-    
     gaDat.gen=gen;
     gaDat=Gaevolucion(gaDat,plotGraph);  
+    
    % Increase generation counter ------------------
     gaDat.xmingen(:,gen+1)=gaDat.xmin;
     gaDat.fxmingen(:,gen+1)=gaDat.fxmin;
     gaDat.xmaxgen(:,gen+1)=gaDat.xmax;
     gaDat.fxmaxgen(:,gen+1)=gaDat.fxmax;
-  
     gen=gen+1;
 end
-    %}
+   
 
 %export the garesult matix in to midi struct-------------------    
 %------num is version of file------------------------------
 
 minMainMelody = [];
 maxMainMelody = [];
+
 %{
 %ATTATION every important part must unmute.  here is servival part
 for i = 1 : 20
