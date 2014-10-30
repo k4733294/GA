@@ -60,23 +60,28 @@ end
     FitnV = randi(100,[1,100]);
 
 %% 
-%SELECTION ---------------------------------------------------------
+%SELECTION for CROSSOVER---------------------------------------------------------
 % Stochastic Universal Sampling (SUS).
 
    [SelCh,Indices] = Select('rws',gaDat.Chrom,FitnV,1);
 
-% CROSSOVER-------------------------------------------------------
+% CROSSOVER--------------------------------------------------------------------------------
 % Uniform crossover.
     %{
     % give a fack SELCH result  pick up  from POPULATION pool certainly
     % SelCh = gaDat.Chrom(1:2,:);   
     %}
     SelCh = lxov(SelCh,gaDat.Pc,gaDat.alfa,gaDat.barsize);
- 
-% MUTATION----------------------------------------------------------
-%  SelCh = Mutbga(SelCh,gaDat.FieldD,[gaDat.Pm 1]); % Codificaci???n Real.
     
-% Reinsert the best individual  --------------------------------
+%SELECTION for Mutation---------------------------------------------------------------
+%Stochastic Universal Sampling (SUS).
+
+   [SelCh,Indices] = Select('rws',gaDat.Chrom,FitnV,1);
+   
+% MUTATION----------------------------------------------------------------------------------
+% SelCh = Mutbga(SelCh,gaDat.FieldD,[gaDat.Pm 1]); % Codificaci???n Real.
+    
+% Reinsert the best individual  -----------------------------------------------------
  %minIndex just one but i have two of CHROM result here so.... how should i
  %do
  % gaDat.Chrom(Indices,:) = SelCh;

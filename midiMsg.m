@@ -78,7 +78,9 @@ midiMsgData = [];
   Msg{1,3} = 'time';
   Msg{1,4} = 'name';
   Msg{1,5} = 'data';
-  for msgNum=1:length(midi.track(tracknum).messages)
+  %-----know the midi have tonal message or not
+  midiInfoStruct.tonalExist = 0;
+  for msgNum =1:length(midi.track(tracknum).messages)
 
     currMsg = midi.track(tracknum).messages(msgNum);
     midimeta  = currMsg.midimeta;
@@ -312,6 +314,7 @@ if (midimeta==0)
     else
       dataStr = [dataStr ' Minor'];
     end
+    midiInfoStruct.tonal = data;
   elseif (type==89); name = 'Sequencer-Specific Meta-event';   len=-1;  
     dataStr = char(data);
     % !! last two conflict...
@@ -380,7 +383,6 @@ else
 end
 
 function midiInfoStruct=getMsgMeta(midimeta, type, data,midiInfoStruct);
-
 % meta events:
 if (midimeta==0)
   if     (type==0);  name = 'Sequence Number';            len=2;  dataStr = num2str(data);
@@ -419,6 +421,7 @@ if (midimeta==0)
       dataStr = [dataStr ' Minor'];
     end
     midiInfoStruct.tonal = data;
+    midiInfoStruct.tonalExist = 1;
   elseif (type==89); name = 'Sequencer-Specific Meta-event';   len=-1;  
     dataStr = char(data);
     % !! last two conflict...

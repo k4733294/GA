@@ -1,8 +1,8 @@
 function midiInfoStruct = Getmeasurecontent(midiInfoStruct)
 %%
 whichMeasureWeStart = midiInfoStruct.whichMeasureWeStart;
-startDeltaTime = (whichMeasureWeStart-1)*midiInfoStruct.meausreLength;
-endDeltaTime = (startDeltaTime)+midiInfoStruct.meausreLength*midiInfoStruct.howManyMeasureWeWant;
+startDeltaTime = (whichMeasureWeStart-1)*midiInfoStruct.meausreLength+midiInfoStruct.midiMsgData(1,1);
+endDeltaTime = (startDeltaTime)+midiInfoStruct.meausreLength*midiInfoStruct.howManyMeasureWeWant+midiInfoStruct.midiMsgData(1,1);
 deltaTimeQuarterNote = midiInfoStruct.ticksPerQuarterNote;
 deltaTimeSixteenthNote = deltaTimeQuarterNote/4;
 %% make the meaureLength to the parts of SixteenthNote in the notesInTheMeasure
@@ -20,7 +20,7 @@ measureEndNote = max(measureEndNote);
 
 totalMeasureNote=(measureEndNote-measureStartNote+1)/2;
 notesTimeMaping = zeros(numsMeasurePieceOfSixteenthNote,totalMeasureNote);
-
+notesNoteCutMaping = zeros(numsMeasurePieceOfSixteenthNote,totalMeasureNote);
 numOfFirstFromOne= midiInfoStruct.midiMsgData(measureStartNote,1)/deltaTimeSixteenthNote;
 %% CREATE the table to know the time having more than one note 
 %    next step is combine the data and give the the type define
@@ -48,6 +48,11 @@ for measureDirection = measureStartNote : measureEndNote
       x = ones(numsSixteenthNote,1);
     %give the time notes maping  
     notesTimeMaping(numOfStartFromOne : numOfEndFromOne,noteNumCount) = x;
+    %give the note start info
+    %if we got the note start, we give the new pitch here
+    %or we give the zero on it.
+    notesNoteCutMaping(numOfStartFromOne : numOfEndFromOne,noteNumCount) = 0;
+    notesNoteCutMaping(numOfStartFromOne,noteNumCount) = midiInfoStruct.midiMsgData(measureDirection,3);
     %give the pitch information
    notesPitch(numOfStartFromOne : numOfEndFromOne,noteNumCount)=midiInfoStruct.midiMsgData(measureDirection,3);
    notesVelocity(numOfStartFromOne : numOfEndFromOne,noteNumCount)=midiInfoStruct.midiMsgData(measureDirection,4);
@@ -82,7 +87,6 @@ for i= 1 : notesTimeMapingLength(1,1)
 end
 %% Output the data to Chrom structure aobut this measure
 SizeOfnOSTN = SizeOfnOSTN-1;
-prePitch = zeros(1,5);
 %% give the note pitch
 count=1;
 for i = 1 : notesTimeMapingLength(1,1)
@@ -91,31 +95,30 @@ for i = 1 : notesTimeMapingLength(1,1)
             if numOfSameTimeNote(i,1)>1
                 countMultiSustain=0;
                 for j = 1:numOfSameTimeNote(i,1)
-                     if prePitch(1,j) == notesPitch(i,j)
+                     if notesNoteCutMaping(i,j) == notesPitch(i,j)
+                        %the next diff note start
+                        notesInTheMeasure(count,5) = notesPitch(i,j);
+                     else
+                        %note length extended
                         notesInTheMeasure(count,5) = -2 + countMultiSustain;
                         countMultiSustain=countMultiSustain-1;
-            %the next diff note start /// and save the start note pitch
-                     else
-                        notesInTheMeasure(count,5) = notesPitch(i,j);
-                        prePitch(1,j) = notesPitch(i,j);
-                    end
-            %block of sixteenth is empty , give the rest note 
+                     end
+                        %block of sixteenth is empty , give the rest note 
                         count = count+1;
                 end
             else
-                if prePitch(1,1) == notesPitch(i,1)
-                    notesInTheMeasure(count,5) = -2;
-            %the next diff note start /// and save the start note pitch
-                else
+                if notesNoteCutMaping(i,1) == notesPitch(i,1)
+                    %the next diff note start
                     notesInTheMeasure(count,5) = notesPitch(i,1);
-                    prePitch(1,1) = notesPitch(i,1);
+                else
+                     %note length extended
+                     notesInTheMeasure(count,5) = -2;
                 end
-            %block of sixteenth is empty , give the rest note   
+                %block of sixteenth is empty , give the rest note   
                     count = count+1;
             end
         else
             notesInTheMeasure(count,5) = -1;
-            prePitch(1,:)=0;
             count = count+1;
         end
 end
@@ -151,11 +154,15 @@ count=1;
 %                         -1 -2   -3    -4     -5    -6    
 %                       'F','Bb','Eb','Ab','Db','Gb'
 %                               major *1  minor*2   
-major =1; minor =2;
-if midiInfoStruct.tonal(2,1)==0
-    notesInTheMeasure(:,3) = midiInfoStruct.tonal(1,1)*major;
+if(midiInfoStruct.tonalExist == 0)
+    notesInTheMeasure(:,3) = 0;
 else
-    notesInTheMeasure(:,3) = midiInfoStruct.tonal(1,1)*minor;
+    major =1; minor =2;
+    if midiInfoStruct.tonal(2,1)==0
+        notesInTheMeasure(:,3) = midiInfoStruct.tonal(1,1)*major;
+    else
+        notesInTheMeasure(:,3) = midiInfoStruct.tonal(1,1)*minor;
+    end
 end
 %% give the numbers of the measure at rhythm cloum
  notesInTheMeasure(:,6) = midiInfoStruct.rhythm;

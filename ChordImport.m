@@ -31,6 +31,11 @@ initial population rules
  rule 5 : decide the rhythm import or created by initial in my strategy
  rule 6 : loop and add the count at the noteNum
 %}
+%how many sample we have
+rhythmNumTotal = 1;
+
+
+%import which track in midi file wewant
 rhythmNum=1;
 chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = '/Users/hooshuu/Music/midi/pitbull-timber_ft_kesha.mid';
@@ -40,20 +45,20 @@ chordImportInfo(rhythmNum).howManyMeasureWeWant=2;
 chordImportInfo(rhythmNum).whichMeasureWeStart=2;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
 
-chordImport = RhythmImport(chordImportInfo(rhythmNum));
-chordImportInfo(rhythmNum).tempo = chordImport.tempo;
-chordImportInfo(rhythmNum).ticksPerQuarterNote = chordImport.ticksPerQuarterNote;
-chordImportInfo(rhythmNum).tonal = chordImport.tonal;
-chordImportInfo(rhythmNum).midiMsgData = chordImport.midiMsgData;
-chordImportInfo(rhythmNum).midiNote = chordImport.midiNote;
-chordImportInfo(rhythmNum).timeSignatureNumerator = chordImport.timeSignatureNumerator;
-chordImportInfo(rhythmNum).timeSignatureDenominator = chordImport.timeSignatureDenominator;
-chordImportInfo(rhythmNum).stementLength = chordImport.stementLength;
-chordImportInfo(rhythmNum).meausreLength = chordImport.meausreLength;
-chordImportInfo(rhythmNum).notesInTheMeasure = chordImport.notesInTheMeasure;
+rhythmNum=2;
+chordImportInfo(rhythmNum).Objfun='chordMelody';
+chordImportInfo(rhythmNum).midiString = '/Users/hooshuu/Music/midi/calvin_harris-summer.mid';
+chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
+chordImportInfo(rhythmNum).track=11;
+chordImportInfo(rhythmNum).howManyMeasureWeWant=2;
+chordImportInfo(rhythmNum).whichMeasureWeStart=2;
+chordImportInfo(rhythmNum).rhythm=rhythmNum;
 
-
-gaDat.chordImportInfoRhythmNum=rhythmNum;
+%the data added to every variable
+for i = 1 : rhythmNumTotal
+chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
+end
+gaDat.chordImportInfoRhythmNum=rhythmNumTotal;
 
 %if the chordmesurelenth is not fit with mainmesurelengh , we need to
 %fitness the chordmeasurelength to main....
