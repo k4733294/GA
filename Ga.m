@@ -93,7 +93,6 @@ gen=0;
 
 % Initial population
 % -------------------------------------------
- gaDat= ChordImport(gaDat);
  gaDat= CrtrpV2(gaDat);
  %-------------------------------------------
  % gaDat.Chrom = Chrom;
