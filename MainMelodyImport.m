@@ -12,7 +12,7 @@ gaDat.Objfun='Objfunchordfit';
 %mainmelody create to GADat , make the ga caculating
 %%{
 mainImportInfo.Objfun = 'mainMelody';
-mainImportInfo.midiString = '/Users/hooshuu/Music/midi/pitbull-timber_ft_kesha.mid';
+mainImportInfo.midiString = '/Users/hooshuu/Documents/MATLAB/GA/midi_src/pitbull-timber_ft_kesha.mid';
 mainImportInfo.mainOrChord =0; % 0 = main melody 1=import chord melody
 mainImportInfo.track = 6;
 mainImportInfo.howManyMeasureWeWant = 8;

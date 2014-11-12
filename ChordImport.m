@@ -32,8 +32,7 @@ initial population rules
  rule 6 : loop and add the count at the noteNum
 %}
 %how many sample we have
-rhythmNumTotal = 5;
-
+rhythmNumTotal = 4;
 
 %import which track in midi file wewant
 %%{
@@ -47,27 +46,13 @@ chordImportInfo(rhythmNum).whichMeasureWeStart=5;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
 chordImportInfo(rhythmNum).cosTonal(1,1)=1;
 chordImportInfo(rhythmNum).cosTonal(2,1)=1;
-%chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
-%version = 'davidguetta_Output';
-%Melodyexport(chordImportInfo(2),version);
+chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
+version = 'davidguetta_Output';
+Melodyexport(chordImportInfo(rhythmNum),version);
+
 %}
 %%{
 rhythmNum = 2;
-chordImportInfo(rhythmNum).Objfun='chordMelody';
-chordImportInfo(rhythmNum).midiString = '/Users/hooshuu/Music/Matlab/hardwell_Output.mid';
-chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
-chordImportInfo(rhythmNum).track=1;
-chordImportInfo(rhythmNum).howManyMeasureWeWant=3;
-chordImportInfo(rhythmNum).whichMeasureWeStart=2;
-chordImportInfo(rhythmNum).rhythm=rhythmNum;
-chordImportInfo(rhythmNum).cosTonal(1,1)=1;
-chordImportInfo(rhythmNum).cosTonal(2,1)=1;
-%chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
-%version = 'hardwell_Output_test3';
-%Melodyexport(chordImportInfo(1),version);
-%}
-%%{
-rhythmNum = 3;
 chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = '/Users/hooshuu/Documents/MATLAB/GA/midi_src/feel-so-close.mid';
 chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
@@ -77,9 +62,24 @@ chordImportInfo(rhythmNum).whichMeasureWeStart=5;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
 chordImportInfo(rhythmNum).cosTonal(1,1)=1;
 chordImportInfo(rhythmNum).cosTonal(2,1)=1;
-%chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
-%version = 'feel so close_Output';
-%Melodyexport(chordImportInfo(2),version);
+chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
+version = 'feel so close_Output';
+Melodyexport(chordImportInfo(rhythmNum),version);
+%}
+%%{
+rhythmNum = 3;
+chordImportInfo(rhythmNum).Objfun='chordMelody';
+chordImportInfo(rhythmNum).midiString = '/Users/hooshuu/Music/Matlab/hardwell_Output.mid';
+chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
+chordImportInfo(rhythmNum).track=1;
+chordImportInfo(rhythmNum).howManyMeasureWeWant=3;
+chordImportInfo(rhythmNum).whichMeasureWeStart=2;
+chordImportInfo(rhythmNum).rhythm=rhythmNum;
+chordImportInfo(rhythmNum).cosTonal(1,1)=1;
+chordImportInfo(rhythmNum).cosTonal(2,1)=1;
+chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
+version = 'hardwell_Output_test3';
+Melodyexport(chordImportInfo(rhythmNum),version);
 %}
 %%{
 rhythmNum = 4;
@@ -92,11 +92,12 @@ chordImportInfo(rhythmNum).whichMeasureWeStart=11;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
 chordImportInfo(rhythmNum).cosTonal(1,1)=1;
 chordImportInfo(rhythmNum).cosTonal(2,1)=1;
-%chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
-%version = 'AVICII LEVELS_Output';
-%Melodyexport(chordImportInfo(2),version);
+chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
+version = 'AVICII LEVELS_Output';
+Melodyexport(chordImportInfo(rhythmNum),version);
 %}
 %%{
+%except added  have some error here so i try another way to import 
 rhythmNum = 5;
 chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = '/Users/hooshuu/Music/midi/tiesto-wasted_ft_matthew_koma.midi';
@@ -107,14 +108,14 @@ chordImportInfo(rhythmNum).whichMeasureWeStart=9;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
 chordImportInfo(rhythmNum).cosTonal(1,1)=1;
 chordImportInfo(rhythmNum).cosTonal(2,1)=1;
-%chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
-%version = 'tiesto wasted_Output';
-%Melodyexport(chordImportInfo(2),version);
+chordImportInfo(rhythmNum) = Variabledefine(chordImportInfo,rhythmNum);
+version = 'tiesto wasted_Output';
+Melodyexport(chordImportInfo(rhythmNum),version);
 %}
 
 
 %the data added to every variable
-%%{
+%{
 for i = 1 : 4
 chordImportInfo = Variabledefine(chordImportInfo,i);
 %pause

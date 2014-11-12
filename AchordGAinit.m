@@ -4,4 +4,4 @@ gaDat = MainMelodyImport();
 gaDat = ChordImport(gaDat);
 % ////Execute GA/////
 gaDat = Ga(gaDat);
-% Result are in
+% Result are 

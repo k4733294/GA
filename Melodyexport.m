@@ -57,5 +57,5 @@ resizeM = M(1:totalRow,:);
 
 
 midi_new = matrix2midi(resizeM,mainMelody);
-fileExportPath = strcat('/Users/hooshuu/Music/Matlab/', version,'.mid');
+fileExportPath = strcat('/Users/hooshuu/Documents/MATLAB/GA/GA_result/', version,'.mid');
 writemidi(midi_new, fileExportPath);

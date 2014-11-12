@@ -3,8 +3,8 @@ midi = readmidi(midiInfoStruct.midiString);
 %midi = readmidi('/Users/hooshuu/Music/Logic/test1.mid');
 %midi = readmidi('/Users/hooshuu/Documents/MATLAB/GA/matlab-midi/tests/midi/testout.mid');
 
-%******midiInfoStruct.Objfun='rhythm';
-%******midiInfoStruct.rhythm=1;
+%midiInfoStruct.Objfun='rhythm';
+%midiInfoStruct.rhythm=1;
 %--------------------------------------------------------------------------------------------------------------------------------------------
 %WARNING it is not all track in some MIDI PROJECT existing  numerator & denominator 
 %GIVE a if else to make a situation without both of two variable have a...
@@ -27,8 +27,13 @@ function midiInfoStruct=Numofmeasure(midiInfoStruct)
 %% one measure length ppqn*BeatsPerMeasure;
 %     structure ppqn*tsNumerator*(4/tsDenominator)   
 %     like    2/4   = ppqn* 4 * [4/2]  4/2 is based from quartornote
+disp(midiInfoStruct.midiString)
+size(midiInfoStruct.timeSignatureDenominator)
+size(midiInfoStruct.ticksPerQuarterNote)
+size(midiInfoStruct.timeSignatureNumerator)
 midiInfoStruct.stementLength = midiInfoStruct.ticksPerQuarterNote*midiInfoStruct.timeSignatureNumerator*(4/midiInfoStruct.timeSignatureDenominator);
 midiInfoStruct.meausreLength = midiInfoStruct.ticksPerQuarterNote*(4/midiInfoStruct.timeSignatureDenominator);
+pause
 %% --------------------------------------------------------------------------------------------------------
 %sum delta time and add variable in midiInfoStruct
 %add tempCalMatrix to midiInfoStruct.deltaMsgMatrix
