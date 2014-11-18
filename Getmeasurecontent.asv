@@ -40,16 +40,14 @@ for measureDirection = measureStartNote : measureEndNote
     numOfEndFromOne = midiInfoStruct.midiMsgData(measureDirection,2)/deltaTimeSixteenthNote;
     numOfStartFromOne = numOfStartFromOne - numOfFirstFromOne+1 + alignStartRest;
     numOfEndFromOne = numOfEndFromOne - numOfFirstFromOne + alignStartRest;
-    numOfStartFromOne = round(numOfStartFromOne);
-    numOfEndFromOne = round(numOfEndFromOne);
+     numOfStartFromOne = round(numsSixteenthNote);
+     numsSixteenthNote = round(numsSixteenthNote);
     
     if  notesTimeMaping(numOfStartFromOne : numOfEndFromOne,noteNumCount)~=0
         noteNumCount = noteNumCount+1;      
     else
         noteNumCount=1;
     end
-    %{
-    %trace the error about notelength is not integer
      disp('numsSixteenthNote  ')
      isfloat (numsSixteenthNote)
      disp(' isflost num')
@@ -74,7 +72,6 @@ for measureDirection = measureStartNote : measureEndNote
     disp('numOfEndFromOne')
     disp(numOfEndFromOne)
     end
-    %}
     %make some notelength in sixteenth to integer 4floor5top
    numsSixteenthNote = round(numsSixteenthNote);
     x = ones(numsSixteenthNote,1);
@@ -186,11 +183,15 @@ count=1;
 %                         -1 -2   -3    -4     -5    -6    
 %                       'F','Bb','Eb','Ab','Db','Gb'
 %                               major *1  minor*2   
-major =1; minor =2;
-if midiInfoStruct.tonal(2,1)==0
-    notesInTheMeasure(:,3) = midiInfoStruct.tonal(1,1)*major;
+if(midiInfoStruct.tonalExist == 0)
+    notesInTheMeasure(:,3) = 0;
 else
-    notesInTheMeasure(:,3) = midiInfoStruct.tonal(1,1)*minor;
+    major =1; minor =2;
+    if midiInfoStruct.tonal(2,1)==0
+        notesInTheMeasure(:,3) = midiInfoStruct.tonal(1,1)*major;
+    else
+        notesInTheMeasure(:,3) = midiInfoStruct.tonal(1,1)*minor;
+    end
 end
 %% give the numbers of the measure at rhythm cloum
  notesInTheMeasure(:,6) = midiInfoStruct.rhythm;
