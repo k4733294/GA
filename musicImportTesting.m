@@ -1,5 +1,6 @@
 rhythmNum=2;
 %{
+***
 chordImportInfo(rhythmNum).Objfun = 'chordMelody';
 chordImportInfo(rhythmNum).midiString = '/Users/hooshuu/Music/midi/pitbull-timber_ft_kesha.mid';
 chordImportInfo(rhythmNum).mainOrChord =1; % 0 = main melody 1=import chord melody
@@ -13,7 +14,7 @@ version = 'pitbull-timber_Output';
 Melodyexport(chordImportInfo(2),version);
 %}
 %new edit format above 
-%{
+%{  
 chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = '/Users/hooshuu/Music/midi/hardwell-spaceman.midi';
 chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
@@ -43,7 +44,8 @@ chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 version = 'davidguetta_Output';
 Melodyexport(chordImportInfo(2),version);
 %}
-%{
+%{  
+***
 chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = '/Users/hooshuu/Music/midi/feel-so-close.mid';
 chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
@@ -59,6 +61,7 @@ version = 'feel so close_Output';
 Melodyexport(chordImportInfo(2),version);
 %}
 %{
+***
 chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = '/Users/hooshuu/Music/midi/aviciiLevelsMelody.mid';
 chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
@@ -73,7 +76,8 @@ chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 version = 'AVICII LEVELS_Output';
 Melodyexport(chordImportInfo(2),version);
 %}
-%%{
+%{
+
 chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = '/Users/hooshuu/Music/midi/tiesto-wasted_ft_matthew_koma.midi';
 chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
@@ -106,6 +110,7 @@ Melodyexport(chordImportInfo(2),version);
 %}
 
 %{
+***
 chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = '/Users/hooshuu/Music/Matlab/hardwell_Output.mid';
 chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody

@@ -31,7 +31,7 @@ initial population rules
  rule 5 : decide the rhythm import or created by initial in my strategy
  rule 6 : loop and add the count at the noteNum
 %}
-%%import which track in midi file wewant
+%% import which track in midi file wewant
 %%{
 %/////all variable must exist
 rhythmNum = 1;
@@ -46,8 +46,9 @@ chordImportInfo(rhythmNum).cosDenominator=4;
 chordImportInfo(rhythmNum).cosNumerator=4;
 chordImportInfo(rhythmNum).cosTonal(1,1)=1;
 chordImportInfo(rhythmNum).cosTonal(2,1)=1;
-chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 version = 'davidguetta_Output';
+chordImportInfo(rhythmNum).exportVersion=version;
+chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 Melodyexport(chordImportInfo(rhythmNum),version);
 
 %}
@@ -64,8 +65,9 @@ chordImportInfo(rhythmNum).cosDenominator=4;
 chordImportInfo(rhythmNum).cosNumerator=4;
 chordImportInfo(rhythmNum).cosTonal(1,1)=1;
 chordImportInfo(rhythmNum).cosTonal(2,1)=1;
-chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 version = 'feel so close_Output';
+chordImportInfo(rhythmNum).exportVersion=version;
+chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 Melodyexport(chordImportInfo(rhythmNum),version);
 %}
 %%{
@@ -81,8 +83,9 @@ chordImportInfo(rhythmNum).cosDenominator=4;
 chordImportInfo(rhythmNum).cosNumerator=4;
 chordImportInfo(rhythmNum).cosTonal(1,1)=1;
 chordImportInfo(rhythmNum).cosTonal(2,1)=1;
-chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 version = 'hardwell_Output_test3';
+chordImportInfo(rhythmNum).exportVersion=version;
+chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 Melodyexport(chordImportInfo(rhythmNum),version);
 %}
 %%{
@@ -98,11 +101,12 @@ chordImportInfo(rhythmNum).cosDenominator=4;
 chordImportInfo(rhythmNum).cosNumerator=4;
 chordImportInfo(rhythmNum).cosTonal(1,1)=1;
 chordImportInfo(rhythmNum).cosTonal(2,1)=1;
-chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 version = 'AVICII LEVELS_Output';
+chordImportInfo(rhythmNum).exportVersion=version;
+chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 Melodyexport(chordImportInfo(rhythmNum),version);
 %}
-%%{
+%{
 %except added  have some error here so i try another way to import 
 rhythmNum = 5;
 chordImportInfo(rhythmNum).Objfun='chordMelody';
@@ -120,16 +124,23 @@ chordImportInfo(rhythmNum) = Variabledefine(chordImportInfo,rhythmNum);
 version = 'tiesto wasted_Output';
 Melodyexport(chordImportInfo(rhythmNum),version);
 %}
-
-%the data added to every variable
-%{
-for i = 1 : 4
-chordImportInfo = Variabledefine(chordImportInfo,i);
-%pause
-end
-
-%chordImportInfo = Variabledefine(chordImportInfo,6);
-gaDat.chordImportInfoRhythmNum = rhythmNumTotal;
+%%{
+rhythmNum = 5;
+chordImportInfo(rhythmNum).Objfun='chordMelody';
+chordImportInfo(rhythmNum).midiString = 'calvin_harris-summer_logicformat.mid';
+chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
+chordImportInfo(rhythmNum).track=3;
+chordImportInfo(rhythmNum).howManyMeasureWeWant=1;
+chordImportInfo(rhythmNum).whichMeasureWeStart=15;
+chordImportInfo(rhythmNum).rhythm=rhythmNum;
+chordImportInfo(rhythmNum).cosDenominator=4;
+chordImportInfo(rhythmNum).cosNumerator=4;
+chordImportInfo(rhythmNum).cosTonal(1,1)=1;
+chordImportInfo(rhythmNum).cosTonal(2,1)=1;
+version = 'calvin harris_Output';
+chordImportInfo(rhythmNum).exportVersion=version;
+chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
+Melodyexport(chordImportInfo(rhythmNum),version);
 %}
 
 %if the chordmesurelenth is not fit with mainmesurelengh , we need to

@@ -1,7 +1,7 @@
-% ////main melody import/////
+%%  ////main melody import/////
 gaDat = MainMelodyImport();
-% ////sample import/////
+%%  ////sample import/////
 gaDat = ChordImport(gaDat);
-% ////Execute GA/////
+%%  ////Execute GA/////
 gaDat = Ga(gaDat);
 % Result are 

@@ -33,7 +33,7 @@ if nargin==1
 else
     error('It is necessary to pass a data structure: gaDat.FieldD and gaDat.Objfun')
 end
-% If the parameter doesn't exist in the data structure it is created with the default value
+%%  If the parameter doesn't exist in the data structure it is created with the default value
 %{
 if ~isfield(gaDat,'NVAR')
     gaDat.NVAR=size(gaDat.FieldD,2);
@@ -66,7 +66,7 @@ if ~isfield(gaDat,'rf')
 end
 
 
-% Internal parameters
+%%  Internal parameters
 gaDat.Chrom=[];
 gaDat.ObjV=[];
 gaDat.xmin=[];
@@ -85,7 +85,7 @@ x=0;
 %plotGraph=plot(x,y);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Main loop
+%%  Main loop
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic;
 % Generation counter

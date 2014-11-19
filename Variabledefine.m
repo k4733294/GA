@@ -1,5 +1,5 @@
 function chordImportInfo=Variabledefine(chordImportInfo,rhythmNum)
-%the data added to every variable
+%% the data added to every variable
 chordImport = RhythmImport(chordImportInfo(rhythmNum));
 chordImportInfo(rhythmNum).tempo = chordImport.tempo;
 chordImportInfo(rhythmNum).ticksPerQuarterNote = chordImport.ticksPerQuarterNote;

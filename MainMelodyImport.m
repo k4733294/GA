@@ -6,9 +6,9 @@ gaDat.Objfun='Objfunchordfit';
 %ub=[500 500];
 %create  matrix with maximum and minimum                
 
-%////mainMelodyimport////
+%% ////mainMelodyimport////
 %----------------------------------------------------------
-%mainmelody create to GADat , make the ga caculating
+%% mainmelody create to GADat , make the ga caculating
 %%{
 mainImportInfo.Objfun = 'mainMelody';
 mainImportInfo.midiString = 'pitbull-timber_ft_kesha.mid';
@@ -21,11 +21,12 @@ mainImportInfo.cosDenominator=4;
 mainImportInfo.cosNumerator=4;
 mainImportInfo.cosTonal(1,1)=1;
 mainImportInfo.cosTonal(2,1)=1;
-mainImportInfo = Variabledefine(mainImportInfo,mainImportInfo.rhythm);
 version = 'pitbull-timber_Output';
+mainImportInfo.exportVersion=version;
+mainImportInfo = Variabledefine(mainImportInfo,mainImportInfo.rhythm);
 Melodyexport(mainImportInfo,version);
 %}
-%//////adjust///////////
+%% //////adjust///////////
 %--------------------------------------------------
 %the population pool
 gaDat.populationSize = 100;
@@ -44,15 +45,15 @@ gaDat.howManyMeasureInOneBlock = 2;
 
 %//////////////////////
 %------------------------------------------------
-%create size of numbers in the bar  which is the same length with others 
+%% create size of numbers in the bar  which is the same length with others 
 measureLength = mainImportInfo.notesInTheMeasure(end,1);
 gaDat.barSize = numel(measureLength);
-%create number of the bar  which is the same length with others 
+%% create number of the bar  which is the same length with others 
 gaDat.barNum= mainImportInfo.howManyMeasureWeWant;
-%createmeasureLengthNoteNum total length of the chrosome  is the same length with others 
-%%ATTATION --- here we need to change the evalute variable
+%% createmeasureLengthNoteNum total length of the chrosome  is the same length with others 
+% ATTATION --- here we need to change the evalute variable
 gaDat.NIND = numel(mainImportInfo.notesInTheMeasure); 
-%evaluation in the ranking function
+%% evaluation in the ranking function
 gaDat.rf = (1:gaDat.populationSize)';
 %evaluation in the objfun  
     %ub = ones(1,psize)*107; % maxium  to octave-3 / C1    middle c is 4 (remember)

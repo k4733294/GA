@@ -4,7 +4,7 @@ whichTrack=midiInfoStruct.track;
 midiInfoStruct = midiMsg(midi,1,1,0,midiInfoStruct);
 midiInfoStruct = midiMsg(midi,1,whichTrack,0,midiInfoStruct);
 %--------------------------------------------------------------------------------------------------------------------------------------------
-%%///////adjust if the numerator & denominator is not exist in sample///////
+%% ///////adjust if the numerator & denominator is not exist in sample///////
 %user can perform a custom variable here    
 %priority:
 %1: in sample  (numerator & denominator not 0 ,  give a error dection)
@@ -21,7 +21,7 @@ midiInfoStruct = midiMsg(midi,1,whichTrack,0,midiInfoStruct);
 %}
 if isfield(midiInfoStruct,'timeSignatureDenominator') ==1 && isfield(midiInfoStruct,'timeSignatureNumerator') == 1
 else
-    %////find info at first track
+    %% ////find info at first track
     % midiInfoStruct = midiMsg(midi,1,whichTrack,0,midiInfoStruct);
     disp('timeSignatureDenominator timeSignatureNumerator have one is 0   use costom value as sample import leak info')
     disp('rhthm import 14 leak timeSignatureDenominator timeSignatureNumerator')
@@ -42,8 +42,7 @@ else
     midiInfoStruct = midiMsg(midi,1,whichTrack,0,midiInfoStruct);
 end
 %}
-%--------------------------------------------------------------------------------------------------------------------------------------------
-%%///////adjust if the tonal is not exist in sample///////
+%% ///////adjust if the tonal is not exist in sample///////
 %user can perform a custom variable here    
 %priority:
 %1: in sample  (tonal not 0 ,  give a error dection)
@@ -75,13 +74,12 @@ if isfield(midiInfoStruct,'tonal') ~= 1 || isequal(midiInfoStruct.tonal,tmp)==1 
     midiInfoStruct.tonal(2,1) = midiInfoStruct.cosTonal(2,1);
 else
 end
-%--------------------------------------------------------------------------------------------------------------------------------------------
-%KNOW which contain of Number of Measure do you want
+%% KNOW which contain of Number of Measure do you want
 midiInfoStruct=Numofmeasure(midiInfoStruct);
 
 
 function midiInfoStruct=Numofmeasure(midiInfoStruct)
-%%
+
 %% one measure length ppqn*BeatsPerMeasure;
 %     structure ppqn*tsNumerator*(4/tsDenominator)   
 %     like    2/4   = ppqn* 4 * [4/2]  4/2 is based from quartornote

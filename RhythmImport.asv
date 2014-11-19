@@ -1,5 +1,6 @@
 function midiInfoStruct = RhythmImport(midiInfoStruct)
 midi = readmidi(midiInfoStruct.midiString);
+midiInfo(midi);
 whichTrack=midiInfoStruct.track;
 midiInfoStruct = midiMsg(midi,1,1,0,midiInfoStruct);
 midiInfoStruct = midiMsg(midi,1,whichTrack,0,midiInfoStruct);
@@ -9,9 +10,9 @@ midiInfoStruct = midiMsg(midi,1,whichTrack,0,midiInfoStruct);
 %priority:
 %1: in sample  (numerator & denominator not 0 ,  give a error dection)
 %2: in user insert
-%%{
+%{
   a = midiInfoStruct.midiString;
-  if strcmp(a, 'aviciiLevelsMelody.mid')
+  if strcmp(a, 'tiesto-wasted_ft_matthew_koma.midi')
   b= size(midiInfoStruct.tonal)
   isfield(midiInfoStruct,'tonal')
   tmp2 = [0;0];
@@ -22,21 +23,12 @@ midiInfoStruct = midiMsg(midi,1,whichTrack,0,midiInfoStruct);
 if isfield(midiInfoStruct,'timeSignatureDenominator') ==1 && isfield(midiInfoStruct,'timeSignatureNumerator') == 1
 else
     %////find info at first track
-    
-   % midiInfoStruct = midiMsg(midi,1,whichTrack,0,midiInfoStruct);
-    
-    disp('timeSignatureDenominator timeSignatureNumerator have one is 0  \n use costom value as sample import leak info\n')
+    % midiInfoStruct = midiMsg(midi,1,whichTrack,0,midiInfoStruct);
+    disp('timeSignatureDenominator timeSignatureNumerator have one is 0   use costom value as sample import leak info')
     disp('rhthm import 14 leak timeSignatureDenominator timeSignatureNumerator')
     disp('sample name')
-    disp(midiInfoStruct.midiString)
-    %{
-    disp('size of timeSignatureDenominator')
-    size(midiInfoStruct.timeSignatureDenominator)
-    disp('size of timeSignatureNumerator')
-    size(midiInfoStruct.timeSignatureNumerator)
-    %}
+    disp(midiInfoStruct.midiString) 
     pause
-    
     %////add custom info to sample
     midiInfoStruct.timeSignatureDenominator =midiInfoStruct.cosDenominator;
     midiInfoStruct.timeSignatureNumerator = midiInfoStruct.cosNumerator;
@@ -83,9 +75,7 @@ if isfield(midiInfoStruct,'tonal') ~= 1 || isequal(midiInfoStruct.tonal,tmp)==1 
     midiInfoStruct.tonal(1,1) =midiInfoStruct.cosTonal(1,1);
     midiInfoStruct.tonal(2,1) = midiInfoStruct.cosTonal(2,1);
 else
- 
 end
-
 %--------------------------------------------------------------------------------------------------------------------------------------------
 %KNOW which contain of Number of Measure do you want
 midiInfoStruct=Numofmeasure(midiInfoStruct);

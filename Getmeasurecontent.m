@@ -8,6 +8,7 @@ deltaTimeSixteenthNote = deltaTimeQuarterNote/4;
 %% make the meaureLength to the parts of SixteenthNote in the notesInTheMeasure
 measurelength= endDeltaTime - startDeltaTime;
 numsMeasurePieceOfSixteenthNote = measurelength/deltaTimeSixteenthNote;
+numsMeasurePieceOfSixteenthNote = round(numsMeasurePieceOfSixteenthNote);
 notesPitch = zeros(numsMeasurePieceOfSixteenthNote,1);
 notesVelocity = zeros(numsMeasurePieceOfSixteenthNote,1);
 %% PREPARE to translate the delta time of note to chrom struct infomation
@@ -16,7 +17,6 @@ measureStartNote = find(midiInfoStruct.midiMsgData(:,1)>=startDeltaTime);
 measureStartNote = min(measureStartNote);
 measureEndNote = find(midiInfoStruct.midiMsgData(:,2)<=endDeltaTime);
 measureEndNote = max(measureEndNote);
-
 
 totalMeasureNote=(measureEndNote-measureStartNote+1)/2;
 totalMeasureNote = ceil(totalMeasureNote);
@@ -29,12 +29,11 @@ noteNumCount=1;
 alignStartRest=midiInfoStruct.midiMsgData(measureStartNote,1) - startDeltaTime;
 if alignStartRest~=0
 alignStartRest=alignStartRest/deltaTimeSixteenthNote;
+alignStartRest=round(alignStartRest);
 x = zeros(alignStartRest,1);
 notesTimeMaping(1 : alignStartRest,noteNumCount) = x;
 end
 for measureDirection = measureStartNote : measureEndNote
-    noteDeltaLength = midiInfoStruct.midiMsgData(measureDirection,2) - midiInfoStruct.midiMsgData(measureDirection,1);
-    numsSixteenthNote = noteDeltaLength/deltaTimeSixteenthNote;
    
     numOfStartFromOne= midiInfoStruct.midiMsgData(measureDirection,1)/deltaTimeSixteenthNote;
     numOfEndFromOne = midiInfoStruct.midiMsgData(measureDirection,2)/deltaTimeSixteenthNote;
@@ -75,10 +74,8 @@ for measureDirection = measureStartNote : measureEndNote
     disp(numOfEndFromOne)
     end
     %}
-    %make some notelength in sixteenth to integer 4floor5top
-   numsSixteenthNote = round(numsSixteenthNote);
-    x = ones(numsSixteenthNote,1);
-    %give the time notes maping  
+    numOfTotal = numOfEndFromOne - numOfStartFromOne + 1;
+    x = ones(numOfTotal,1);
     notesTimeMaping(numOfStartFromOne : numOfEndFromOne,noteNumCount) = x;
     %give the note start info
     %if we got the note start, we give the new pitch here
@@ -86,8 +83,8 @@ for measureDirection = measureStartNote : measureEndNote
     notesNoteCutMaping(numOfStartFromOne : numOfEndFromOne,noteNumCount) = 0;
     notesNoteCutMaping(numOfStartFromOne,noteNumCount) = midiInfoStruct.midiMsgData(measureDirection,3);
     %give the pitch information
-   notesPitch(numOfStartFromOne : numOfEndFromOne,noteNumCount)=midiInfoStruct.midiMsgData(measureDirection,3);
-   notesVelocity(numOfStartFromOne : numOfEndFromOne,noteNumCount)=midiInfoStruct.midiMsgData(measureDirection,4);
+    notesPitch(numOfStartFromOne : numOfEndFromOne,noteNumCount)=midiInfoStruct.midiMsgData(measureDirection,3);
+    notesVelocity(numOfStartFromOne : numOfEndFromOne,noteNumCount)=midiInfoStruct.midiMsgData(measureDirection,4);
 end
 
 %% KNOW the same time having numbers of note (from step2 )
