@@ -59,8 +59,7 @@ resizeM = M(1:totalRow,:);
 %midi_new = matrix2midi(resizeM,mainMelody);
 midi_new = matrix2midi(resizeM,mainMelody.ticksPerQuarterNote);
 %///////in hooshuu mac desktop
-%fileExportPath = strcat('/Users/hooshuu/Documents/MATLAB/GA/GA_result/', version,'.mid');
+fileExportPath = strcat('/Users/hooshuu/Documents/MATLAB/GA/GA_result/', version,'.mid');
 %///////in  hp letop
-%C:\Users\HP\Documents\Matlab\GA\GA_result
-fileExportPath = strcat('C:\Users\HP\Documents\Matlab\GA\GA_result\', version,'.mid');
+%fileExportPath = strcat('C:\Users\HP\Documents\Matlab\GA\GA_result\', version,'.mid');
 writemidi(midi_new, fileExportPath);

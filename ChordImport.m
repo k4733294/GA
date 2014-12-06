@@ -3,8 +3,8 @@ function gaDat = ChordImport(gaDat)
 define the datastructure
     noteNum     type      tonal   octave      notePitch   (EXTENed)  rhythm
      0                 chord    domi      +1...         60C                                 1  
-     1                  note    subdm     0              62D                                 2
-     2..                            minor..   -1..           64E..                                3..
+     1                  note    subdm     0            62D                                 2
+     2..                            minor..   -1..            64E..                                3..
 
 initial step
     step   from the "rhythm import" or create by "gainit"
