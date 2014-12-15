@@ -45,6 +45,27 @@ for i =1:gaDat.populationSize
         end
     end
 end
+
+%{
+chome = populationSize
+block  == bar = Denominator
+beat  Numerator
+note  4 = base 1/16 unit of note leangth
+%}
+
+ %{
+    chromesome structure design like :
+          layer1               layer2             layer3           layer4            layer5
+      chromesome     measure        ::notedata::
+                                                     beatNote      ::notedata::
+                                                                             note           ::notedata::
+                                                   otherCalInfo.... 
+                                                                       otherCalInfo.....
+                                                                                              otherCalInfo.... 
+ ::notedata:: variable is NotesInfo             
+ %}
+
+
 %gaDat.Chrom=AdjustMeasureLength(gaDat);
 
 function Chrom=AdjustMeasureLength(gaDat)

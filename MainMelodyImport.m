@@ -16,8 +16,10 @@ mainImportInfo.track = 6;
 mainImportInfo.howManyMeasureWeWant = 8;
 mainImportInfo.whichMeasureWeStart = 3;
 mainImportInfo.rhythm = 1;
+mainImportInfo.forcecosDeNu = true; %%force use the cosDenominator cosNumerator
 mainImportInfo.cosDenominator=4;
 mainImportInfo.cosNumerator=4;
+mainImportInfo.forcecosTonal = true; %%force use the cosTonal
 mainImportInfo.cosTonal(1,1)=1;
 mainImportInfo.cosTonal(2,1)=1;
 version = 'pitbull-timber_Output';
@@ -34,9 +36,9 @@ gaDat.MAXGEN = 100;
 %tonal means : major note  default  65F 64E 62D 60C 59B 57A 55G 
 gaDat.majorNote = 57;
 %chromesomeLength
-gaDat.blockSize = 2;
+%gaDat.blockSize = 2;
 %%how many measure in oneblocks
-gaDat.howManyMeasureInOneBlock = 2;
+%gaDat.howManyMeasureInOneBlock = 2;
 
 %% create size of numbers in the bar  which is the same length with others 
 measureLength = mainImportInfo.notesInTheMeasure(end,1);
