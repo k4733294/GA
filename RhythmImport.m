@@ -20,17 +20,17 @@ midiInfoStruct = midiMsg(midi,1,whichTrack,0,midiInfoStruct);
   end
 %}
 
-
-if midiInfoStruct.forcecosDeNu == true;
+forcecosDeNu = midiInfoStruct.forcecosDeNu;
+if forcecosDeNu == 1;
       midiInfoStruct.timeSignatureDenominator =midiInfoStruct.cosDenominator;
       midiInfoStruct.timeSignatureNumerator = midiInfoStruct.cosNumerator;
-      disp('mom im here!! midiInfoStruct.forcecosDeNu' );
+      disp('mom im here!! midiInfoStruct.forcecosDeNu == true' );
 else
     if isfield(midiInfoStruct,'timeSignatureDenominator') == 1 || isfield(midiInfoStruct,'timeSignatureNumerator') == 1
          %% ////find info at first track
         % midiInfoStruct = midiMsg(midi,1,whichTrack,0,midiInfoStruct);
         disp('timeSignatureDenominator timeSignatureNumerator have one is 0   use costom value as sample import leak info')
-        disp('rhthm import 14 leak timeSignatureDenominator timeSignatureNumerator')
+        disp('rhthm import leak timeSignatureDenominator timeSignatureNumerator')
         disp('sample name')
         disp(midiInfoStruct.midiString) 
         pause
@@ -48,7 +48,8 @@ end
 tmp = [];
 tmp2 = [0;0];
 
-if midiInfoStruct.forcecosTonal == true
+forcecosTonal = midiInfoStruct.forcecosTonal ;
+if forcecosTonal == 1
     midiInfoStruct.tonal(1,1) =midiInfoStruct.cosTonal(1,1);
     midiInfoStruct.tonal(2,1) = midiInfoStruct.cosTonal(2,1);
     disp('mom im here!! midiInfoStruct.forcecosTonal == true' );
@@ -57,7 +58,7 @@ else
     if isfield(midiInfoStruct,'tonal') ~= 1 || isequal(midiInfoStruct.tonal,tmp)==1 || isequal(midiInfoStruct.tonal,tmp2)==1
         disp('tonal slot have one is 0 ')
         disp('use costom value as sample import leak info')
-        disp('rhthm import 14 leak timeSignatureDenominator timeSignatureNumerator')
+        disp('rhthm import 14 leak midiInfoStruct.tonal 1 2 ')
         disp('sample name')
         disp(midiInfoStruct.midiString)
         %{
@@ -82,7 +83,7 @@ end
 %% KNOW which contain of Number of Measure do you want
 midiInfoStruct = Numofmeasure(midiInfoStruct);
 %% translate notetable from noteimport to chromesome bar beat note layer struct
-%midiInfoStruct = NoteTableToBarBeatNoteStruct(midiInfoStruct);
+midiInfoStruct = NoteTableToBarBeatNoteStruct(midiInfoStruct);
 
 
 function midiInfoStruct=Numofmeasure(midiInfoStruct)

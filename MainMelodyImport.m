@@ -16,10 +16,10 @@ mainImportInfo.track = 6;
 mainImportInfo.howManyMeasureWeWant = 8;
 mainImportInfo.whichMeasureWeStart = 3;
 mainImportInfo.rhythm = 1;
-mainImportInfo.forcecosDeNu = true; %%force use the cosDenominator cosNumerator
+mainImportInfo.forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true
 mainImportInfo.cosDenominator=4;
 mainImportInfo.cosNumerator=4;
-mainImportInfo.forcecosTonal = true; %%force use the cosTonal
+mainImportInfo.forcecosTonal = 1; %%force use the cosTonal 1 = true
 mainImportInfo.cosTonal(1,1)=1;
 mainImportInfo.cosTonal(2,1)=1;
 version = 'pitbull-timber_Output';

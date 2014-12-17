@@ -10,6 +10,8 @@ chordImportInfo(rhythmNum).timeSignatureDenominator = chordImport.timeSignatureD
 chordImportInfo(rhythmNum).stementLength = chordImport.stementLength;
 chordImportInfo(rhythmNum).meausreLength = chordImport.meausreLength;
 chordImportInfo(rhythmNum).notesInTheMeasure = chordImport.notesInTheMeasure;
+%chordImportInfo(rhythmNum).forcecosDeNu = chordImport.forcecosDeNu;
+%chordImportInfo(rhythmNum).forcecosTonal = chordImport.forcecosTonal;
 %{
 if rhythmNum ==5
 a=1;
