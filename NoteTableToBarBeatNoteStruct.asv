@@ -29,9 +29,9 @@ noteLength = 4;
  b0sync = false;
  n0sync = false;
  
- n0sameNum = 1;
- b0sameNum = 1;
- m0sameNum = 1;
+ n0sameNum = 0;
+ b0sameNum = 0;
+ m0sameNum = 0;
  
  
 
@@ -65,40 +65,36 @@ for i = 1: endOfNITM
   %}
      ncountEnd = mod(midiInfoStruct.notesInTheMeasure(i,1),nL);
      if ncountEnd == 0
-         if n0sameNum ~= midiInfoStruct.notesInTheMeasure(i,1)
+         if n0sameNum ~=
          n0sync = true ;
-         end
+         
+        
      elseif n0sync == true
           ncount = 1;
           nLtemp = nLtemp + 1;
           n0sync = false;
+          
           n0sameNum = midiInfoStruct.notesInTheMeasure(i,1);
      else 
      end
      
       bcountEnd = mod(midiInfoStruct.notesInTheMeasure(i,1),bLnL);
      if bcountEnd == 0
-         if b0sameNum ~= midiInfoStruct.notesInTheMeasure(i,1)
-            b0sync = true ;
-         end
+         b0sync = true;
      elseif b0sync == true;
          bcount = 1;
          bLtemp = bLtemp + 1;
          b0sync = false;
-         b0sameNum = midiInfoStruct.notesInTheMeasure(i,1);
      else
      end
      
      mcountEnd = mod(midiInfoStruct.notesInTheMeasure(i,1),mLbL);
      if mcountEnd == 0
-         if m0sameNum ~= midiInfoStruct.notesInTheMeasure(i,1)
-            m0sync = true ;
-         end
+         m0sync = true;
      elseif m0sync == true
          mcount =1;
          mLtemp = mLtemp + 1;
          m0sync = false;
-         m0sameNum = midiInfoStruct.notesInTheMeasure(i,1);
      else
      end
  %%  make Length in every part  must follow the sample info
