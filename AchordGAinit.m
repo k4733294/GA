@@ -1,5 +1,7 @@
+%% ///algorithm conf////
+gaDat = gaInitConf();
 %%  ////main melody import/////
-gaDat = MainMelodyImport();
+gaDat = MainMelodyImport(gaDat);
 %%  ////sample import/////
 gaDat = ChordImport(gaDat);
 %%  ////Execute GA/////

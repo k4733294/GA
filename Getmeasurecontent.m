@@ -88,10 +88,8 @@ for measureDirection = measureStartNote : measureEndNote
 end
 
 %% KNOW the same time having numbers of note (from step2 )
-indices = [];
 notesTimeMapingLength=size(notesTimeMaping);
-SizeOfnOSTN = 1;
-nextChord=0;  % 0 = in the next note 1=in the same note at same time
+numOfSameTimeNote = zeros(notesTimeMapingLength(1,1),1);
 for i= 1 : notesTimeMapingLength(1,1)
     %sum the notes in same time
     indices = find(notesTimeMaping(i,:));
@@ -109,15 +107,10 @@ for i= 1 : notesTimeMapingLength(1,1)
     %notes in side            60  62  62 64 64 0 0 61 0 0   
     %like this to fulfill the number signature 
     %}
-        if(indices(1,2)>=2)
-            SizeOfnOSTN = SizeOfnOSTN+indices(1,2)-1;
-        end
-    SizeOfnOSTN = SizeOfnOSTN+1;
 end
-%% Output the data to Chrom structure aobut this measure
-SizeOfnOSTN = SizeOfnOSTN-1;
 %% give the note pitch
 count=1;
+notesInTheMeasure = zeros(notesTimeMapingLength(1,1),5);
 for i = 1 : notesTimeMapingLength(1,1)
         if numOfSameTimeNote(i,1) ~= 0
             %if notes length then 1 block of sixteenth
@@ -126,10 +119,10 @@ for i = 1 : notesTimeMapingLength(1,1)
                 for j = 1:numOfSameTimeNote(i,1)
                      if notesNoteCutMaping(i,j) == notesPitch(i,j)
                         %the next diff note start
-                        notesInTheMeasure(count,5) = notesPitch(i,j);
+                        notesInTheMeasure(count,4) = notesPitch(i,j);
                      else
                         %note length extended
-                        notesInTheMeasure(count,5) = -2 + countMultiSustain;
+                        notesInTheMeasure(count,4) = -2 + countMultiSustain;
                         countMultiSustain=countMultiSustain-1;
                      end
                         %block of sixteenth is empty , give the rest note 
@@ -138,16 +131,16 @@ for i = 1 : notesTimeMapingLength(1,1)
             else
                 if notesNoteCutMaping(i,1) == notesPitch(i,1)
                     %the next diff note start
-                    notesInTheMeasure(count,5) = notesPitch(i,1);
+                    notesInTheMeasure(count,4) = notesPitch(i,1);
                 else
                      %note length extended
-                     notesInTheMeasure(count,5) = -2;
+                     notesInTheMeasure(count,4) = -2;
                 end
                 %block of sixteenth is empty , give the rest note   
                     count = count+1;
             end
         else
-            notesInTheMeasure(count,5) = -1;
+            notesInTheMeasure(count,4) = -1;
             count = count+1;
         end
 end
@@ -176,23 +169,8 @@ for i = 1 : notesTimeMapingLength(1,1)
     end
 end
 count=1;
-%% give the tonal 
-%the rule is
-%                          1   2   3    4     5   6      7     
-%                        'C','G','D', 'A', 'E','B',  'F#'
-%                         -1 -2   -3    -4     -5    -6    
-%                       'F','Bb','Eb','Ab','Db','Gb'
-%                               major *1  minor*2   
-major =1; minor =2;
-if midiInfoStruct.tonal(2,1)==0
-    notesInTheMeasure(:,3) = midiInfoStruct.tonal(1,1)*major;
-else
-    notesInTheMeasure(:,3) = midiInfoStruct.tonal(1,1)*minor;
-end
-%% give the numbers of the measure at rhythm cloum
- notesInTheMeasure(:,6) = midiInfoStruct.rhythm;
+
 %% give the octave
-currentTonal=[];
 for i = 1 : notesTimeMapingLength(1,1)
     %make the detection the notes where octave inside then more possible
     %at that octave
@@ -200,21 +178,18 @@ for i = 1 : notesTimeMapingLength(1,1)
     % like this rule
     
     if numOfSameTimeNote(i,1) ==1
-        notesInTheMeasure(count,4) = fix(notesPitch(i,1)/12);
-        notesInTheMeasure(count,9) = notesVelocity(i,1);
-        %notesInTheMeasure(count,9) = 
+        notesInTheMeasure(count,3) = fix(notesPitch(i,1)/12);
+        notesInTheMeasure(count,5) = notesVelocity(i,1);
         count = count+1;
     elseif numOfSameTimeNote(i,1) ==0
         count = count+1;
     else
         for j = 1 : numOfSameTimeNote(i,1)
-            notesInTheMeasure(count,4) = fix(notesPitch(i,j)/12);
-            notesInTheMeasure(count,9) = notesVelocity(i,j);
+            notesInTheMeasure(count,3) = fix(notesPitch(i,j)/12);
+            notesInTheMeasure(count,5) = notesVelocity(i,j);
             count = count+1;
         end
     end
 end
 
-notesInTheMeasure(:,7)=midiInfoStruct.timeSignatureNumerator;
-notesInTheMeasure(:,8)=midiInfoStruct.timeSignatureDenominator;
 midiInfoStruct.notesInTheMeasure = notesInTheMeasure;

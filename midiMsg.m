@@ -221,7 +221,6 @@ if (fid ~= -1)
   fclose(fid);
 end
 
-
 function printTrackInfo(Msg,tracknum,fid)
 
 
@@ -265,16 +264,12 @@ for i=1:size(Msg,1)
 
 end
 
-
-
 function s=formatTime(seconds)
 
 minutes = floor(seconds/60);
 secs = seconds - 60*minutes;
 
 s = sprintf('%d:%2.3f',minutes,secs);
-
-
 
 function [name,dataStr]=getMsgInfo(midimeta, type, data);
 
@@ -486,6 +481,7 @@ else
 
 
 end
+
 function s=controllers(n)
 if (n==1); s='Mod Wheel';
 elseif (n==2); s='Breath Controllery';

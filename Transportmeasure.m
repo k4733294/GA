@@ -1,9 +1,27 @@
-function gaDat=Transportmeasure(gaDat)
+function midiInfoStruct=Transportmeasure(midiInfoStruct)
 %notesInTheMeasure(i,3)  tonal 
 %notesInTheMeasure(i,5)  pitch
-notesInTheMeasure = gaDat.chordImportInfo.notesInTheMeasure;
+
+
+%% give the tonal 
+%the rule is
+%                          1   2   3    4     5   6      7     
+%                        'C','G','D', 'A', 'E','B',  'F#'
+%                         -1 -2   -3    -4     -5    -6    
+%                       'F','Bb','Eb','Ab','Db','Gb'
+%                               major *1  minor*2   
+major =1; minor = 2;
+tonalForCal = 0;
+if midiInfoStruct.tonal(2,1)==0
+    tonalForCal = midiInfoStruct.tonal(1,1)*major;
+else
+    tonalForCal = midiInfoStruct.tonal(1,1)*minor;
+end
+
+
+notesInTheMeasure = midiInfoStruct.notesInTheMeasure;
 iMTNoteMean=[];
-mainMelodyTonal = gaDat.mainImportInfo.notesInTheMeasre(1,3);
+mainMelodyTonal = tonalforCal;
 compareMT=0;
 
 modWheel=[0 1 2 3 4 5 6 7 8 9 10 11];
@@ -20,9 +38,9 @@ minor=[1 3 4 6 8 9 11];   % f h f f h f
 IMTmaOrMi=0; % 0 is major ///  1 is minor
 MMTmaOrMi=0; % 0 is major ///  1 is minor
 
-importMeasureTonal = mod(notesInTheMeasure(1,3),2);
+importMeasureTonal = mod(tonalForCal,2);
 if (importMeasureTonal == 0) %is minor and must extract from /2
-    importMeasureTonal = notesInTheMeasure(1,3)/2;  %make minor finding the content from major tonal
+    importMeasureTonal = tonalForCal/2;  %make minor finding the content from major tonal
     indexIMT = find(tonalMinorWheel == importMeasureTonal);
     IMTmaOrMi=1;
 else %is major
@@ -54,10 +72,10 @@ end
 %PartB----------------------------------------------------------
 %SET the mainMeasure Infomation about tonal direction in cycle
 %IS major or minor
-%ATTATION!!!!!!! we can set here to the higher layer funtion then here
+%ATTATION!!!!!!! we can set  the higher layer funtion then here
 mainMeasureTonal = mod(mainMelodyTonal,2);
 if (mainMeasureTonal == 0) %is minor and must extract from /2
-    mainMeasureTonal = notesInTheMeasure(1,3)/2;
+    mainMeasureTonal = tonalForCal/2;
     indexMMT = find(tonalMinorWheel == mainMeasureTonal);
     MMTmaOrMi=1;
 else %is major
@@ -66,7 +84,7 @@ else %is major
 end
 
 %we focus on the two tonal direction and way
-% if the anthor way is shor ,so we path another way 
+% if the anthor way is short ,so we path another way 
 %that must minus12 and give plus or minus diffrent then before
 %compareMT  " + " is  plus5 refrence in tranpose " - " is  mius5 refrence in tranpose 
 compareMT = indexMMT - indexIMT;
@@ -100,7 +118,7 @@ if MMTmaOrMi ~= IMTmaOrMi
 else
     %do nothing
 end
-%PartB is DONE---------------------------------------------------------
+
 
 %START translate every note
 sizeNITM = size(notesInTheMeasure,1);

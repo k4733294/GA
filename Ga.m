@@ -93,7 +93,7 @@ gen=0;
 
 % Initial population
 % -------------------------------------------
- gaDat= CrtrpV2(gaDat);
+ gaDat= Crtrp(gaDat);
  %-------------------------------------------
  % gaDat.Chrom = Chrom;
  % Real codification

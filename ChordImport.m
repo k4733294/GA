@@ -31,6 +31,7 @@ initial population rules
  rule 5 : decide the rhythm import or created by initial in my strategy
  rule 6 : loop and add the count at the noteNum
 %}
+
 %% import which track in midi file wewant
 %%{
 %/////all variable must exist
@@ -159,18 +160,7 @@ end
 
 gaDat.chordImportInfo=chordImportInfo;
 
-%chordImportInfo = GanerateChrom(chordImportInfo);
-%must output the result here;
 
-
-   
-
-function chordImportInfo = GanerateChrom(chordImportInfo)
-for i = 1 :pSize
-  tonalVariableContant =Tonalgenerate(tempBarNum,majorNote);
-  melodyProgressContant = Melodygenerate(tonalVariableContant,tempBarNum,tempBarSize); 
-  tempChrom(:,i)=melodyProgressContant;
-end
 
 
 
