@@ -32,6 +32,7 @@ measureLengthNoteNum=gaDat.chordImportInfo(rhythmNum).meausreLength/deltaTimeSix
 
 %gaDat.mainImportInfo.tonal;
 midiInfoStruct=Transportmeasure(midiInfoStruct);
+a=1;
 
 
 %% chromesome polling standard
