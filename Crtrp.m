@@ -24,14 +24,20 @@ end
 %}
 
 %% get the SAMPLE  infomation  about measureLengthNoteNum
+%{
+    chome = populationSize
+    block  == bar = Denominator
+    beat  Numerator
+    note  4 = base 1/16 unit of note leangth
+%}
 rhythmNum =1;
 gaDat.chordImportInfo(rhythmNum);
-deltaTimeSixteenthNote = gaDat.chordImportInfo(rhythmNum).ticksPerQuarterNote/4;
-measureLengthNoteNum=gaDat.chordImportInfo(rhythmNum).meausreLength/deltaTimeSixteenthNote;
+%deltaTimeSixteenthNote = gaDat.chordImportInfo(rhythmNum).ticksPerQuarterNote/4;
+%measureLengthNoteNum=gaDat.chordImportInfo(rhythmNum).meausreLength/deltaTimeSixteenthNote;
 
 
 %gaDat.mainImportInfo.tonal;
-midiInfoStruct=Transportmeasure(midiInfoStruct);
+gaDat=Transportmeasure(gaDat);
 
 
 %% chromesome polling standard
@@ -51,12 +57,7 @@ for i =1:gaDat.populationSize
     end
 end
 
-%{
-chome = populationSize
-block  == bar = Denominator
-beat  Numerator
-note  4 = base 1/16 unit of note leangth
-%}
+
 
  %{
     chromesome structure design like :
