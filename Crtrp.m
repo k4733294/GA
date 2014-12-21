@@ -38,6 +38,7 @@ gaDat.chordImportInfo(rhythmNum);
 
 %gaDat.mainImportInfo.tonal;
 gaDat=Transportmeasure(gaDat);
+a=2;
 
 
 %% chromesome polling standard
