@@ -43,8 +43,10 @@ chordImportInfo(rhythmNum).track=5;
 chordImportInfo(rhythmNum).howManyMeasureWeWant=5;
 chordImportInfo(rhythmNum).whichMeasureWeStart=5;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
+chordImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true
 chordImportInfo(rhythmNum).cosDenominator=4;
 chordImportInfo(rhythmNum).cosNumerator=4;
+chordImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 chordImportInfo(rhythmNum).cosTonal(1,1)=1;
 chordImportInfo(rhythmNum).cosTonal(2,1)=1;
 version = 'davidguetta_Output';
@@ -62,8 +64,10 @@ chordImportInfo(rhythmNum).track=1;
 chordImportInfo(rhythmNum).howManyMeasureWeWant=6;
 chordImportInfo(rhythmNum).whichMeasureWeStart=5;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
+chordImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true
 chordImportInfo(rhythmNum).cosDenominator=4;
 chordImportInfo(rhythmNum).cosNumerator=4;
+chordImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 chordImportInfo(rhythmNum).cosTonal(1,1)=1;
 chordImportInfo(rhythmNum).cosTonal(2,1)=1;
 version = 'feel so close_Output';
@@ -80,8 +84,10 @@ chordImportInfo(rhythmNum).track=1;
 chordImportInfo(rhythmNum).howManyMeasureWeWant=3;
 chordImportInfo(rhythmNum).whichMeasureWeStart=2;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
+chordImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true
 chordImportInfo(rhythmNum).cosDenominator=4;
 chordImportInfo(rhythmNum).cosNumerator=4;
+chordImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 chordImportInfo(rhythmNum).cosTonal(1,1)=1;
 chordImportInfo(rhythmNum).cosTonal(2,1)=1;
 version = 'hardwell_Output_test3';
@@ -98,8 +104,10 @@ chordImportInfo(rhythmNum).track=1;
 chordImportInfo(rhythmNum).howManyMeasureWeWant=1;
 chordImportInfo(rhythmNum).whichMeasureWeStart=11;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
+chordImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true
 chordImportInfo(rhythmNum).cosDenominator=4;
 chordImportInfo(rhythmNum).cosNumerator=4;
+chordImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 chordImportInfo(rhythmNum).cosTonal(1,1)=1;
 chordImportInfo(rhythmNum).cosTonal(2,1)=1;
 version = 'AVICII LEVELS_Output';
@@ -134,8 +142,10 @@ chordImportInfo(rhythmNum).track=3;
 chordImportInfo(rhythmNum).howManyMeasureWeWant=1;
 chordImportInfo(rhythmNum).whichMeasureWeStart=15;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
+chordImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true
 chordImportInfo(rhythmNum).cosDenominator=4;
 chordImportInfo(rhythmNum).cosNumerator=4;
+chordImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 chordImportInfo(rhythmNum).cosTonal(1,1)=1;
 chordImportInfo(rhythmNum).cosTonal(2,1)=1;
 version = 'calvin harris_Output';

@@ -1,4 +1,4 @@
-function gaDat = MainMelodyImport(gaDat)
+function gaDat = MainMelodyImport()
 
 %% ////mainMelodyimport////
 %% mainmelody create to GADat , make the ga caculating
@@ -14,7 +14,8 @@ mainImportInfo.forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 =
 mainImportInfo.cosDenominator=4;
 mainImportInfo.cosNumerator=4;
 mainImportInfo.forcecosTonal = 0; %%force use the cosTonal 1 = true
-mainImportInfo.cosTonal =[1 0; 1 0];
+mainImportInfo.cosTonal(1,1)=1;
+mainImportInfo.cosTonal(2,1)=1;
 version = 'pitbull-timber_Output';
 mainImportInfo.exportVersion=version;
 mainImportInfo = Variabledefine(mainImportInfo,mainImportInfo.rhythm);

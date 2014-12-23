@@ -25,13 +25,23 @@ end
 
 %% get the SAMPLE  infomation  about measureLengthNoteNum
 rhythmNum =1;
-gaDat.chordImportInfo(rhythmNum);
-deltaTimeSixteenthNote = gaDat.chordImportInfo(rhythmNum).ticksPerQuarterNote/4;
-measureLengthNoteNum=gaDat.chordImportInfo(rhythmNum).meausreLength/deltaTimeSixteenthNote;
-
+%gaDat.chordImportInfo(rhythmNum);
+%deltaTimeSixteenthNote = gaDat.chordImportInfo(rhythmNum).ticksPerQuarterNote/4;
+%measureLengthNoteNum=gaDat.chordImportInfo(rhythmNum).meausreLength/deltaTimeSixteenthNote;
 
 %gaDat.mainImportInfo.tonal;
-midiInfoStruct=Transportmeasure(midiInfoStruct);
+endCI = size(gaDat.chordImportInfo,2);
+for i = 1 : endCI
+    tonalEqual = gaDat.mainImportInfo.tonal == gaDat.chordImportInfo(1,1).tonal;
+    
+    if tonalEqual(1,1) == 1 && tonalEqual(2,1) == 1
+        %do not use Transportmeasure to the same tonal
+    else
+        chordImportInfo = gaDat.chordImportInfo(1,endCI);
+        mainImportInfo = gaDat.mainImportInfo;
+        gaDat = Transportmeasure(mainImportInfo,chordImportInfo);
+    end
+end
 
 
 %% chromesome polling standard

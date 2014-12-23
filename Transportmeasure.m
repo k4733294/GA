@@ -1,7 +1,6 @@
-function midiInfoStruct=Transportmeasure(midiInfoStruct)
+function gaDat=Transportmeasure(mainImportInfo,chordImportInfo)
 %notesInTheMeasure(i,3)  tonal 
-%notesInTheMeasure(i,5)  pitch
-
+%notesInTheMeasure(i,4)  pitch
 
 %% give the tonal 
 %the rule is
@@ -10,20 +9,30 @@ function midiInfoStruct=Transportmeasure(midiInfoStruct)
 %                         -1 -2   -3    -4     -5    -6    
 %                       'F','Bb','Eb','Ab','Db','Gb'
 %                               major *1  minor*2   
+
+%%// here i must translate the tonal matrix to this present that i can
+%%use this struct in major minor selection in trans judgment  at  ex:49~55  
+MIT=mainImportInfo.tonal;
+CIT=chordImportInfo.tonal;
+
 major =1; minor = 2;
-tonalForCal = 0;
-if midiInfoStruct.tonal(2,1)==0
-    tonalForCal = midiInfoStruct.tonal(1,1)*major;
+if mainImportInfo.tonal(2,1)==0
+    MIT = mainImportInfo.tonal(1,1)*major;
 else
-    tonalForCal = midiInfoStruct.tonal(1,1)*minor;
+    MIT = mainImportInfo.tonal(1,1)*minor;
+end
+if chordImportInfo.tonal(2,1)==0
+    CIT = chordImportInfo.tonal(1,1)*major;
+else
+    CIT = chordImportInfo.tonal(1,1)*minor;
 end
 
-
-notesInTheMeasure = midiInfoStruct.notesInTheMeasure;
+%%notesInTheMeasure in chordimoort we need to trans
+notesInTheMeasure = chordImportInfo.notesInTheMeasure;
+%%some infoi init
 iMTNoteMean=[];
-mainMelodyTonal = tonalforCal;
 compareMT=0;
-
+%% tonaltranswheel structure we need to use later
 modWheel=[0 1 2 3 4 5 6 7 8 9 10 11];
 
 tonalMajorWheel = [-6 -5 -4 -3 -2 -1 1 2 3 4 5 6 7]; % -6 = 7 F# =Gb
@@ -38,16 +47,17 @@ minor=[1 3 4 6 8 9 11];   % f h f f h f
 IMTmaOrMi=0; % 0 is major ///  1 is minor
 MMTmaOrMi=0; % 0 is major ///  1 is minor
 
-importMeasureTonal = mod(tonalForCal,2);
+%% PartA----------------------------------------------------------
+importMeasureTonal = mod(CIT,2);
 if (importMeasureTonal == 0) %is minor and must extract from /2
-    importMeasureTonal = tonalForCal/2;  %make minor finding the content from major tonal
+    importMeasureTonal = CIT/2;  %make minor finding the content from major tonal
     indexIMT = find(tonalMinorWheel == importMeasureTonal);
     IMTmaOrMi=1;
 else %is major
     %importMeasureTonal      no chage
     indexIMT = find(tonalMajorWheel == importMeasureTonal);
 end
-%give the meaning into measure tonal like
+%% give the meaning into measure tonal like
 % major c with  c  d   e   f   g  a    b   
 %                        I II III VI V VI VII
 if  (IMTmaOrMi == 0)
@@ -57,7 +67,7 @@ else
 end
 startIMTIndex = startIMTIndex+1;
 
-%PartA----------------------------------------------------------
+
 for i = 1 : 12
     iMTNoteMean(1,i) = modWheel(1,startIMTIndex);
     %reloop the notes mod in to a cycle like c d e f g a b 'c'
@@ -69,13 +79,13 @@ for i = 1 : 12
     end
 end
 
-%PartB----------------------------------------------------------
+%% PartB----------------------------------------------------------
 %SET the mainMeasure Infomation about tonal direction in cycle
 %IS major or minor
 %ATTATION!!!!!!! we can set  the higher layer funtion then here
-mainMeasureTonal = mod(mainMelodyTonal,2);
+mainMeasureTonal = mod(MIT,2);
 if (mainMeasureTonal == 0) %is minor and must extract from /2
-    mainMeasureTonal = tonalForCal/2;
+    mainMeasureTonal = MIT/2;
     indexMMT = find(tonalMinorWheel == mainMeasureTonal);
     MMTmaOrMi=1;
 else %is major
@@ -83,7 +93,7 @@ else %is major
     indexMMT = find(tonalMajorWheel == mainMeasureTonal);
 end
 
-%we focus on the two tonal direction and way
+%% we focus on the two tonal direction and way
 % if the anthor way is short ,so we path another way 
 %that must minus12 and give plus or minus diffrent then before
 %compareMT  " + " is  plus5 refrence in tranpose " - " is  mius5 refrence in tranpose 
@@ -91,7 +101,7 @@ compareMT = indexMMT - indexIMT;
 compareMTabs = abs(compareMT);
 compareMTa = 12 - compareMTabs;
 
-%try to know which path in cycle is short
+%% try to know which path in cycle is short
 if compareMTabs > compareMTa
     %if the another way is short so we change it
     if compareMT<0
@@ -103,11 +113,11 @@ if compareMTabs > compareMTa
 else
     %compare MT is short, so we donothing
 end
-%--------------------------------------------------------------------
-%rule of 5semitone progress cycle
+
+%% rule of 5semitone progress cycle
     compareMT = 7*compareMT;
-%--------------------------------------------------------------------
-%know the import tonal mesare is minor or not
+
+%% know the import tonal mesare is minor or not
 %cuz major is have 3 semitone with minor
 if MMTmaOrMi ~= IMTmaOrMi
     if IMTmaOrMi==1
@@ -120,19 +130,19 @@ else
 end
 
 
-%START translate every note
+%% START translate every note
 sizeNITM = size(notesInTheMeasure,1);
 for i = 1 : sizeNITM
-    if (notesInTheMeasure(i,5)~=-2 && notesInTheMeasure(i,5)~=-1)
+    if (notesInTheMeasure(i,4)~=-2 && notesInTheMeasure(i,4)~=-1)
     %FORpartA----------------------------------------------------------
-        modNITM=mod(notesInTheMeasure(i,5),12);
+        modNITM=mod(notesInTheMeasure(i,4),12);
         notesInTheMeasure(i,7)= find(iMTNoteMean==modNITM);
     %FORpartB----------------------------------------------------------
-        tranNow=(notesInTheMeasure(i,5)+compareMT);
+        tranNow=(notesInTheMeasure(i,4)+compareMT);
         tranNow=mod(tranNow,12);
-        notesInTheMeasure(i,8)=notesInTheMeasure(i,4)*12+tranNow;
+        notesInTheMeasure(i,8)=notesInTheMeasure(i,3)*12+tranNow;
     else
     %donothing
     end
 end
-midiInfoStruct.notesInTheMeasure=notesInTheMeasure;
+gaDat.chordImportInfo.notesInTheMeasure=notesInTheMeasure;

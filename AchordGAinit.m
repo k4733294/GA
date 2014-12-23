@@ -1,7 +1,8 @@
-%% ///algorithm conf////
-gaDat = gaInitConf();
 %%  ////main melody import/////
-gaDat = MainMelodyImport(gaDat);
+gaDat = MainMelodyImport();
+%% ///algorithm conf//// 
+%some conf var get from MainMelodyImport
+gaDat = gaInitConf(gaDat);
 %%  ////sample import/////
 gaDat = ChordImport(gaDat);
 %%  ////Execute GA/////

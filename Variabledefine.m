@@ -2,7 +2,7 @@ function chordImportInfo=Variabledefine(chordImportInfo,rhythmNum)
 %% the data added to every variable
 chordImport = RhythmImport(chordImportInfo(rhythmNum));
 %chordImportInfo(rhythmNum).tempo = chordImport.tempo;
-%chordImportInfo(rhythmNum).ticksPerQuarterNote = chordImport.ticksPerQuarterNote;
+chordImportInfo(rhythmNum).ticksPerQuarterNote = chordImport.ticksPerQuarterNote;
 %chordImportInfo(rhythmNum).midiMsgData = chordImport.midiMsgData;
 %chordImportInfo(rhythmNum).midiNote = chordImport.midiNote;
 chordImportInfo(rhythmNum).timeSignatureNumerator = chordImport.timeSignatureNumerator;

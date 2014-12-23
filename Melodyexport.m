@@ -12,14 +12,14 @@ MultiNote=zeros(1,10);
 
 for i = 1: sizeMM
 totalDeltaTimes = mainMelody.notesInTheMeasure(i,1)*ticksPerSixteenthNote;
-    if (mainMelody.notesInTheMeasure(i,5) == -1)
-    elseif (mainMelody.notesInTheMeasure(i,5) <= -2)
+    if (mainMelody.notesInTheMeasure(i,4) == -1)
+    elseif (mainMelody.notesInTheMeasure(i,4) <= -2)
         if MultiNote(1,1)==1;
            duration = duration + ticksPerSixteenthNote;
            M(countNodePrev-1,5) =  totalDeltaTimes - duration - ticksPerSixteenthNote ;  % note on:  notes start every .5 seconds 
            M(countNodePrev-1,6) = totalDeltaTimes;   % note off: each note has duration .5 seconds  
         else
-            pRestNote=abs(mainMelody.notesInTheMeasure(i,5));
+            pRestNote=abs(mainMelody.notesInTheMeasure(i,4));
             whichRestNote = find(MultiNote==pRestNote,1);
                 if preTDT==totalDeltaTimes
                     %do nothing
@@ -32,8 +32,8 @@ totalDeltaTimes = mainMelody.notesInTheMeasure(i,1)*ticksPerSixteenthNote;
    else
            M(countNodePrev,1) = 1;         % all in track 1
            M(countNodePrev,2) = 1;         % all in channel 1
-           M(countNodePrev,3) = mainMelody.notesInTheMeasure(i,5);
-           M(countNodePrev,4) = mainMelody.notesInTheMeasure(i,9);
+           M(countNodePrev,3) = mainMelody.notesInTheMeasure(i,4);
+           M(countNodePrev,4) = mainMelody.notesInTheMeasure(i,5);
            M(countNodePrev,5) = totalDeltaTimes - ticksPerSixteenthNote;  % note on:  notes start every .5 seconds    
            M(countNodePrev,6) = totalDeltaTimes;   % note off: each note has duration .5 seconds 
            countNodePrev = countNodePrev+1;
