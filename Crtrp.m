@@ -42,6 +42,7 @@ for i = 1 : endCI
         gaDat = Transportmeasure(mainImportInfo,chordImportInfo);
     end
 end
+a=1;
 
 
 %% chromesome polling standard
