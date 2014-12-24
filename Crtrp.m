@@ -43,7 +43,7 @@ for i = 1 : endCI
     end
 end
 a=1;
-a=3;
+a=2;
 
 
 %% chromesome polling standard
