@@ -29,7 +29,6 @@ rhythmNum =1;
 %deltaTimeSixteenthNote = gaDat.chordImportInfo(rhythmNum).ticksPerQuarterNote/4;
 %measureLengthNoteNum=gaDat.chordImportInfo(rhythmNum).meausreLength/deltaTimeSixteenthNote;
 
-%gaDat.mainImportInfo.tonal;
 endCI = size(gaDat.chordImportInfo,2);
 for i = 1 : endCI
     tonalEqual = gaDat.mainImportInfo.tonal == gaDat.chordImportInfo(1,1).tonal;
@@ -41,10 +40,21 @@ for i = 1 : endCI
         mainImportInfo = gaDat.mainImportInfo;
         gaDat = Transportmeasure(mainImportInfo,chordImportInfo);
     end
+    
 end
-a=1;
-a=2;
-
+ 
+%get measure nums
+size(gaDat.mainImportInfo.measure,2)
+%get measure noteContent total nums
+size(gaDat.mainImportInfo.measure.noteContent,1)
+%get beat in measure nums
+size(gaDat.mainImportInfo.measure.beat,2)
+%get beat noteContent total nums
+size(gaDat.mainImportInfo.measure.beat(1,1).noteContent,1)
+%get note in beat in measure nums
+size(gaDat.mainImportInfo.measure.beat(1,1).note,2)
+%get note noteContent total nums
+size(gaDat.mainImportInfo.measure.beat(1,1).note(1,1).noteContent,1)
 
 %% chromesome polling standard
 %find the measure in same Eigenvalues
@@ -68,6 +78,11 @@ chome = populationSize
 block  == bar = Denominator
 beat  Numerator
 note  4 = base 1/16 unit of note leangth
+
+midiInfoStruct.Measure(mLtemp).noteContent(mcount,:) 
+midiInfoStruct.Measure(mLtemp).beat(bLtemp).noteContent(bcount,:) 
+midiInfoStruct.Measure(mLtemp).beat(bLtemp).note(nLtemp).noteContent(ncount,:) 
+
 %}
 
  %{

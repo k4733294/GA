@@ -87,6 +87,7 @@ midiInfoStruct = NoteTableToBarBeatNoteStruct(midiInfoStruct);
 
 
 
+
 function midiInfoStruct=Numofmeasure(midiInfoStruct)
 
 %% one measure length ppqn*BeatsPerMeasure;

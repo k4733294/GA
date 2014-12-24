@@ -131,6 +131,9 @@ end
 
 
 %% START translate every note
+
+%%need to fix the notesInTheMeasure(i,7) notesInTheMeasure(i,8) meaning
+%%here
 sizeNITM = size(notesInTheMeasure,1);
 for i = 1 : sizeNITM
     if (notesInTheMeasure(i,4)~=-2 && notesInTheMeasure(i,4)~=-1)
