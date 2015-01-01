@@ -66,13 +66,11 @@ size(gaDat.mainImportInfo.measure.beat(1,1).note(1,1).noteContent,1)
 % calculate eigan2 in every measure
 %calculate eigan2 in every beat
 %calculate eigan2 in every note
-%% conclusion the eiganvalue ( for after instuction at sample edit? )
- % way1 true false
- % way2 true false
+%% conclusion the eiganvalue 
 %% dicide the way to edit  sample to population here
 % way 1
 % way 2
-
+%
 
 
 %{
