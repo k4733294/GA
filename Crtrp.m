@@ -29,7 +29,7 @@ rhythmNum =1;
 %deltaTimeSixteenthNote = gaDat.chordImportInfo(rhythmNum).ticksPerQuarterNote/4;
 %measureLengthNoteNum=gaDat.chordImportInfo(rhythmNum).meausreLength/deltaTimeSixteenthNote;
 
-%% Change tonal here
+%% Change sample tonal here
 endCI = size(gaDat.chordImportInfo,2);
 for i = 1 : endCI
     tonalEqual = gaDat.mainImportInfo.tonal == gaDat.chordImportInfo(1,1).tonal;
@@ -42,6 +42,26 @@ for i = 1 : endCI
         gaDat = Transportmeasure(mainImportInfo,chordImportInfo);
     end
 end
+
+%% loop detail:
+%{
+    bar is loop unit
+    4/4 got 4 bar in measure 
+    we think about every  1 3 bar in measure have chance to rand
+    
+%}
+%%loop the measure length choice the " bar " first
+%{
+%%rand choicing sample from import sample or default sample
+
+%%import sample choice
+
+%%default sample choice
+
+%%added to chromesome at struct of mesure bar note(mbn)
+
+%adjust bar loop position
+%}
  
 %% 
 %get measure nums
@@ -63,7 +83,7 @@ size(gaDat.mainImportInfo.measure.beat(1,1).note(1,1).noteContent,1)
 %calculate eigan1 in every beat
 %calculate eigan1 in every note
 % eigan2
-% calculate eigan2 in every measure
+%calculate eigan2 in every measure
 %calculate eigan2 in every beat
 %calculate eigan2 in every note
 %% conclusion the eiganvalue ( for after instuction at sample edit? )
