@@ -82,28 +82,17 @@ else
 end
 %% KNOW which contain of Number of Measure do you want
 midiInfoStruct = Numofmeasure(midiInfoStruct);
+
+%% get the content of which note we want here
+% transport the tonal to same as main melody
+midiInfoStruct = Getmeasurecontent(midiInfoStruct);
+
 %% translate notetable from noteimport to chromesome bar beat note layer struct
 midiInfoStruct = NoteTableToBarBeatNoteStruct(midiInfoStruct);
 
 
 
 
-function midiInfoStruct=Numofmeasure(midiInfoStruct)
-
-%% one measure length ppqn*BeatsPerMeasure;
-%     structure ppqn*tsNumerator*(4/tsDenominator)   
-%     like    2/4   = ppqn* 4 * [4/2]  4/2 is based from quartornote
-midiInfoStruct.stementLength = midiInfoStruct.ticksPerQuarterNote*midiInfoStruct.timeSignatureNumerator*(4/midiInfoStruct.timeSignatureDenominator);
-midiInfoStruct.meausreLength = midiInfoStruct.ticksPerQuarterNote*(4/midiInfoStruct.timeSignatureDenominator);
-%% --------------------------------------------------------------------------------------------------------
-%sum delta time and add variable in midiInfoStruct
-%add tempCalMatrix to midiInfoStruct.deltaMsgMatrix
-%midiInfoStruct.totalDeltalTime = sum(midiInfoStruct.midiMsgData(:,1));
 
 
-%% get the content of which note we want here
-midiInfoStruct = Getmeasurecontent(midiInfoStruct);
-%% transport the tonal to same as main melody
-
-a=0;
 

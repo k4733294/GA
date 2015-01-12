@@ -50,18 +50,36 @@ end
     we think about every  1 3 bar in measure have chance to rand
     
 %}
-%%loop the measure length choice the " bar " first
-%{
+%%loop the measure length choice the " bar " first 
+%%got ref from  mainImportInfo.measure.beat
+sampleChoiced = [];
+numMainMeasureBeat = size(gaDat.mainImportInfo.measure.beat,2);
+for i  = 1 : numMainMeasureBeat
 %%rand choicing sample from import sample or default sample
-
+%%setting probability   importsample 20%  defautsample 80%
+samplePropertiesChoice = randi([1 100]);
+if samplePropertiesChoice > 20
+    %%choice from defaultsample 
+    samplePropertiesChoice = 1;
+else
+    %%choice from importsample 
+    samplePropertiesChoice = 0;
+end
 %%import sample choice
-
+if samplePropertiesChoice == 0
+    sampleChoiced = ISC(gaDat,i);
+end
 %%default sample choice
-
+if samplePropertiesChoice == 1
+    sampleChoiced = DSC(gaDat,i);
+end
+%%give the sample choice suite base note in mainmelody bar
+    
 %%added to chromesome at struct of mesure bar note(mbn)
-
+    gaDat = AddtoChomesome(gaDat,sampleChoiced);
 %adjust bar loop position
-%}
+
+end
  
 %% 
 %get measure nums
