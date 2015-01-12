@@ -24,7 +24,7 @@ end
 %}
 
 %% get the SAMPLE  infomation  about measureLengthNoteNum
-rhythmNum =1;
+%rhythmNum =1;
 %gaDat.chordImportInfo(rhythmNum);
 %deltaTimeSixteenthNote = gaDat.chordImportInfo(rhythmNum).ticksPerQuarterNote/4;
 %measureLengthNoteNum=gaDat.chordImportInfo(rhythmNum).meausreLength/deltaTimeSixteenthNote;
@@ -55,8 +55,8 @@ end
 sampleChoiced = [];
 numMainMeasureBeat = size(gaDat.mainImportInfo.measure.beat,2);
 for i  = 1 : numMainMeasureBeat
-%%rand choicing sample from import sample or default sample
-%%setting probability   importsample 20%  defautsample 80%
+%%rand choicing sample from importsamplebeat or defaultsamplebeat
+%%setting probability   importsamplebeat 20%  defautsamplebeat 80%
 samplePropertiesChoice = randi([1 100]);
 if samplePropertiesChoice > 20
     %%choice from defaultsample 
@@ -65,13 +65,13 @@ else
     %%choice from importsample 
     samplePropertiesChoice = 0;
 end
-%%import sample choice
+%%import sample beat choice 
 if samplePropertiesChoice == 0
-    sampleChoiced = ISC(gaDat,i);
+    sampleChoiced = ISBC(gaDat,i);
 end
-%%default sample choice
+%%default sample beat choice
 if samplePropertiesChoice == 1
-    sampleChoiced = DSC(gaDat,i);
+    sampleChoiced = DSBC(gaDat,i);
 end
 %%give the sample choice suite base note in mainmelody bar
     
