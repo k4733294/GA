@@ -10,6 +10,30 @@ preTDT=0;
 countMultiNote=1;
 MultiNote=zeros(1,10);
 
+%{
+for i = 1 : 1
+    a = 'title';
+    if i <=5
+        a = strcat(gaDat.chordImportInfo(i).exportVersion,'.mid');
+       
+        midi = readmidi(a);
+    else
+        a = strcat(gaDat.mainImportInfo.exportVersion,'.mid');
+        midi = readmidi(a);
+    end
+Notes = midiInfo(midi,0);
+[PR,t,nn] = piano_roll(Notes,1);
+figure;
+imagesc(t,nn,PR);
+title(a);
+axis xy;
+xlabel('time (sec)');
+ylabel('note number');
+   
+end
+%}
+
+
 for i = 1: sizeMM
 totalDeltaTimes = mainMelody.notesInTheMeasure(i,1)*ticksPerSixteenthNote;
     if (mainMelody.notesInTheMeasure(i,4) == -1)

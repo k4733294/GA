@@ -11,8 +11,8 @@ midiInfoStruct = midiMsg(midi,1,whichTrack,0,midiInfoStruct);
 %2: in user insert
 %{
   a = midiInfoStruct.midiString;
-  if strcmp(a, 'tiesto-wasted_ft_matthew_koma.midi')
-  b= size(midiInfoStruct.tonal)
+  if strcmp(a, 'default3.mid')
+  b = size(midiInfoStruct.tonal);
   isfield(midiInfoStruct,'tonal')
   tmp2 = [0;0];
   isequal(midiInfoStruct.tonal,tmp2)

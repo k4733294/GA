@@ -42,7 +42,6 @@ for i = 1 : endCI
         gaDat = Transportmeasure(mainImportInfo,chordImportInfo);
     end
 end
-
 %% loop detail:
 %{
     bar is loop unit
@@ -50,38 +49,38 @@ end
     we think about every  1 3 bar in measure have chance to rand
     
 %}
-%%loop the measure length choice the " bar " first 
+%% loop the measure length choice the " bar " first 
 %%got ref from  mainImportInfo.measure.beat
-sampleChoiced = [];
 numMainMeasureBeat = size(gaDat.mainImportInfo.measure.beat,2);
+%chromesome = numMainMeasureBeat
 for i  = 1 : numMainMeasureBeat
-%%rand choicing sample from importsamplebeat or defaultsamplebeat
+%% rand choicing sample from importsamplebeat or defaultsamplebeat
 %%setting probability   importsamplebeat 20%  defautsamplebeat 80%
 samplePropertiesChoice = randi([1 100]);
-if samplePropertiesChoice > 20
-    %%choice from defaultsample 
-    samplePropertiesChoice = 1;
-else
-    %%choice from importsample 
-    samplePropertiesChoice = 0;
-end
-%%import sample beat choice 
-if samplePropertiesChoice == 0
-    sampleChoiced = ISBC(gaDat,i);
-end
-%%default sample beat choice
-if samplePropertiesChoice == 1
-    sampleChoiced = DSBC(gaDat,i);
-end
-%%give the sample choice suite base note in mainmelody bar
-    
-%%added to chromesome at struct of mesure bar note(mbn)
-    gaDat = AddtoChomesome(gaDat,sampleChoiced);
-%adjust bar loop position
+    if samplePropertiesChoice > 20
+        %%choice from defaultsample 
+        samplePropertiesChoice = 1;
+    else
+        %%choice from importsample 
+        samplePropertiesChoice = 0;
+    end
+%% sample choiced
+%choice which frame in that properties we want    
+    sampleNumChoice = SPC(gaDat,samplePropertiesChoice);
+%choice Data Actually from 
+    sampleFrameChoice = SBC(gaDat,i,sampleNumChoice);
+%% evaluate priority of notes in bar
+    notePriority = NotePriorityCal(gaDat,sampleNumChoice,sampleFrameChoice);
+%% adjust the chord by high priority notes in bar
+    sampleFrameChoice = SampleFrameChoiceTranslate(gaDat,i,sampleNumChoice,sampleFrameChoice);
+%% added to chromesome at struct of mesure bar note(mbn)
+    gaDat = AddtoChomesome(gaDat,sampleFrameChoice);
+%% adjust bar loop position
 
 end
  
 %% 
+%{
 %get measure nums
 size(gaDat.mainImportInfo.measure,2)
 %get measure noteContent total nums
@@ -94,7 +93,7 @@ size(gaDat.mainImportInfo.measure.beat(1,1).noteContent,1)
 size(gaDat.mainImportInfo.measure.beat(1,1).note,2)
 %get note noteContent total nums
 size(gaDat.mainImportInfo.measure.beat(1,1).note(1,1).noteContent,1)
-
+%}
 %% find something eiganvalue at diffrent length in notes
 % eigan1
 %calculate eigan1 in every measure
@@ -111,26 +110,6 @@ size(gaDat.mainImportInfo.measure.beat(1,1).note(1,1).noteContent,1)
 % way 1
 % way 2
 
-
-
-%{
-%% chromesome polling standard
-%find the measure in same Eigenvalues
-for i =1:gaDat.populationSize
-    for j = 1:gaDat.blockSize
-        rhythmSampleChoose = randi(1);
-        blockChoose = randi([1,2]);    
-        if blockChoose == 1
-            gaDat.Chrom(i,j).noteInTheBlock = gaDat.chordImportInfo(rhythmSampleChoose).notesInTheMeasure(1:blockChoose*measureLengthNoteNum,:);
-            gaDat.Chrom(i,j).noteInTheBlock
-        else 
-            gaDat.Chrom(i,j).noteInTheBlock = gaDat.chordImportInfo(rhythmSampleChoose).notesInTheMeasure((blockChoose-1)*measureLengthNoteNum:blockChoose*measureLengthNoteNum,:);
-            gaDat.Chrom(i,j).noteInTheBlock
-        end
-    end
-end
-%}
-
 %{ 
 %% ref about important variable
 chome = populationSize
@@ -143,8 +122,7 @@ midiInfoStruct.Measure(mLtemp).beat(bLtemp).noteContent(bcount,:)
 midiInfoStruct.Measure(mLtemp).beat(bLtemp).note(nLtemp).noteContent(ncount,:) 
 
 %}
-
- %{
+%{
     chromesome structure design like :
           layer1               layer2             layer3           layer4            layer5
       chromesome     measure        ::notedata::
@@ -154,11 +132,9 @@ midiInfoStruct.Measure(mLtemp).beat(bLtemp).note(nLtemp).noteContent(ncount,:)
                                                                        otherCalInfo.....
                                                                                               otherCalInfo.... 
  ::notedata:: variable is NotesInfo             
- %}
-
+%}
 
 %gaDat.Chrom=AdjustMeasureLength(gaDat);
-
 %{
 function Chrom=AdjustMeasureLength(gaDat)
 

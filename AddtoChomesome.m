@@ -1,0 +1,1 @@
+function gaDat = AddtoChomesome(gaDat,sampleFrameChoice)
