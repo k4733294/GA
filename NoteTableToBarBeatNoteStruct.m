@@ -46,9 +46,9 @@ noteLength = 4;
  endOfNITM = size(midiInfoStruct.notesInTheMeasure,1);    
 for i = 1: endOfNITM
  %%   import notesInTheMeasure to chromesome struct
-    midiInfoStruct.Measure(mLtemp).noteContent(mcount,:) = midiInfoStruct.notesInTheMeasure(i,:);
-    midiInfoStruct.Measure(mLtemp).beat(bLtemp).noteContent(bcount,:) = midiInfoStruct.notesInTheMeasure(i,:);
-    midiInfoStruct.Measure(mLtemp).beat(bLtemp).note(nLtemp).noteContent(ncount,:) = midiInfoStruct.notesInTheMeasure(i,:);
+    midiInfoStruct.measure(mLtemp).noteContent(mcount,:) = midiInfoStruct.notesInTheMeasure(i,:);
+    midiInfoStruct.measure(mLtemp).beat(bLtemp).noteContent(bcount,:) = midiInfoStruct.notesInTheMeasure(i,:);
+    midiInfoStruct.measure(mLtemp).beat(bLtemp).note(nLtemp).noteContent(ncount,:) = midiInfoStruct.notesInTheMeasure(i,:);
 %%  index for every pattern loop  
     ncount = ncount + 1;
     bcount = bcount + 1;
@@ -117,6 +117,7 @@ for i = 1: endOfNITM
          mLtemp = 1;
      end
 end
+
  
  
 %% 

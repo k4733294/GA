@@ -139,7 +139,7 @@ chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = 'calvin_harris-summer_logicformat.mid';
 chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
 chordImportInfo(rhythmNum).track=3;
-chordImportInfo(rhythmNum).howManyMeasureWeWant=1;
+chordImportInfo(rhythmNum).howManyMeasureWeWant=4;
 chordImportInfo(rhythmNum).whichMeasureWeStart=15;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
 chordImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true

@@ -24,12 +24,12 @@ end
 %}
 
 %% get the SAMPLE  infomation  about measureLengthNoteNum
-%rhythmNum =1;
+rhythmNum =1;
 %gaDat.chordImportInfo(rhythmNum);
 %deltaTimeSixteenthNote = gaDat.chordImportInfo(rhythmNum).ticksPerQuarterNote/4;
 %measureLengthNoteNum=gaDat.chordImportInfo(rhythmNum).meausreLength/deltaTimeSixteenthNote;
 
-%% Change sample tonal here
+%% Change tonal here
 endCI = size(gaDat.chordImportInfo,2);
 for i = 1 : endCI
     tonalEqual = gaDat.mainImportInfo.tonal == gaDat.chordImportInfo(1,1).tonal;
@@ -41,44 +41,6 @@ for i = 1 : endCI
         mainImportInfo = gaDat.mainImportInfo;
         gaDat = Transportmeasure(mainImportInfo,chordImportInfo);
     end
-end
-
-%% loop detail:
-%{
-    bar is loop unit
-    4/4 got 4 bar in measure 
-    we think about every  1 3 bar in measure have chance to rand
-    
-%}
-%%loop the measure length choice the " bar " first 
-%%got ref from  mainImportInfo.measure.beat
-sampleChoiced = [];
-numMainMeasureBeat = size(gaDat.mainImportInfo.measure.beat,2);
-for i  = 1 : numMainMeasureBeat
-%%rand choicing sample from importsamplebeat or defaultsamplebeat
-%%setting probability   importsamplebeat 20%  defautsamplebeat 80%
-samplePropertiesChoice = randi([1 100]);
-if samplePropertiesChoice > 20
-    %%choice from defaultsample 
-    samplePropertiesChoice = 1;
-else
-    %%choice from importsample 
-    samplePropertiesChoice = 0;
-end
-%%import sample beat choice 
-if samplePropertiesChoice == 0
-    sampleChoiced = ISBC(gaDat,i);
-end
-%%default sample beat choice
-if samplePropertiesChoice == 1
-    sampleChoiced = DSBC(gaDat,i);
-end
-%%give the sample choice suite base note in mainmelody bar
-    
-%%added to chromesome at struct of mesure bar note(mbn)
-    gaDat = AddtoChomesome(gaDat,sampleChoiced);
-%adjust bar loop position
-
 end
  
 %% 
@@ -101,16 +63,14 @@ size(gaDat.mainImportInfo.measure.beat(1,1).note(1,1).noteContent,1)
 %calculate eigan1 in every beat
 %calculate eigan1 in every note
 % eigan2
-%calculate eigan2 in every measure
+% calculate eigan2 in every measure
 %calculate eigan2 in every beat
 %calculate eigan2 in every note
-%% conclusion the eiganvalue ( for after instuction at sample edit? )
- % way1 true false
- % way2 true false
+%% conclusion the eiganvalue 
 %% dicide the way to edit  sample to population here
 % way 1
 % way 2
-
+%
 
 
 %{

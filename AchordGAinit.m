@@ -2,9 +2,11 @@
 gaDat = MainMelodyImport();
 %% ///algorithm conf//// 
 %some conf var get from MainMelodyImport
-gaDat = gaInitConf(gaDat);
+gaDat = GaInitConf(gaDat);
 %%  ////sample import/////
 gaDat = ChordImport(gaDat);
+%%  ////default import/////
+gaDat = defaultImport(gaDat);
 %%  ////Execute GA/////
 gaDat = Ga(gaDat);
 % Result are 
