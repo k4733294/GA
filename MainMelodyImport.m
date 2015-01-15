@@ -19,6 +19,6 @@ mainImportInfo.cosTonal(2,1)=1;
 version = 'pitbull-timber_Output';
 mainImportInfo.exportVersion=version;
 mainImportInfo = Variabledefine(mainImportInfo,mainImportInfo.rhythm);
-%Melodyexport(mainImportInfo,version);
+Melodyexport(mainImportInfo,version);
 %}                       
 gaDat.mainImportInfo=mainImportInfo;

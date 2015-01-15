@@ -33,7 +33,7 @@ alignStartRest=round(alignStartRest);
 x = zeros(alignStartRest,1);
 notesTimeMaping(1 : alignStartRest,noteNumCount) = x;
 end
-a=1;
+
 for measureDirection = measureStartNote : measureEndNote
    
     numOfStartFromOne= midiInfoStruct.midiMsgData(measureDirection,1)/deltaTimeSixteenthNote;
@@ -91,7 +91,7 @@ end
 %% KNOW the same time having numbers of note (from step2 )
 notesTimeMapingLength=size(notesTimeMaping);
 numOfSameTimeNote = zeros(notesTimeMapingLength(1,1),1);
-for i= 1 : notesTimeMapingLength(1,1)
+for i = 1 : notesTimeMapingLength(1,1)
     %sum the notes in same time
     indices = find(notesTimeMaping(i,:));
     indices= size(indices);

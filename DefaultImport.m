@@ -59,7 +59,7 @@ defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
 Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
-%%{
+%{
 rhythmNum = 3;
 defaultImportInfo(rhythmNum).Objfun='defaultMelody';
 defaultImportInfo(rhythmNum).midiString = 'default3.mid';
