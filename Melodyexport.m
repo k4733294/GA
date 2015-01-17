@@ -65,7 +65,7 @@ fileExportPath = strcat('/Users/hooshuu/Documents/MATLAB/GA/GA_result/', version
 %fileExportPath = strcat('C:\Users\HP\Documents\Matlab\GA\GA_result\', version,'.mid');
 writemidi(midi_new, fileExportPath);
 
-%%{
+%{
 for i = 1 : 1
     a = 'title';
     if i <=5

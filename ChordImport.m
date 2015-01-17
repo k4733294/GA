@@ -33,15 +33,15 @@ initial population rules
 %}
 
 %% import which track in midi file wewant
-%%{
-%/////all variable must exist
+%{
+%%/////all variable must exist
 rhythmNum = 1;
 chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = 'david_guetta-lovers_on_the_sun_feat_sam_martin.midi';
 chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
-chordImportInfo(rhythmNum).track=5;
-chordImportInfo(rhythmNum).howManyMeasureWeWant=5;
-chordImportInfo(rhythmNum).whichMeasureWeStart=5;
+chordImportInfo(rhythmNum).track=3;
+chordImportInfo(rhythmNum).howManyMeasureWeWant=15;
+chordImportInfo(rhythmNum).whichMeasureWeStart=49;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
 chordImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true
 chordImportInfo(rhythmNum).cosDenominator=4;
@@ -53,15 +53,14 @@ version = 'davidguetta_Output';
 chordImportInfo(rhythmNum).exportVersion=version;
 chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 Melodyexport(chordImportInfo(rhythmNum),version);
-
 %}
-%%{
+%{
 rhythmNum = 2;
 chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = 'feel-so-close.mid';
 chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
 chordImportInfo(rhythmNum).track=1;
-chordImportInfo(rhythmNum).howManyMeasureWeWant=6;
+chordImportInfo(rhythmNum).howManyMeasureWeWant=18;
 chordImportInfo(rhythmNum).whichMeasureWeStart=5;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
 chordImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true
@@ -75,14 +74,14 @@ chordImportInfo(rhythmNum).exportVersion=version;
 chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 Melodyexport(chordImportInfo(rhythmNum),version);
 %}
-%%{
+%{
 rhythmNum = 3;
 chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = 'hardwell_Output.mid';
 chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
 chordImportInfo(rhythmNum).track=1;
-chordImportInfo(rhythmNum).howManyMeasureWeWant=3;
-chordImportInfo(rhythmNum).whichMeasureWeStart=2;
+chordImportInfo(rhythmNum).howManyMeasureWeWant=15;
+chordImportInfo(rhythmNum).whichMeasureWeStart=15;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
 chordImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true
 chordImportInfo(rhythmNum).cosDenominator=4;
@@ -95,13 +94,13 @@ chordImportInfo(rhythmNum).exportVersion=version;
 chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 Melodyexport(chordImportInfo(rhythmNum),version);
 %}
-%%{
+%{
 rhythmNum = 4;
 chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = 'aviciiLevelsMelody.mid';
 chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
 chordImportInfo(rhythmNum).track=1;
-chordImportInfo(rhythmNum).howManyMeasureWeWant=1;
+chordImportInfo(rhythmNum).howManyMeasureWeWant=16;
 chordImportInfo(rhythmNum).whichMeasureWeStart=11;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
 chordImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true
@@ -119,28 +118,51 @@ Melodyexport(chordImportInfo(rhythmNum),version);
 %except added  have some error here so i try another way to import 
 rhythmNum = 5;
 chordImportInfo(rhythmNum).Objfun='chordMelody';
+chordImportInfo(rhythmNum).midiString = 'avicii-the_days_ft_robbie_williams.mid';
+chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
+chordImportInfo(rhythmNum).track=7;
+chordImportInfo(rhythmNum).howManyMeasureWeWant=16;
+chordImportInfo(rhythmNum).whichMeasureWeStart=33;
+chordImportInfo(rhythmNum).rhythm=rhythmNum;
+chordImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true
+chordImportInfo(rhythmNum).cosDenominator=4;
+chordImportInfo(rhythmNum).cosNumerator=4;
+chordImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
+chordImportInfo(rhythmNum).cosTonal(1,1)=1;
+chordImportInfo(rhythmNum).cosTonal(2,1)=1;
+version = 'avicii-the_days_ft_robbie_williams_Output';
+chordImportInfo(rhythmNum).exportVersion=version;
+chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
+Melodyexport(chordImportInfo(rhythmNum),version);
+%}
+%{
+rhythmNum = 6;
+chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = 'tiesto-wasted_ft_matthew_koma.midi';
 chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
 chordImportInfo(rhythmNum).track=5;
-chordImportInfo(rhythmNum).howManyMeasureWeWant=6;
-chordImportInfo(rhythmNum).whichMeasureWeStart=9;
+chordImportInfo(rhythmNum).howManyMeasureWeWant=18;
+chordImportInfo(rhythmNum).whichMeasureWeStart=55;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
+chordImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true
 chordImportInfo(rhythmNum).cosDenominator=4;
 chordImportInfo(rhythmNum).cosNumerator=4;
+chordImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 chordImportInfo(rhythmNum).cosTonal(1,1)=1;
 chordImportInfo(rhythmNum).cosTonal(2,1)=1;
-chordImportInfo(rhythmNum) = Variabledefine(chordImportInfo,rhythmNum);
-version = 'tiesto wasted_Output';
+version = 'tiesto-wasted_ft_matthew_koma_Output';
+chordImportInfo(rhythmNum).exportVersion=version;
+chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 Melodyexport(chordImportInfo(rhythmNum),version);
 %}
-%%{
-rhythmNum = 5;
+%{
+rhythmNum = 7;
 chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = 'calvin_harris-summer_logicformat.mid';
 chordImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
 chordImportInfo(rhythmNum).track=3;
-chordImportInfo(rhythmNum).howManyMeasureWeWant=4;
-chordImportInfo(rhythmNum).whichMeasureWeStart=15;
+chordImportInfo(rhythmNum).howManyMeasureWeWant=20;
+chordImportInfo(rhythmNum).whichMeasureWeStart=12;
 chordImportInfo(rhythmNum).rhythm=rhythmNum;
 chordImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true
 chordImportInfo(rhythmNum).cosDenominator=4;
@@ -167,7 +189,6 @@ else
     chordImportInfo.sameTonalasMainMelody = 1;
 end
 %}
-
 gaDat.chordImportInfo=chordImportInfo;
 
 

@@ -13,7 +13,7 @@ chordImportInfo(rhythmNum).notesInTheMeasure = chordImport.notesInTheMeasure;
 chordImportInfo(rhythmNum).tonal = chordImport.tonal;
 chordImportInfo(rhythmNum).measure = chordImport.measure;
 
-%{
+%%{
 if rhythmNum ==5
 a=1;
 end

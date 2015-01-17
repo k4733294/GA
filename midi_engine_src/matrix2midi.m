@@ -42,7 +42,7 @@ end
 
 midi.ticks_per_quarter_note = ticks_per_quarter_note;
 
-tempo = 500000;   % could be set by user, etc...
+tempo = ticks_per_quarter_note*1000000;   % could be set by user, etc...
 % (microsec per quarter note)
 
 for i=1:Ntracks
