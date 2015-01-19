@@ -159,7 +159,6 @@ defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
 Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
-
 %if the chordmesurelenth is not fit with mainmesurelengh , we need to
 %fitness the chordmeasurelength to main....
 %ATTATION!!!! I have not done this funtion yet.

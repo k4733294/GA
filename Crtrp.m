@@ -72,7 +72,7 @@ samplePropertiesChoice = randi([1 100]);
 %% evaluate priority of notes in bar
     notePriority = NotePriorityCal(gaDat,sampleNumChoice,sampleFrameChoice);
 %% adjust the chord by high priority notes in bar
-    sampleFrameChoice = SampleFrameChoiceTranslate(gaDat,i,sampleNumChoice,sampleFrameChoice);
+    sampleFrameChoice = SampleFrameChoiceTranslate(gaDat,i,sampleNumChoice,sampleFrameChoice,notePriority);
 %% added to chromesome at struct of mesure bar note(mbn)
     gaDat = AddtoChomesome(gaDat,sampleFrameChoice);
 %% adjust bar loop position

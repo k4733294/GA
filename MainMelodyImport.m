@@ -44,4 +44,5 @@ mainImportInfo.exportVersion=version;
 mainImportInfo = Variabledefine(mainImportInfo,mainImportInfo.rhythm);
 Melodyexport(mainImportInfo,version);
 %}
+a=1;
 gaDat.mainImportInfo=mainImportInfo;
