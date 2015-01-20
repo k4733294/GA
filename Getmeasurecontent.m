@@ -9,6 +9,7 @@ deltaTimeSixteenthNote = deltaTimeQuarterNote/4;
 measurelength= endDeltaTime - startDeltaTime;
 numsMeasurePieceOfSixteenthNote = measurelength/deltaTimeSixteenthNote;
 numsMeasurePieceOfSixteenthNote = round(numsMeasurePieceOfSixteenthNote);
+notesLength = zeros(numsMeasurePieceOfSixteenthNote,1);
 notesPitch = zeros(numsMeasurePieceOfSixteenthNote,1);
 notesVelocity = zeros(numsMeasurePieceOfSixteenthNote,1);
 %% PREPARE to translate the delta time of note to chrom struct infomation
@@ -43,11 +44,21 @@ for measureDirection = measureStartNote : measureEndNote
     numOfStartFromOne = round(numOfStartFromOne);
     numOfEndFromOne = round(numOfEndFromOne);
     
+    findnonzero = notesTimeMaping(numOfStartFromOne,:);
+    noteNumCount = find(findnonzero,1,'last');
+    noteNumCount = noteNumCount + 1;
+    if  isempty(noteNumCount) ==1
+        noteNumCount = 1;
+    end 
+    
+    %{
     if  notesTimeMaping(numOfStartFromOne : numOfEndFromOne,noteNumCount)~=0
         noteNumCount = noteNumCount+1;      
     else
-        noteNumCount=1;
+        noteNumCount =1;
     end
+    %}
+    
     %{
     %trace the error about notelength is not integer
      disp('numsSixteenthNote  ')
@@ -78,7 +89,9 @@ for measureDirection = measureStartNote : measureEndNote
     numOfTotal = numOfEndFromOne - numOfStartFromOne + 1;
     x = ones(numOfTotal,1);
     notesTimeMaping(numOfStartFromOne : numOfEndFromOne,noteNumCount) = x;
-    %give the note start info
+    %% give the note start info
+    %give note length 
+    notesLength(numOfStartFromOne : numOfEndFromOne,noteNumCount)=numOfTotal;
     %if we got the note start, we give the new pitch here
     %or we give the zero on it.
     notesNoteCutMaping(numOfStartFromOne : numOfEndFromOne,noteNumCount) = 0;
@@ -116,15 +129,16 @@ for i = 1 : notesTimeMapingLength(1,1)
         if numOfSameTimeNote(i,1) ~= 0
             %if notes length then 1 block of sixteenth
             if numOfSameTimeNote(i,1)>1
-                countMultiSustain=0;
                 for j = 1:numOfSameTimeNote(i,1)
                      if notesNoteCutMaping(i,j) == notesPitch(i,j)
                         %the next diff note start
-                        notesInTheMeasure(count,4) = notesPitch(i,j);
+                        notesInTheMeasure(count,5) = notesPitch(i,j);
+                        notesInTheMeasure(count,3) =  notesLength(i,j);
+   
                      else
                         %note length extended
-                        notesInTheMeasure(count,4) = -2 + countMultiSustain;
-                        countMultiSustain=countMultiSustain-1;
+                        notesInTheMeasure(count,5) = notesPitch(i,j);
+                        notesInTheMeasure(count,3) = 0;
                      end
                         %block of sixteenth is empty , give the rest note 
                         count = count+1;
@@ -132,16 +146,18 @@ for i = 1 : notesTimeMapingLength(1,1)
             else
                 if notesNoteCutMaping(i,1) == notesPitch(i,1)
                     %the next diff note start
-                    notesInTheMeasure(count,4) = notesPitch(i,1);
+                    notesInTheMeasure(count,5) = notesPitch(i,1);
+                    notesInTheMeasure(count,3) =  notesLength(i,1);
                 else
                      %note length extended
-                     notesInTheMeasure(count,4) = -2;
+                     notesInTheMeasure(count,5) = notesPitch(i,1);
+                     notesInTheMeasure(count,3) = 0;
                 end
                 %block of sixteenth is empty , give the rest note   
                     count = count+1;
             end
         else
-            notesInTheMeasure(count,4) = -1;
+            notesInTheMeasure(count,5) = -1;
             count = count+1;
         end
 end
@@ -179,15 +195,15 @@ for i = 1 : notesTimeMapingLength(1,1)
     % like this rule
     
     if numOfSameTimeNote(i,1) ==1
-        notesInTheMeasure(count,3) = fix(notesPitch(i,1)/12);
-        notesInTheMeasure(count,5) = notesVelocity(i,1);
+        notesInTheMeasure(count,4) = fix(notesPitch(i,1)/12);
+        notesInTheMeasure(count,6) = notesVelocity(i,1);
         count = count+1;
     elseif numOfSameTimeNote(i,1) ==0
         count = count+1;
     else
         for j = 1 : numOfSameTimeNote(i,1)
-            notesInTheMeasure(count,3) = fix(notesPitch(i,j)/12);
-            notesInTheMeasure(count,5) = notesVelocity(i,j);
+            notesInTheMeasure(count,4) = fix(notesPitch(i,j)/12);
+            notesInTheMeasure(count,6) = notesVelocity(i,j);
             count = count+1;
         end
     end
