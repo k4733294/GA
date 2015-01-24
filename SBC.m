@@ -1,4 +1,4 @@
-function sampleFrameChoice = SBC(gaDat,pBeat,sampleNumChoice)
+function sampleFrameChoice = SBC(gaDat,pMeasure,pBeat,sampleNumChoice)
 
 %%get which sample we want  and which position in beat area;
-sampleFrameChoice = gaDat.chordImportInfo.measure.beat(sampleNumChoice,pBeat);
+sampleFrameChoice = gaDat.chordImportInfo(1,sampleNumChoice).measure(1,pMeasure).beat(1,pBeat);

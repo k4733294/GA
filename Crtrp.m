@@ -4,14 +4,14 @@ function gaDat = Crtrp(gaDat)
 for i = 1 : 6
     a = 'title';
     if i <=5
-        a = strcat(gaDat.chordImportInfo(i).exportVersion,'.mid');
+        a = strcat(gaDat.chordimportinfo(i).exportVersion,'.mid');
        
         midi = readmidi(a);
     else
-        a = strcat(gaDat.mainImportInfo.exportVersion,'.mid');
+        a = strcat(gaDat.mainimportinfo.exportVersion,'.mid');
         midi = readmidi(a);
     end
-Notes = midiInfo(midi,0);
+Notes = midiinfo(midi,0);
 [PR,t,nn] = piano_roll(Notes,1);
 figure;
 imagesc(t,nn,PR);
@@ -22,77 +22,76 @@ ylabel('note number');
    
 end
 %}
-
 %% get the SAMPLE  infomation  about measureLengthNoteNum
 %rhythmNum =1;
-%gaDat.chordImportInfo(rhythmNum);
-%deltaTimeSixteenthNote = gaDat.chordImportInfo(rhythmNum).ticksPerQuarterNote/4;
-%measureLengthNoteNum=gaDat.chordImportInfo(rhythmNum).meausreLength/deltaTimeSixteenthNote;
+%gaDat.chordimportinfo(rhythmNum);
+%deltaTimeSixteenthNote = gaDat.chordimportinfo(rhythmNum).ticksPerQuarterNote/4;
+%measureLengthNoteNum=gaDat.chordimportinfo(rhythmNum).meausreLength/deltaTimeSixteenthNote;
 
 %% Change sample tonal here
-endCI = size(gaDat.chordImportInfo,2);
-for i = 1 : endCI
-    tonalEqual = gaDat.mainImportInfo.tonal == gaDat.chordImportInfo(1,1).tonal;
+%{
+endCi = size(gaDat.chordimportinfo,2);
+for i = 1 : endCi
+    tonalEqual = gaDat.mainimportinfo.tonal == gaDat.chordimportinfo(1,1).tonal;
     
     if tonalEqual(1,1) == 1 && tonalEqual(2,1) == 1
         %do not use Transportmeasure to the same tonal
     else
-        chordImportInfo = gaDat.chordImportInfo(1,endCI);
-        mainImportInfo = gaDat.mainImportInfo;
-        gaDat = Transportmeasure(mainImportInfo,chordImportInfo);
+        chordimportinfo = gaDat.chordimportinfo(1,endCi);
+        mainimportinfo = gaDat.mainimportinfo;
+        gaDat = Transportmeasure(mainimportinfo,chordimportinfo);
     end
 end
+%}
+%% Ranking Notes In Bar
+   % evaluate priority of notes
+notesRank = RankingNotes(gaDat);
 %% loop detail:
 %{
     bar is loop unit
     4/4 got 4 bar in measure 
-    we think about every  1 3 bar in measure have chance to rand
-    
+    we think about every  1 3 bar in measure have chance to rand  
 %}
 %% loop the measure length choice the " bar " first 
-%%got ref from  mainImportInfo.measure.beat
-numMainMeasureBeat = size(gaDat.mainImportInfo.measure.beat,2);
+%%got ref from  mainimportinfo.measure.beat
+numMainMeasure = size(gaDat.mainimportinfo.measure,2);
+numMainMeasureBeat = size(gaDat.mainimportinfo.measure.beat,2);
 %chromesome = numMainMeasureBeat
-for i  = 1 : numMainMeasureBeat
-%% rand choicing sample from importsamplebeat or defaultsamplebeat
-%%setting probability   importsamplebeat 20%  defautsamplebeat 80%
-samplePropertiesChoice = randi([1 100]);
-    if samplePropertiesChoice > 20
-        %%choice from defaultsample 
-        samplePropertiesChoice = 1;
-    else
-        %%choice from importsample 
-        samplePropertiesChoice = 0;
-    end
-%% sample choiced
-%choice which frame in that properties we want    
-    sampleNumChoice = SPC(gaDat,samplePropertiesChoice);
-%choice Data Actually from 
-    sampleFrameChoice = SBC(gaDat,i,sampleNumChoice);
-%% evaluate priority of notes in bar
-    notePriority = NotePriorityCal(gaDat,sampleNumChoice,sampleFrameChoice);
-%% adjust the chord by high priority notes in bar
-    sampleFrameChoice = SampleFrameChoiceTranslate(gaDat,i,sampleNumChoice,sampleFrameChoice,notePriority);
-%% added to chromesome at struct of mesure bar note(mbn)
-    gaDat = AddtoChomesome(gaDat,sampleFrameChoice);
-%% adjust bar loop position
+for pMeasure = 1 : numMainMeasure
+    for pBeat  = 1 : numMainMeasureBeat
+    %% rand choicing sample from importsamplebeat or defaultsamplebeat
+    % setting probability   importsamplebeat 20%  defautsamplebeat 80%
+        samplePropertiesChoice = getRandSampleProperties();
+    %% sample choiced
+    %choice which frame in that properties we want    
+        sampleNumChoice = SPC(gaDat,samplePropertiesChoice);
+    %choice Data Actually from 
+        sampleFrameChoice = SBC(gaDat,pMeasure,pBeat,sampleNumChoice);
+    %% evaluate priority of notes in bar
+        notePriorityInBeat = ChooseNotesPriorityInBeat(notesRank,pMeasure,pBeat);
+    %% adjust the chord by high priority notes in bar
+        sampleFrameChoice = SampleFrameChoiceTranslate(gaDat,pBeat,sampleNumChoice,sampleFrameChoice,notePriorityInBeat);
+    %% added to chromesome at struct of mesure bar note(mbn)
+        gaDat = AddtoChomesome(gaDat,sampleFrameChoice);
+    %% adjust bar loop position
 
+    end
 end
  
 %% 
 %{
 %get measure nums
-size(gaDat.mainImportInfo.measure,2)
+size(gaDat.mainimportinfo.measure,2)
 %get measure noteContent total nums
-size(gaDat.mainImportInfo.measure.noteContent,1)
+size(gaDat.mainimportinfo.measure.noteContent,1)
 %get beat in measure nums
-size(gaDat.mainImportInfo.measure.beat,2)
+size(gaDat.mainimportinfo.measure.beat,2)
 %get beat noteContent total nums
-size(gaDat.mainImportInfo.measure.beat(1,1).noteContent,1)
+size(gaDat.mainimportinfo.measure.beat(1,1).noteContent,1)
 %get note in beat in measure nums
-size(gaDat.mainImportInfo.measure.beat(1,1).note,2)
+size(gaDat.mainimportinfo.measure.beat(1,1).note,2)
 %get note noteContent total nums
-size(gaDat.mainImportInfo.measure.beat(1,1).note(1,1).noteContent,1)
+size(gaDat.mainimportinfo.measure.beat(1,1).note(1,1).noteContent,1)
 %}
 %% find something eiganvalue at diffrent length in notes
 % eigan1
@@ -117,9 +116,9 @@ block  == bar = Denominator
 beat  Numerator
 note  4 = base 1/16 unit of note leangth
 
-midiInfoStruct.Measure(mLtemp).noteContent(mcount,:) 
-midiInfoStruct.Measure(mLtemp).beat(bLtemp).noteContent(bcount,:) 
-midiInfoStruct.Measure(mLtemp).beat(bLtemp).note(nLtemp).noteContent(ncount,:) 
+midiinfoStruct.Measure(mLtemp).noteContent(mcount,:) 
+midiinfoStruct.Measure(mLtemp).beat(bLtemp).noteContent(bcount,:) 
+midiinfoStruct.Measure(mLtemp).beat(bLtemp).note(nLtemp).noteContent(ncount,:) 
 
 %}
 %{
@@ -128,10 +127,10 @@ midiInfoStruct.Measure(mLtemp).beat(bLtemp).note(nLtemp).noteContent(ncount,:)
       chromesome     measure        ::notedata::
                                                      beatNote      ::notedata::
                                                                              note           ::notedata::
-                                                   otherCalInfo.... 
-                                                                       otherCalInfo.....
-                                                                                              otherCalInfo.... 
- ::notedata:: variable is NotesInfo             
+                                                   otherCalinfo.... 
+                                                                       otherCalinfo.....
+                                                                                              otherCalinfo.... 
+ ::notedata:: variable is Notesinfo             
 %}
 
 %gaDat.Chrom=AdjustMeasureLength(gaDat);
@@ -139,25 +138,25 @@ midiInfoStruct.Measure(mLtemp).beat(bLtemp).note(nLtemp).noteContent(ncount,:)
 function Chrom=AdjustMeasureLength(gaDat)
 
 number=gaDat.populationSize;
-rhythmNumber = gaDat.chordImportInfoRhythmNum;
-mNITMs=size(gaDat.mainImportInfo.notesInTheMeasure,1);
-cNITMs=size(gaDat.chordImportInfo(rhythmNumber).notesInTheMeasure,1);
+rhythmNumber = gaDat.chordimportinfoRhythmNum;
+mNiTMs=size(gaDat.mainimportinfo.notesinTheMeasure,1);
+cNiTMs=size(gaDat.chordimportinfo(rhythmNumber).notesinTheMeasure,1);
 
 for i = 1 : number
 count=1;
-    if cNITMs>mNITMs
-          Chrom(number).chromNotes(1:mNITMs,:) = gaDat.chordImportInfo(rhythmNumber).notesInTheMeasure(1:mNITMs,:);
-    elseif cNITMs<mNITMs
-        for i= 1 : mNITMs
-                Chrom(number).chromNotes(i,:) = gaDat.chordImportInfo(rhythmNumber).notesInTheMeasure(count,:);
-                if count == cNITMs
+    if cNiTMs>mNiTMs
+          Chrom(number).chromNotes(1:mNiTMs,:) = gaDat.chordimportinfo(rhythmNumber).notesinTheMeasure(1:mNiTMs,:);
+    elseif cNiTMs<mNiTMs
+        for i= 1 : mNiTMs
+                Chrom(number).chromNotes(i,:) = gaDat.chordimportinfo(rhythmNumber).notesinTheMeasure(count,:);
+                if count == cNiTMs
                     count=1;
                 else
                     count=count+1;
                 end
         end
     else
-         Chrom(number).chromNotes= gaDat.chordImportInfo(rhythmNumber).notesInTheMeasure;
+         Chrom(number).chromNotes= gaDat.chordimportinfo(rhythmNumber).notesinTheMeasure;
     end
 end
 %}
