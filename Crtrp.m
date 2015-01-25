@@ -1,4 +1,5 @@
 function gaDat = Crtrp(gaDat)
+load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat.mat');
 %% view the every clip sample output  mainmelo & chord import
 %{
 for i = 1 : 6
@@ -23,11 +24,12 @@ ylabel('note number');
 end
 %}
 %% get the SAMPLE  infomation  about measureLengthNoteNum
+%{
 %rhythmNum =1;
 %gaDat.chordimportinfo(rhythmNum);
 %deltaTimeSixteenthNote = gaDat.chordimportinfo(rhythmNum).ticksPerQuarterNote/4;
 %measureLengthNoteNum=gaDat.chordimportinfo(rhythmNum).meausreLength/deltaTimeSixteenthNote;
-
+%}
 %% Change sample tonal here
 %{
 endCi = size(gaDat.chordimportinfo,2);
@@ -53,9 +55,9 @@ notesRank = RankingNotes(gaDat);
     we think about every  1 3 bar in measure have chance to rand  
 %}
 %% loop the measure length choice the " bar " first 
-%%got ref from  mainimportinfo.measure.beat
-numMainMeasure = size(gaDat.mainimportinfo.measure,2);
-numMainMeasureBeat = size(gaDat.mainimportinfo.measure.beat,2);
+%   got ref from  mainimportinfo.measure.beat
+numMainMeasure = size(gaDat.mainImportinfo.measure,2);
+numMainMeasureBeat = size(gaDat.mainImportinfo.measure.beat,2);
 %chromesome = numMainMeasureBeat
 for pMeasure = 1 : numMainMeasure
     for pBeat  = 1 : numMainMeasureBeat
@@ -93,6 +95,7 @@ size(gaDat.mainimportinfo.measure.beat(1,1).note,2)
 %get note noteContent total nums
 size(gaDat.mainimportinfo.measure.beat(1,1).note(1,1).noteContent,1)
 %}
+%{
 %% find something eiganvalue at diffrent length in notes
 % eigan1
 %calculate eigan1 in every measure
@@ -108,6 +111,7 @@ size(gaDat.mainimportinfo.measure.beat(1,1).note(1,1).noteContent,1)
 %% dicide the way to edit  sample to population here
 % way 1
 % way 2
+%}
 
 %{ 
 %% ref about important variable

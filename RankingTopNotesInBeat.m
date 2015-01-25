@@ -3,8 +3,17 @@ function notesRank = RankingTopNotesInBeat(notesRank,sizeM,sizeB)
 notesRankContentInBeat = notesRank.measre(1,sizeM).beat(1,sizeB).rank;
 
 %% sortByLength
-sortByLength = sort(notesRankContentInBeat(:,2),'descend');
+sortByLength = sortrows(notesRankContentInBeat,-2);
 notesRank.measre(1,sizeM).beat(1,sizeB).rankByLength= sortByLength;
 %% sortByPitch
-sortByPitch = sort(notesRankContentInBeat(:,1),'descend');
+sortByPitch = sortrows(notesRankContentInBeat,1);
 notesRank.measre(1,sizeM).beat(1,sizeB).rankByPitch= sortByPitch;
+
+
+
+%{
+b = sortrows(notesRankContentInBeat,-2);
+c = sortrows(notesRankContentInBeat,-1);
+d = sortrows(notesRankContentInBeat,[-1 -2]);
+e = sortrows(notesRankContentInBeat,[-2 -1]);
+%}

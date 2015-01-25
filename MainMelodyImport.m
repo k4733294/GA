@@ -21,6 +21,7 @@ mainImportInfo.exportVersion=version;
 mainImportInfo = Variabledefine(mainImportInfo,mainImportInfo.rhythm);
 Melodyexport(mainImportInfo,version);
 %}
+%%{
 %except added  have some error here so i try another way to import 
 mainImportInfo.Objfun='mainMelody';
 mainImportInfo.midiString = 'avicii-the_days_ft_robbie_williams.mid';
@@ -44,5 +45,4 @@ mainImportInfo.exportVersion=version;
 mainImportInfo = Variabledefine(mainImportInfo,mainImportInfo.rhythm);
 Melodyexport(mainImportInfo,version);
 %}
-a=1;
 gaDat.mainImportInfo=mainImportInfo;

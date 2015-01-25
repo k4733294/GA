@@ -16,8 +16,6 @@ initial population rules
 
 %% import which track in midi file wewant
 %%{
-%/////all variable must exist
-%{
 rhythmNum = 1;
 defaultImportInfo(rhythmNum).Objfun='defaultMelody';
 defaultImportInfo(rhythmNum).midiString = 'default1.mid';
@@ -37,9 +35,7 @@ defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
 Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
-
-%}
-%{
+%%{
 rhythmNum = 2;
 defaultImportInfo(rhythmNum).Objfun='defaultMelody';
 defaultImportInfo(rhythmNum).midiString = 'default2.mid';
@@ -59,7 +55,7 @@ defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
 Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
-%{
+%%{
 rhythmNum = 3;
 defaultImportInfo(rhythmNum).Objfun='defaultMelody';
 defaultImportInfo(rhythmNum).midiString = 'default3.mid';
@@ -79,7 +75,7 @@ defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
 Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
-%{
+%%{
 rhythmNum = 4;
 defaultImportInfo(rhythmNum).Objfun='defaultMelody';
 defaultImportInfo(rhythmNum).midiString = 'default4.mid';
@@ -99,7 +95,7 @@ defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
 Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
-%{
+%%{
 rhythmNum = 5;
 defaultImportInfo(rhythmNum).Objfun='defaultMelody';
 defaultImportInfo(rhythmNum).midiString = 'default5.mid';
@@ -119,7 +115,7 @@ defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
 Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
-%{
+%%{
 rhythmNum = 6;
 defaultImportInfo(rhythmNum).Objfun='defaultMelody';
 defaultImportInfo(rhythmNum).midiString = 'default6.mid';
@@ -139,7 +135,7 @@ defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
 Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
-%{
+%%{
 rhythmNum = 7;
 defaultImportInfo(rhythmNum).Objfun='defaultMelody';
 defaultImportInfo(rhythmNum).midiString = 'default7.mid';
@@ -159,17 +155,5 @@ defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
 Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
-%if the chordmesurelenth is not fit with mainmesurelengh , we need to
-%fitness the chordmeasurelength to main....
-%ATTATION!!!! I have not done this funtion yet.
-%{
-if defaultImportInfo.notesInTheMeasure(1,3)~=gaDat.mainImportInfo.notesInTheMeasure(1,3)
-    gaDat=Transportmeasure(gaDat);
-    defaultImportInfo.sameTonalasMainMelody = 0;
-else
-    defaultImportInfo.notesInTheMeasure(:,9)=0;
-    defaultImportInfo.notesInTheMeasure(:,10)=0;
-    defaultImportInfo.sameTonalasMainMelody = 1;
-end
-%}
+
 gaDat.defaultImportInfo=defaultImportInfo;

@@ -1,0 +1,6 @@
+function sampleFrameChoice = SampleFrameChoiceTranslate(gaDat,pBeat,sampleNumChoice,sampleFrameChoice,notePriorityInBeat)
+gaDat
+pBeat
+sampleNumChoice
+sampleFrameChoice
+notePriorityInBeat

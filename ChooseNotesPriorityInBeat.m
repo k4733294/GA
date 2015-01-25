@@ -1,15 +1,8 @@
 function notePriorityInBeat = ChooseNotesPriorityInBeat(notesRank,pMeasure,pBeat)
 
-%{
-notesRank,
-pMeasure,
-pBeat,
-samplePropertiesChoice,
-sampleNumChoice,
-sampleFrameChoice
-%}
 
-notePriorityInBeat = notesRank.measre(1,pMeasure).beat(1,pBeat).top;  
+notePriorityInBeat = notesRank.measre(1,pMeasure).beat(1,pBeat).rankByLength;  
+%notePriorityInBeat = notesRank.measre(1,pMeasure).beat(1,pBeat).rankByPitch; 
 
 
 
