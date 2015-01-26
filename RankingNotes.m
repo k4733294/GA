@@ -42,12 +42,8 @@ for i = 1 : sizeM
            end
        end
        %% filter the element empty which we do not need it
-       temp = notesRankContentInBeat;
-       totalRow=find(notesRankContentInBeat(:,1) ,1,'last' );
-       notesRankContentInBeat = temp(1:totalRow,:);
-       notesRank.measre(1,i).beat(1,j).rank = notesRankContentInBeat;
+       notesRank.measre(1,i).beat(1,j).rank = EmptyItemFilter(notesRankContentInBeat);
        %% sort the notesRank here
        notesRank = RankingTopNotesInBeat(notesRank,i,j);
    end
 end
-a=1;

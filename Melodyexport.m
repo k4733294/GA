@@ -21,15 +21,13 @@ totalDeltaTimes = mainMelody.notesInTheMeasure(i,1)*ticksPerSixteenthNote;
     else
     end
 end
-totalRow=find(M(:,1) ,1,'last' );
-resizeM = zeros(totalRow,6);
-resizeM = M(1:totalRow,:);
-
+%filter empty item in M
+resizeM = EmptyItemFilter(M);
 %midi_new = matrix2midi(resizeM,mainMelody);
 midi_new = matrix2midi(resizeM,mainMelody.ticksPerQuarterNote);
-%///////in hooshuu mac desktop
+%In hooshuu mac desktop
 fileExportPath = strcat('/Users/hooshuu/Documents/MATLAB/GA/GA_result/', version,'.mid');
-%///////in  hp letop
+%In hp letop
 %fileExportPath = strcat('C:\Users\HP\Documents\Matlab\GA\GA_result\', version,'.mid');
 writemidi(midi_new, fileExportPath);
 
