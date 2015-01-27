@@ -46,7 +46,7 @@ for i = 1 : endCi
 end
 %}
 %% Ranking Notes In Bar
-   % evaluate priority of notes
+%   evaluate priority of notes
 notesRank = RankingNotes(gaDat);
 %% CreateEmptyChromsome
 gaDat = CreateEmptyChromsome(gaDat);
@@ -65,19 +65,19 @@ numMainMeasure = size(gaDat.mainImportInfo.measure,2);
         numMainMeasureBeat = size(gaDat.mainImportInfo.measure(1,numMainMeasure).beat,2);
         for pBeat  = 1 : numMainMeasureBeat
         %% rand choicing sample from importsamplebeat or defaultsamplebeat
-        % setting probability   importsamplebeat 20%  defautsamplebeat 80%
+        %   setting probability   importsamplebeat 20%  defautsamplebeat 80%
             samplePropertiesChoice = getRandSampleProperties();
         %% sample choiced
-        %choice which frame in that properties we want    
+        %   choice which frame in that properties we want    
             sampleNumChoice = SPC(gaDat,samplePropertiesChoice);
         %choice Data Actually from 
-            sampleFrameChoice = SBC(gaDat,pMeasure,pBeat,sampleNumChoice,samplePropertiesChoice);
+            sampleFrameChoice = SBC(gaDat,pMeasure,sampleNumChoice,samplePropertiesChoice);
         %% evaluate priority of notes in bar
             notePriorityInBeat = ChooseNotesPriorityInBeat(notesRank,pMeasure,pBeat);
         %% adjust the chord by high priority notes in bar
-            sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,notePriorityInBeat);
+            sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,pBeat,notePriorityInBeat);
         %% added to chromesome at struct of mesure bar note(mbn)
-            gaDat = AddtoChomesome(gaDat,sampleNumChoice,sampleFrameChoice,pMeasure,pBeat,samplePropertiesChoice,pPopulationSize);
+            gaDat = AddtoChomesome(gaDat,pPopulationSize,pMeasure,pBeat,sampleFrameChoice);
         %% adjust bar loop position
         end
     end
