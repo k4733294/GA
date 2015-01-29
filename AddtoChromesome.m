@@ -1,4 +1,4 @@
-function gaDat = AddtoChomesome(gaDat,pPopulationSize,pMeasure,pBeat,sampleFrameChoice)
+function gaDat = AddtoChromesome(gaDat,pPopulationSize,pMeasure,pBeat,sampleFrameChoice)
 %{
 gaDat,
 sampleFrameChoice,

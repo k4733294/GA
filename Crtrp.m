@@ -77,7 +77,7 @@ numMainMeasure = size(gaDat.mainImportInfo.measure,2);
         %% adjust the chord by high priority notes in bar
             sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,pBeat,notePriorityInBeat);
         %% added to chromesome at struct of mesure bar note(mbn)
-            gaDat = AddtoChomesome(gaDat,pPopulationSize,pMeasure,pBeat,sampleFrameChoice);
+            gaDat = AddtoChromesome(gaDat,pPopulationSize,pMeasure,pBeat,sampleFrameChoice);
         %% adjust bar loop position
         end
     end
