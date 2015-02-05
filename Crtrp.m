@@ -1,5 +1,5 @@
 function gaDat = Crtrp(gaDat)
-load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat.mat');
+load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat_fixedTonal.mat');
 %% view the every clip sample output  mainmelo & chord import
 %{
 for i = 1 : 6
@@ -31,19 +31,20 @@ end
 %measureLengthNoteNum=gaDat.chordimportinfo(rhythmNum).meausreLength/deltaTimeSixteenthNote;
 %}
 %% Change sample tonal here
-%{
-endCi = size(gaDat.chordimportinfo,2);
+%%{
+endCi = size(gaDat.chordImportInfo,2);
 for i = 1 : endCi
-    tonalEqual = gaDat.mainimportinfo.tonal == gaDat.chordimportinfo(1,1).tonal;
-    
-    if tonalEqual(1,1) == 1 && tonalEqual(2,1) == 1
+    MtonalEqual = gaDat.mainImportInfo.tonal ;
+    CtonalEqual = gaDat.chordImportInfo(1,i).tonal;
+    if MtonalEqual(1,1) == CtonalEqual(1,1) && MtonalEqual(2,1) == CtonalEqual(2,1)
         %do not use Transportmeasure to the same tonal
     else
-        chordimportinfo = gaDat.chordimportinfo(1,endCi);
-        mainimportinfo = gaDat.mainimportinfo;
-        gaDat = Transportmeasure(mainimportinfo,chordimportinfo);
+        chordImportInfo = gaDat.chordImportInfo(1,i);
+        mainImportInfo = gaDat.mainImportInfo;
+        gaDat = Transportmeasure(mainImportInfo,chordImportInfo);
     end
 end
+a=1;
 %}
 %% Ranking Notes In Bar
 %   evaluate priority of notes

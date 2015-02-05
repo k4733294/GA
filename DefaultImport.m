@@ -28,8 +28,8 @@ defaultImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator co
 defaultImportInfo(rhythmNum).cosDenominator=4;
 defaultImportInfo(rhythmNum).cosNumerator=4;
 defaultImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
-defaultImportInfo(rhythmNum).cosTonal(1,1)=1;
-defaultImportInfo(rhythmNum).cosTonal(2,1)=1;
+defaultImportInfo(rhythmNum).cosTonal(1,1)=1; %C
+defaultImportInfo(rhythmNum).cosTonal(2,1)=0;%Major
 version = 'default1_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
@@ -48,8 +48,8 @@ defaultImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator co
 defaultImportInfo(rhythmNum).cosDenominator=4;
 defaultImportInfo(rhythmNum).cosNumerator=4;
 defaultImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
-defaultImportInfo(rhythmNum).cosTonal(1,1)=1;
-defaultImportInfo(rhythmNum).cosTonal(2,1)=1;
+defaultImportInfo(rhythmNum).cosTonal(1,1)=1;%C
+defaultImportInfo(rhythmNum).cosTonal(2,1)=0;%Major
 version = 'default2_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
@@ -68,8 +68,8 @@ defaultImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator co
 defaultImportInfo(rhythmNum).cosDenominator=4;
 defaultImportInfo(rhythmNum).cosNumerator=4;
 defaultImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
-defaultImportInfo(rhythmNum).cosTonal(1,1)=1;
-defaultImportInfo(rhythmNum).cosTonal(2,1)=1;
+defaultImportInfo(rhythmNum).cosTonal(1,1)=1;%C
+defaultImportInfo(rhythmNum).cosTonal(2,1)=0;%Major
 version = 'default3_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
@@ -88,8 +88,8 @@ defaultImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator co
 defaultImportInfo(rhythmNum).cosDenominator=4;
 defaultImportInfo(rhythmNum).cosNumerator=4;
 defaultImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
-defaultImportInfo(rhythmNum).cosTonal(1,1)=1;
-defaultImportInfo(rhythmNum).cosTonal(2,1)=1;
+defaultImportInfo(rhythmNum).cosTonal(1,1)=3;%D
+defaultImportInfo(rhythmNum).cosTonal(2,1)=1;%Minor
 version = 'default4_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
@@ -108,8 +108,8 @@ defaultImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator co
 defaultImportInfo(rhythmNum).cosDenominator=4;
 defaultImportInfo(rhythmNum).cosNumerator=4;
 defaultImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
-defaultImportInfo(rhythmNum).cosTonal(1,1)=1;
-defaultImportInfo(rhythmNum).cosTonal(2,1)=1;
+defaultImportInfo(rhythmNum).cosTonal(1,1)=4; %A
+defaultImportInfo(rhythmNum).cosTonal(2,1)=1; %minor
 version = 'default5_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
@@ -128,8 +128,8 @@ defaultImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator co
 defaultImportInfo(rhythmNum).cosDenominator=4;
 defaultImportInfo(rhythmNum).cosNumerator=4;
 defaultImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
-defaultImportInfo(rhythmNum).cosTonal(1,1)=1;
-defaultImportInfo(rhythmNum).cosTonal(2,1)=1;
+defaultImportInfo(rhythmNum).cosTonal(1,1)=-5;%Db
+defaultImportInfo(rhythmNum).cosTonal(2,1)=0;%Major
 version = 'default6_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
@@ -148,8 +148,8 @@ defaultImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator co
 defaultImportInfo(rhythmNum).cosDenominator=4;
 defaultImportInfo(rhythmNum).cosNumerator=4;
 defaultImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
-defaultImportInfo(rhythmNum).cosTonal(1,1)=1;
-defaultImportInfo(rhythmNum).cosTonal(2,1)=1;
+defaultImportInfo(rhythmNum).cosTonal(1,1)=4;%A
+defaultImportInfo(rhythmNum).cosTonal(2,1)=1;%minor
 version = 'default7_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);

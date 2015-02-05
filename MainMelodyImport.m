@@ -39,7 +39,7 @@ mainImportInfo.cosDenominator=4;
 mainImportInfo.cosNumerator=4;
 mainImportInfo.forcecosTonal = 1; %%force use the cosTonal 1 = true
 mainImportInfo.cosTonal(1,1)=1;
-mainImportInfo.cosTonal(2,1)=1;
+mainImportInfo.cosTonal(2,1)=0;
 version = 'main_avicii-the_days_ft_robbie_williams_Output';
 mainImportInfo.exportVersion=version;
 mainImportInfo = Variabledefine(mainImportInfo,mainImportInfo.rhythm);

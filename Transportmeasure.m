@@ -1,15 +1,11 @@
 function gaDat=Transportmeasure(mainImportInfo,chordImportInfo)
-%notesInTheMeasure(i,3)  tonal 
-%notesInTheMeasure(i,4)  pitch
-
 %% give the tonal 
 %the rule is
 %                          1   2   3    4     5   6      7     
 %                        'C','G','D', 'A', 'E','B',  'F#'
-%                         -1 -2   -3    -4     -5    -6    
+%                        -1 -2  -3   -4   -5   -6    
 %                       'F','Bb','Eb','Ab','Db','Gb'
 %                               major *1  minor*2   
-
 %%// here i must translate the tonal matrix to this present that i can
 %%use this struct in major minor selection in trans judgment  at  ex:49~55  
 MIT=mainImportInfo.tonal;
@@ -35,9 +31,10 @@ compareMT=0;
 %% tonaltranswheel structure we need to use later
 modWheel=[0 1 2 3 4 5 6 7 8 9 10 11];
 
+%%tonal meaning maping
 tonalMajorWheel = [-6 -5 -4 -3 -2 -1 1 2 3 4 5 6 7]; % -6 = 7 F# =Gb
 tonalMinorWheel = [-3 -2 -1 1 2 3 4 5 6 -6 -5 -4 1];
-
+%%note meaning maping
 tonalMajorWheelMod = [6 1 8 3 10 5 0 7 2 9 4 11 6]; %pitch mod 12
 tonalMinorWheelMod = [3 10 5 0 7 2 9 4 11 6 1 8 0];
 
@@ -48,6 +45,7 @@ IMTmaOrMi=0; % 0 is major ///  1 is minor
 MMTmaOrMi=0; % 0 is major ///  1 is minor
 
 %% PartA----------------------------------------------------------
+%% anlysis importMeasure is minor or major and find index in tonal"M/m"Whell
 importMeasureTonal = mod(CIT,2);
 if (importMeasureTonal == 0) %is minor and must extract from /2
     importMeasureTonal = CIT/2;  %make minor finding the content from major tonal
@@ -60,13 +58,13 @@ end
 %% give the meaning into measure tonal like
 % major c with  c  d   e   f   g  a    b   
 %                        I II III VI V VI VII
+%note meaning maping
 if  (IMTmaOrMi == 0)
     startIMTIndex= tonalMajorWheelMod(1,indexIMT);
 else
     startIMTIndex= tonalMinorWheelMod(1,indexIMT);
 end
 startIMTIndex = startIMTIndex+1;
-
 
 for i = 1 : 12
     iMTNoteMean(1,i) = modWheel(1,startIMTIndex);
@@ -129,19 +127,17 @@ else
     %do nothing
 end
 
-
 %% START translate every note
-
 %%need to fix the notesInTheMeasure(i,7) notesInTheMeasure(i,8) meaning
 %%here
 sizeNITM = size(notesInTheMeasure,1);
 for i = 1 : sizeNITM
-    if (notesInTheMeasure(i,4)~=-2 && notesInTheMeasure(i,4)~=-1)
+    if (notesInTheMeasure(i,5)~=-2 && notesInTheMeasure(i,5)~=-1)
     %FORpartA----------------------------------------------------------
-        modNITM=mod(notesInTheMeasure(i,4),12);
+        modNITM=mod(notesInTheMeasure(i,5),12);
         notesInTheMeasure(i,7)= find(iMTNoteMean==modNITM);
     %FORpartB----------------------------------------------------------
-        tranNow=(notesInTheMeasure(i,4)+compareMT);
+        tranNow=(notesInTheMeasure(i,5)+compareMT);
         tranNow=mod(tranNow,12);
         notesInTheMeasure(i,8)=notesInTheMeasure(i,3)*12+tranNow;
     else

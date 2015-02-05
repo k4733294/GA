@@ -33,7 +33,7 @@ else
         disp('rhthm import leak timeSignatureDenominator timeSignatureNumerator')
         disp('sample name')
         disp(midiInfoStruct.midiString) 
-        pause
+        %pause
         %////add custom info to sample
         midiInfoStruct.timeSignatureDenominator =midiInfoStruct.cosDenominator;
         midiInfoStruct.timeSignatureNumerator = midiInfoStruct.cosNumerator;
@@ -53,7 +53,6 @@ if forcecosTonal == 1
     midiInfoStruct.tonal(1,1) =midiInfoStruct.cosTonal(1,1);
     midiInfoStruct.tonal(2,1) = midiInfoStruct.cosTonal(2,1);
     disp('mom im here!! midiInfoStruct.forcecosTonal == true' );
-     a=1;
 else
     if isfield(midiInfoStruct,'tonal') ~= 1 || isequal(midiInfoStruct.tonal,tmp)==1 || isequal(midiInfoStruct.tonal,tmp2)==1
         disp('tonal slot have one is 0 ')
@@ -72,9 +71,8 @@ else
           b= size(midiInfoStruct.tonal)
           pause
           end
-
         %}
-        pause
+        %pause
         %////add custom info to sample
         midiInfoStruct.tonal(1,1) =midiInfoStruct.cosTonal(1,1);
         midiInfoStruct.tonal(2,1) = midiInfoStruct.cosTonal(2,1);
