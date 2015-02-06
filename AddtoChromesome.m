@@ -7,7 +7,6 @@ pBeat
 samplePropertiesChoice
 %}
 
-
  %% Beat layer and below info we changed to which we create here
   gaDat.chromsome(1,pPopulationSize).measure(1,pMeasure).beat(1,pBeat) = sampleFrameChoice.beat(1,pBeat);
  %% before the beat layer info , we need to add in , ex measure notecontent

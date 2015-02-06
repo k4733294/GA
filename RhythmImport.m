@@ -85,8 +85,7 @@ midiInfoStruct = Numofmeasure(midiInfoStruct);
 % transport the tonal to same as main melody
 midiInfoStruct = Getmeasurecontent(midiInfoStruct);
 
-%% translate notetable from noteimport to chromesome bar beat note layer struct
-midiInfoStruct = NoteTableToBarBeatNoteStruct(midiInfoStruct);
+
 
 
 
