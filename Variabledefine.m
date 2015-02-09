@@ -11,7 +11,7 @@ chordImportInfo(rhythmNum).stementLength = chordImport.stementLength;
 chordImportInfo(rhythmNum).meausreLength = chordImport.meausreLength;
 chordImportInfo(rhythmNum).notesInTheMeasure = chordImport.notesInTheMeasure;
 chordImportInfo(rhythmNum).tonal = chordImport.tonal;
-chordImportInfo(rhythmNum).measure = chordImport.measure;
+
 
 %{
 if rhythmNum ==5

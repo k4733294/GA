@@ -79,6 +79,8 @@ for i = 1 : 12
     end
 end
 %}
+%% present major or minor note meaning here
+
 
 %% PartB----------------------------------------------------------
 %SET the mainMeasure Infomation about tonal direction in cycle

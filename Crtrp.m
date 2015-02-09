@@ -1,5 +1,4 @@
 function gaDat = Crtrp(gaDat)
-load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat_fixedTonal.mat');
 %% view the every clip sample output  mainmelo & chord import
 %{
 for i = 1 : 6
@@ -23,17 +22,12 @@ ylabel('note number');
    
 end
 %}
-%% get the SAMPLE  infomation  about measureLengthNoteNum
-%{
-%rhythmNum =1;
-%gaDat.chordimportinfo(rhythmNum);
-%deltaTimeSixteenthNote = gaDat.chordimportinfo(rhythmNum).ticksPerQuarterNote/4;
-%measureLengthNoteNum=gaDat.chordimportinfo(rhythmNum).meausreLength/deltaTimeSixteenthNote;
-%}
+load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat.mat');
 %% Change chordImportInfo tonal here
-gaDat = ChangeImportTonal(gaDat);
+gaDat = ChangeImportTonal(gaDat); %important  must active
 %% translate notetable from noteimport to chromesome bar beat note layer struct
-gaDat = StructNoteTable(gaDat);
+gaDat = StructNoteTable(gaDat); %important  must active
+load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat_fixedTonal.mat');
 %% Ranking Notes In Bar
 %   evaluate priority of notes
 notesRank = RankingNotes(gaDat);
