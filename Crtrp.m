@@ -59,7 +59,7 @@ numMainMeasure = size(gaDat.mainImportInfo.measure,2);
         %% sample choiced
         %   choice which frame in that properties we want    
             sampleNumChoice = SPC(gaDat,samplePropertiesChoice);
-        %choice Data Actually from 
+        %% choice Data Actually from 
             sampleFrameChoice = SBC(gaDat,pMeasure,sampleNumChoice,samplePropertiesChoice);
         %% evaluate priority of notes in bar
             notePriorityInBeat = ChooseNotesPriorityInBeat(notesRank,pMeasure,pBeat);
