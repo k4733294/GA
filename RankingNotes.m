@@ -23,18 +23,18 @@ for i = 1 : sizeM
        for k = i : sizeNInBar
            %do not any empty notes -1
            if notesNonSort(k,5) ~= -1
-            notesPiorityCount = find(notesRankContentInBeat==notesNonSort(k,5),1);
+            notesPiorityCount = find(notesRankContentInBeat == notesNonSort(k,5),1);
             %%fine does any notes rank already write down the notesRankContentInBeat
                 if isempty(notesPiorityCount) == true
                     %% No we need to create the new notes at notesRankContentInBeat next the empty position
-                    pFirstEmptyNotesRankContentInBeat=find(notesRankContentInBeat(:,1)==0,1,'first');
+                    pFirstEmptyNotesRankContentInBeat=find(notesRankContentInBeat(:,1) == 0,1,'first');
                     notesRankContentInBeat(pFirstEmptyNotesRankContentInBeat,1) = notesNonSort(k,5);
                     %then make this note plus 1 cuz appeard once now
                     plus1 = notesRankContentInBeat(pFirstEmptyNotesRankContentInBeat,2) + 1;
                     notesRankContentInBeat(pFirstEmptyNotesRankContentInBeat,2) = plus1;
                 else
                     %% yes , we already have the note at notesRankContentInBeat and find the position about it
-                    pFirstEmptyNotesRankContentInBeat=find(notesRankContentInBeat(:,1)==notesNonSort(k,5),1,'first');
+                    pFirstEmptyNotesRankContentInBeat=find(notesRankContentInBeat(:,1) == notesNonSort(k,5),1,'first');
                     %then make this note plus 1 cuz appeard once now
                     plus1 = notesRankContentInBeat(pFirstEmptyNotesRankContentInBeat,2) + 1;
                     notesRankContentInBeat(pFirstEmptyNotesRankContentInBeat,2) = plus1;

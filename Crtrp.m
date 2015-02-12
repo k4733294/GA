@@ -22,11 +22,11 @@ ylabel('note number');
    
 end
 %}
-load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat.mat');
+%load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat.mat'); %important  must active
 %% Change chordImportInfo tonal here
-gaDat = ChangeImportTonal(gaDat); %important  must active
+%gaDat = ChangeImportTonal(gaDat); %important  must active
 %% translate notetable from noteimport to chromesome bar beat note layer struct
-gaDat = StructNoteTable(gaDat); %important  must active
+%gaDat = StructNoteTable(gaDat); %important  must active
 load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat_fixedTonal.mat');
 %% Ranking Notes In Bar
 %   evaluate priority of notes
