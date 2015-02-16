@@ -1,5 +1,7 @@
 function notesRank = RankingTopNotesInBeat(notesRank,sizeM,sizeB)
 
+
+
 notesRankContentInBeat = notesRank.measre(1,sizeM).beat(1,sizeB).rank;
 
 %% sortByLength

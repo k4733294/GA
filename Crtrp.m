@@ -28,11 +28,11 @@ end
 %% translate notetable from noteimport to chromesome bar beat note layer struct
 %gaDat = StructNoteTable(gaDat); %important  must active
 load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat_fixedTonal.mat');
-%% Ranking Notes In Bar
-%   evaluate priority of notes
-notesRank = RankingNotes(gaDat);
 %% CreateEmptyChromsome
 gaDat = CreateEmptyChromsome(gaDat);
+%% Ranking Notes In Bar
+%   evaluate priority of notes
+mainNotesRank = RankingNotes(gaDat);
 %% loop detail:
 %{
     bar is loop unit
@@ -56,7 +56,7 @@ numMainMeasure = size(gaDat.mainImportInfo.measure,2);
         %% choice Data Actually from 
             sampleFrameChoice = SBC(gaDat,pMeasure,sampleNumChoice,samplePropertiesChoice);
         %% evaluate priority of notes in bar
-            notePriorityInBeat = ChooseNotesPriorityInBeat(notesRank,pMeasure,pBeat);
+            notePriorityInBeat = ChooseNotesPriorityInBeat(mainNotesRank,pMeasure,pBeat);
         %% adjust the chord by high priority notes in bar
         %got main tonal 
             mainTonal = gaDat.mainImportInfo.tonal;
