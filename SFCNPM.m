@@ -1,6 +1,5 @@
 function notesRank = SFCNPM(sampleFrameChoice)
-
-%% 
+ 
     sizeB = size(sampleFrameChoice.beat,2);
    %loop beat
    for j = 1 : sizeB
@@ -39,4 +38,3 @@ function notesRank = SFCNPM(sampleFrameChoice)
        %% filter the element empty which we do not need it
        notesRank.beat(1,j).rank = EmptyItemFilter(notesRankContentInBeat);
    end
-   a=1;
