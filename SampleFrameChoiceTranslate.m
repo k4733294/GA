@@ -1,9 +1,10 @@
-function sampleFrameChoice = SampleFrameChoiceTranslate(mainTonal,sampleFrameChoice,pBeat,notePriorityInBeat,sfcNPMatrix)
+function sampleFrameChoice = SampleFrameChoiceTranslate(mainTonal,sampleFrameChoice,pBeat,notePriorityInBeat)
 
 mainTonal;
 sampleFrameChoice;
 pBeat;
 notePriorityInBeat;
+
 major = [1 3 5 6 8 10 12]; %  f f h f f f 
 minor = [1 3 4 6 8 9 11];   % f h f f h f
 
@@ -16,10 +17,9 @@ end
 %    create  chord array at beat frame with same note appeard counting
 sfcNPMatrix = NotePriorityMatrix(sampleFrameChoice,1);
 %% choose top high priorityBeat
-mainPriorityNotePitch = mod(notePriorityInBeat(1,1),12);
-mainPriorityNoteOctive = fix(notePriorityInBeat(1,1)/12);
+mainPriorityNote = notePriorityInBeat(1,1);
 %% choising the note in chord array ane the note is nearly mainPriorityNote
-sfcBassNote = BassNoteInChordMatrix(sfcNPMatrix,mainPriorityNotePitch,mainPriorityNoteOctive);
+sfcBassNote = BassNoteInChordMatrix(sfcNPMatrix,mainPriorityNote);
 %% shift note from note in the chord import(BassNote) to the mainpprioritynote
 sizeOfSFC = size(sampleFrameChoice.beat(1,pBeat).noteContent,1);
 for i = 1 : sizeOfSFC

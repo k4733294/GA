@@ -35,7 +35,8 @@ for i = 1 : sizeM
        end
        %% filter the element empty which we do not need it
        notesRank.measre(1,i).beat(1,j).rank = EmptyItemFilter(notesRankContentInBeat);
+       %% sort the notesRank here
+       notesRank = RankingTopNotesInBeat(notesRank,i,j);
    end
-   %% sort the notesRank here
-    notesRank = RankingTopNotesInBeat(notesRank,i,j);
+
 end

@@ -21,6 +21,12 @@ function notesRank = SFCNPM(sampleFrameChoice)
                     %then make this note plus 1 cuz appeard once now
                     plus1 = notesRankContentInBeat(pFirstEmptyNotesRankContentInBeat,2) + 1;
                     notesRankContentInBeat(pFirstEmptyNotesRankContentInBeat,2) = plus1;
+                    %give the note divided we got Quotient & Remainder
+                    %represent the octative and pitch
+                    %Quotient means octative 
+                    notesRankContentInBeat(pFirstEmptyNotesRankContentInBeat,3) = fix(notesNonSort(k,5)/12);
+                    %Remainder means pitch
+                    notesRankContentInBeat(pFirstEmptyNotesRankContentInBeat,4) = mod(notesNonSort(k,5),12);
                 else
                     %% yes , we already have the note at notesRankContentInBeat and find the position about it
                     pFirstEmptyNotesRankContentInBeat=find(notesRankContentInBeat(:,1) == notesNonSort(k,5),1,'first');
@@ -33,3 +39,4 @@ function notesRank = SFCNPM(sampleFrameChoice)
        %% filter the element empty which we do not need it
        notesRank.beat(1,j).rank = EmptyItemFilter(notesRankContentInBeat);
    end
+   a=1;
