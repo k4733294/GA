@@ -18,8 +18,10 @@ end
 sfcNPMatrix = NotePriorityMatrix(sampleFrameChoice,1);
 %% choose top high priorityBeat
 mainPriorityNote = notePriorityInBeat(1,1);
+%% sample tonal used to be complement
+sTonal = sampleFrameChoice.tonal;
 %% choising the note in chord array ane the note is nearly mainPriorityNote
-sfcBassNote = BassNoteInChordMatrix(sfcNPMatrix,mainPriorityNote);
+sfcBassNote = BassNoteInChordMatrix(sfcNPMatrix,sTonal,tonalWheel);
 %% shift note from note in the chord import(BassNote) to the mainpprioritynote
 sizeOfSFC = size(sampleFrameChoice.beat(1,pBeat).noteContent,1);
 for i = 1 : sizeOfSFC

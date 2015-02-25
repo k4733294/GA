@@ -1,11 +1,12 @@
-function sfcBassNote = BassNoteInChordMatrix(sfcNPMatrix,mainPriorityNote)
+function sfcBassNote = BassNoteInChordMatrix(sfcNPMatrix,sTonal,tonalWheel)
 
 load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/notesRank.mat'); 
 
-mainPriorityNote
+sfcNPMatrix
+sTonal
+tonalWheel
 
 %find 
-
     sizeB = size(sfcNPMatrix.beat,2);
    %loop beat
 for j = 1 : sizeB 
