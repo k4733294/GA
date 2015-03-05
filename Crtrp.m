@@ -58,7 +58,7 @@ numMainMeasure = size(gaDat.mainImportInfo.measure,2);
         %% evaluate priority of notes in bar
             notePriorityInBeat = ChooseNotesPriorityInBeat(mainNotesRank,pMeasure,pBeat);
         %% adjust the chord by high priority notes in bar
-        %got main tonal 
+        % got main tonal 
             mainTonal = gaDat.mainImportInfo.tonal;
             sampleFrameChoice = SampleFrameChoiceTranslate(mainTonal,sampleFrameChoice,pBeat,notePriorityInBeat);
         %% added to chromesome at struct of mesure bar note(mbn)
