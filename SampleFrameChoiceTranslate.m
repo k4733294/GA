@@ -34,9 +34,9 @@ sTonal = sampleFrameChoice.tonal;
 sfcNPMatrix = NotePriorityMatrix(sampleFrameChoice,1);
 %% choising the note in chord array ane the note is nearly mainPriorityNote
 sfcNPMatrix = BassNoteInChordMatrix(sfcNPMatrix,sTonal,tonalWheel);
+%%
+samplePriorityNote = 0;
 %% find which note is top weighted
-samePitch = 0; 
-samePitchMatrix = [100,3];  
 sameWeight = 0; %have counting used
 sameWeightMatrix = [100,3];
 sizeB = size(sfcNPMatrix.beat,2);
@@ -46,7 +46,7 @@ for j = 1 : sizeB
     %% top weighted note have more then 1 or not
     sizeCNM = size(choiceNoteMatrix);
     for k = 2 : sizeCNM(1,1)
-        %has any note same weight
+        %has any note same weight with topedst note weight
         if choiceNoteMatrix.sortWeight(k,1) == choiceNoteMatrix.sortWeight(1,1)
             sameWeight = sameWeight+1;
             %record which note have sameweight
@@ -54,28 +54,16 @@ for j = 1 : sizeB
             %record which note have sameweight with which pitch
             sameWeightMatrix(sameWeight,2) = choiceNoteMatrix.sortWeight(k,3);
             sameWeightMatrix(sameWeight,3) = choiceNoteMatrix.sortWeight(k,4);
-        end  
+        end
     end
-    %%  have some note is samepitch 
-    if sameWeight ~= 0
-       for n = 2 : sameWeight -1
-            if choiceNoteMatrix.sortWeight(n,3) == choiceNoteMatrix.sortWeight(1,3)
-                samePitch= samePitch+1;
-                sameWeightMatrix(sameWeight,1) = choiceNoteMatrix.sortWeight(n,1);
-                sameWeightMatrix(sameWeight,1)
-            end
-        end  
-    else
-    end
-    
+    sameWeightMatrix = EmptyItemFilter(sameWeightMatrix);
+end
 %% top weighted note have more then 1 or not
+if sameWeight>=1
     %%if true
         %%and have some note is samepitch  
         %%find which note is variable with others note then other topest note
-    
-    %%no 
-        %%any samepitch  find which note is variable with others note then other topest note
-        %%find most lower pitch
+else
     
 %%if false :only one topest note
     %    is that bassnote? maybe really bass , that means not belone chord
