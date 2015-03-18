@@ -2,7 +2,6 @@ function sampleFrameChoice = SampleFrameChoiceTranslate(mainTonal,sampleFrameCho
 
 mainTonal;
 pBeat;
-
 %{
 %%tonal meaning maping
 tonalMajorWheel = [-6 -5 -4 -3 -2 -1 1 2 3 4 5 6]; % -6 = 7 F# =Gb
@@ -25,7 +24,10 @@ tonalWheel = major;
 else
 tonalWheel = minor;
 end
-%% choose top high priorityBeat
+
+%% nil which bassnote we want
+samplePriorityNote = 0; 
+%% choose top high priorityBeat in mainmelo
 mainPriorityNote = notePriorityInBeat(1,1);
 %% sample tonal used to be complement
 sTonal = sampleFrameChoice.tonal;
@@ -34,45 +36,9 @@ sTonal = sampleFrameChoice.tonal;
 sfcNPMatrix = NotePriorityMatrix(sampleFrameChoice,1);
 %% choising the note in chord array ane the note is nearly mainPriorityNote
 sfcNPMatrix = BassNoteInChordMatrix(sfcNPMatrix,sTonal,tonalWheel);
-%%
-samplePriorityNote = 0;
-%% find which note is top weighted
-sameWeight = 0; %have counting used
-sameWeightMatrix = [100,3];
-sizeB = size(sfcNPMatrix.beat,2);
-for j = 1 : sizeB
-    choiceNoteMatrix = sfcNPMatrix.beat(1,j).rank;
-    choiceNoteMatrix.sortWeight = sortrows(choiceNoteMatrix,-5);
-    %% top weighted note have more then 1 or not
-    sizeCNM = size(choiceNoteMatrix);
-    for k = 2 : sizeCNM(1,1)
-        %has any note same weight with topedst note weight
-        if choiceNoteMatrix.sortWeight(k,1) == choiceNoteMatrix.sortWeight(1,1)
-            sameWeight = sameWeight+1;
-            %record which note have sameweight
-            sameWeightMatrix(sameWeight,1) = choiceNoteMatrix.sortWeight(k,1);
-            %record which note have sameweight with which pitch
-            sameWeightMatrix(sameWeight,2) = choiceNoteMatrix.sortWeight(k,3);
-            sameWeightMatrix(sameWeight,3) = choiceNoteMatrix.sortWeight(k,4);
-        end
-    end
-    sameWeightMatrix = EmptyItemFilter(sameWeightMatrix);
-end
-%% top weighted note have more then 1 or not
-if sameWeight>=1
-    %%if true
-        %%and have some note is samepitch  
-        %%find which note is variable with others note then other topest note
-else
-    
-%%if false :only one topest note
-    %    is that bassnote? maybe really bass , that means not belone chord
-    %    properties ,is belone to bass track , we need traslate this note to
-    %    same octaive with other chord
-    %%do ::  find more octative we have at this beat trans bass note to that
-    %    octative
-    
-end
+%% 
+samplePriorityNote = BassNoteChoice(sfcNPMatrix);
+
 %% shift note from note in the chord import(BassNote) to the mainpprioritynote
 sizeOfSFC = size(sampleFrameChoice.beat(1,pBeat).noteContent,1);
 for i = 1 : sizeOfSFC
