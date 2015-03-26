@@ -33,40 +33,39 @@ gaDat = CreateEmptyChromsome(gaDat);
 %% Ranking Notes In Bar
 %   evaluate priority of notes
 mainNotesRank = RankingNotes(gaDat);
+ % got main tonal 
+mainTonal = gaDat.mainImportInfo.tonal;
 %% loop detail:
 %{
     bar is loop unit
     4/4 got 4 bar in measure 
     ***we think about every  1 3 bar in measure have chance to rand  
 %}
-
 %% loop the measure length choice the " bar " first 
 %   got ref from  mainimportinfo.measure.beat
 pS = gaDat.populationSize;
 for pPopulationSize = 1:pS
-numMainMeasure = size(gaDat.mainImportInfo.measure,2);
-%% rand choicing sample from importsamplebeat or defaultsamplebeat
+    numMainMeasure = size(gaDat.mainImportInfo.measure,2);
+    %% rand choicing sample from importsamplebeat or defaultsamplebeat
     %   setting probability   importsamplebeat 20%  defautsamplebeat 80%
-samplePropertiesChoice = getRandSampleProperties();
-%% sample choiced
-    %   choice which frame in that properties we want    
-sampleNumChoice = SPC(gaDat,samplePropertiesChoice);
-for pMeasure = 1 : numMainMeasure
-    numMainMeasureBeat = size(gaDat.mainImportInfo.measure(1,numMainMeasure).beat,2);
-    for pBeat  = 1 : numMainMeasureBeat
-    %% choice Data Actually from 
+    samplePropertiesChoice = getRandSampleProperties();
+    %% sample choiced
+    %   choice which frame in that properties we want
+    sampleNumChoice = SPC(gaDat,samplePropertiesChoice);
+    for pMeasure = 1 : numMainMeasure
+        numMainMeasureBeat = size(gaDat.mainImportInfo.measure(1,numMainMeasure).beat,2);
+        %% choice Data Actually from 
         sampleFrameChoice = SBC(gaDat,pMeasure,sampleNumChoice,samplePropertiesChoice);
-    %% evaluate priority of notes in bar
-        notePriorityInBeat = ChooseNotesPriorityInBeat(mainNotesRank,pMeasure,pBeat);
-    %% adjust the chord by high priority notes in bar
-    % got main tonal 
-        mainTonal = gaDat.mainImportInfo.tonal;
-        sampleFrameChoice = SampleFrameChoiceTranslate(mainTonal,sampleFrameChoice,pBeat,notePriorityInBeat);
-    %% added to chromesome at struct of mesure bar note(mbn)
-        gaDat = AddtoChromesome(gaDat,pPopulationSize,pMeasure,pBeat,sampleFrameChoice);
-    %% adjust bar loop position
+        cL = sampleFrameChoice.chordLength;
+        for pBeat  = 1 :cL:numMainMeasureBeat %%"cL" for step with sample chord length
+        %% evaluate priority of notes in bar
+            notePriorityInBeat = ChooseNotesPriorityInBeat(mainNotesRank,pMeasure,pBeat);
+        %% adjust the chord by high priority notes in bar
+            sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,pBeat,mainTonal,notePriorityInBeat);
+        %% added to chromesome at struct of mesure bar note(mbn)
+            gaDat = AddtoChromesome(gaDat,pPopulationSize,pMeasure,pBeat,sampleFrameChoice);
+        end
     end
-end
 end
 %% 
 %{

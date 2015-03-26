@@ -2,27 +2,32 @@ function samplePriorityNote = BassNoteChoice(sfcNPMatrix)
 %%part1, trans every rank count to the choice percent
 %%part2, choice the bassnote from percentwheel
 
-
-%% find which note is top weighted
-sameWeight = 0; %have counting used
-sameWeightMatrix = [100,3];
 for m= 1 : sizeB
-    choiceNoteMatrix = sfcNPMatrix.beat(1,m).rank;
-    choiceNoteMatrix = sortrows(choiceNoteMatrix,-5);
-    %% top weighted note have more then 1 or not
-    sizeCNM = size(choiceNoteMatrix);
-    for n = 2 : sizeCNM(1,1)
-        %has any note same weight with topedst note weight
-        if choiceNoteMatrix.sortWeight(n,1) == choiceNoteMatrix.sortWeight(1,1)
-            sameWeight = sameWeight+1;
-            %record which note have sameweight
-            sameWeightMatrix(sameWeight,1) = choiceNoteMatrix.sortWeight(n,1);
-            %record which note have sameweight with which pitch
-            sameWeightMatrix(sameWeight,2) = choiceNoteMatrix.sortWeight(n,3);
-            sameWeightMatrix(sameWeight,3) = choiceNoteMatrix.sortWeight(n,4);
-        end
+    totalSamePitchWeight = sum(sfcNPMatrix.beat(1,m).rank(:,5));
+    totalSameLengthWeight = sum(sfcNPMatrix.beat(1,m).rank(:,6));
+    totalLengthWeight = sum(sfcNPMatrix.beat(1,m).rank(:,2)); 
+    lWBonus = totalLengthWeight*0.1;
+    totalWeight = round(lWBonus)*(totalSamePitchWeight+totalSameLengthWeight);
+    
+    indexNotes = size(notesRank.beat(1,m).rank,1);
+    for n = 1 : indexNotes
+       noteWeight = sfcNPMatrix.beat(1,m).rank(n,2)+(sfcNPMatrix.beat(1,m).rank(n,5)+sfcNPMatrix.beat(1,m).rank(n,6))*lWBonus;
+       %making percentWheel create at rank row 7
+       percenWeight = noteWeight/totalWeight;
+       if n == 1
+        sfcNPMatrix.beat(1,m).rank(n-1,7) = percenWeight;
+       else
+        sfcNPMatrix.beat(1,m).rank(n-1,7) = sfcNPMatrix.beat(1,m).rank(n-1,7)+percenWeight;
+       end
     end
-    sameWeightMatrix = EmptyItemFilter(sameWeightMatrix);
+    
+    bassNoteChoice = rand();
+    WheelMatrix = sfcNPMatrix.beat(1,m).rank(:,7);
+    = Binarysearch(WheelMatrix,bassNoteChoice,indexNotes+1);
+
+    
+    
+    
 end
 
 %% top weighted note have more then 1 or not

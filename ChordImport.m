@@ -49,6 +49,7 @@ chordImportInfo(rhythmNum).cosNumerator=4;
 chordImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 chordImportInfo(rhythmNum).cosTonal(1,1)=5;    % B
 chordImportInfo(rhythmNum).cosTonal(2,1)=1;    % minor
+chordImportInfo(rhythmNum).chordLength=2;
 version = 'davidguetta_Output';
 chordImportInfo(rhythmNum).exportVersion=version;
 chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
@@ -69,6 +70,7 @@ chordImportInfo(rhythmNum).cosNumerator=4;
 chordImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 chordImportInfo(rhythmNum).cosTonal(1,1)=1; %C
 chordImportInfo(rhythmNum).cosTonal(2,1)=0; %Major
+chordImportInfo(rhythmNum).chordLength=2;
 version = 'feel so close_Output';
 chordImportInfo(rhythmNum).exportVersion=version;
 chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
@@ -89,6 +91,7 @@ chordImportInfo(rhythmNum).cosNumerator=4;
 chordImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 chordImportInfo(rhythmNum).cosTonal(1,1)=-3;  %D#  Eb
 chordImportInfo(rhythmNum).cosTonal(2,1)=1;    %minor
+chordImportInfo(rhythmNum).chordLength=2;
 version = 'hardwell_Output_test3';
 chordImportInfo(rhythmNum).exportVersion=version;
 chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
@@ -109,6 +112,7 @@ chordImportInfo(rhythmNum).cosNumerator=4;
 chordImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 chordImportInfo(rhythmNum).cosTonal(1,1)=-3; %Eb
 chordImportInfo(rhythmNum).cosTonal(2,1)=1; %minor
+chordImportInfo(rhythmNum).chordLength=2;
 version = 'AVICII LEVELS_Output';
 chordImportInfo(rhythmNum).exportVersion=version;
 chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
@@ -130,6 +134,7 @@ chordImportInfo(rhythmNum).cosNumerator=4;
 chordImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 chordImportInfo(rhythmNum).cosTonal(1,1)=1;%C
 chordImportInfo(rhythmNum).cosTonal(2,1)=0;%major
+chordImportInfo(rhythmNum).chordLength=2;
 version = 'avicii-the_days_ft_robbie_williams_Output';
 chordImportInfo(rhythmNum).exportVersion=version;
 chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
@@ -150,6 +155,7 @@ chordImportInfo(rhythmNum).cosNumerator=4;
 chordImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 chordImportInfo(rhythmNum).cosTonal(1,1)=3;%D
 chordImportInfo(rhythmNum).cosTonal(2,1)=0;%major
+chordImportInfo(rhythmNum).chordLength=2;
 version = 'tiesto-wasted_ft_matthew_koma_Output';
 chordImportInfo(rhythmNum).exportVersion=version;
 chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
@@ -170,6 +176,7 @@ chordImportInfo(rhythmNum).cosNumerator=4;
 chordImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 chordImportInfo(rhythmNum).cosTonal(1,1)=2;%G
 chordImportInfo(rhythmNum).cosTonal(2,1)=0;%Major
+chordImportInfo(rhythmNum).chordLength=2;
 version = 'calvin harris_Output';
 chordImportInfo(rhythmNum).exportVersion=version;
 chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
