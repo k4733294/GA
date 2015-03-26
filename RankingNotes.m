@@ -1,5 +1,5 @@
-function mainNotesRank = RankingNotes(gaDat)
+function mainNotesRank = RankingNotes(gaDat,cL)
 
 
- mainNotesRank = NotePriorityMatrix(gaDat,0);
+ mainNotesRank = NotePriorityMatrix(gaDat,0,cL);
  

@@ -1,4 +1,4 @@
-function notesRank = SFCNPM(sampleFrameChoice)
+function notesRank = SFCNPM(sampleFrameChoice,chordLength)
  
     sizeB = size(sampleFrameChoice.beat,2);
    %loop beat

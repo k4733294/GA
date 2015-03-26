@@ -27,14 +27,13 @@ end
 %gaDat = ChangeImportTonal(gaDat); %important  must active
 %% translate notetable from noteimport to chromesome bar beat note layer struct
 %gaDat = StructNoteTable(gaDat); %important  must active
-load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat_fixedTonal.mat');
+    load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat_fixedTonal.mat');
 %% CreateEmptyChromsome
-gaDat = CreateEmptyChromsome(gaDat);
-%% Ranking Notes In Bar
-%   evaluate priority of notes
-mainNotesRank = RankingNotes(gaDat);
+    gaDat = CreateEmptyChromsome(gaDat);
  % got main tonal 
-mainTonal = gaDat.mainImportInfo.tonal;
+    mainTonal = gaDat.mainImportInfo.tonal;
+% got MainMeasureLength
+    numMainMeasure = size(gaDat.mainImportInfo.measure,2);
 %% loop detail:
 %{
     bar is loop unit
@@ -45,23 +44,25 @@ mainTonal = gaDat.mainImportInfo.tonal;
 %   got ref from  mainimportinfo.measure.beat
 pS = gaDat.populationSize;
 for pPopulationSize = 1:pS
-    numMainMeasure = size(gaDat.mainImportInfo.measure,2);
     %% rand choicing sample from importsamplebeat or defaultsamplebeat
     %   setting probability   importsamplebeat 20%  defautsamplebeat 80%
-    samplePropertiesChoice = getRandSampleProperties();
+        samplePropertiesChoice = getRandSampleProperties();
     %% sample choiced
     %   choice which frame in that properties we want
-    sampleNumChoice = SPC(gaDat,samplePropertiesChoice);
+        sampleNumChoice = SPC(gaDat,samplePropertiesChoice);
+    %% choice Data Actually from 
+        sampleFrameChoice = SBC(gaDat,sampleNumChoice,samplePropertiesChoice);
+        cL = sampleFrameChoice.chordLength;
+    %% Ranking Notes In Bar
+    %   evaluate priority of notes
+        mainNotesRank = RankingNotes(gaDat,cL);
     for pMeasure = 1 : numMainMeasure
         numMainMeasureBeat = size(gaDat.mainImportInfo.measure(1,numMainMeasure).beat,2);
-        %% choice Data Actually from 
-        sampleFrameChoice = SBC(gaDat,pMeasure,sampleNumChoice,samplePropertiesChoice);
-        cL = sampleFrameChoice.chordLength;
         for pBeat  = 1 :cL:numMainMeasureBeat %%"cL" for step with sample chord length
         %% evaluate priority of notes in bar
             notePriorityInBeat = ChooseNotesPriorityInBeat(mainNotesRank,pMeasure,pBeat);
         %% adjust the chord by high priority notes in bar
-            sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,pBeat,mainTonal,notePriorityInBeat);
+            sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,pBeat,mainTonal,notePriorityInBeat,cL);
         %% added to chromesome at struct of mesure bar note(mbn)
             gaDat = AddtoChromesome(gaDat,pPopulationSize,pMeasure,pBeat,sampleFrameChoice);
         end

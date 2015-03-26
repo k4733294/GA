@@ -1,4 +1,4 @@
-function  notesRank = MainNPM(gaDat)
+function  notesRank = MainNPM(gaDat,chordLength)
 
 sizeM = size(gaDat.mainImportInfo.measure,2);
 %%
@@ -6,10 +6,10 @@ sizeM = size(gaDat.mainImportInfo.measure,2);
 for i = 1 : sizeM
    sizeB = size(gaDat.mainImportInfo.measure(1,i).beat,2);
    %loop beat
-   for j = 1 : sizeB
+   for j = 1:chordLength:sizeB
        notesRank.measre(1,i).beat(1,j).rank = zeros(100,2);   
        notesRankContentInBeat = notesRank.measre(1,i).beat(1,j).rank;
-       notesNonSort = gaDat.mainImportInfo.measure(1,i).beat(1,j).noteContent;
+       notesNonSort = gaDat.mainImportInfo.measure(1,i).beat(1,j:j+chordLength).noteContent;
        sizeNInBar = size(notesNonSort,1);
        %loop note
        for k = 1 : sizeNInBar
