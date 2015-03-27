@@ -8,7 +8,7 @@ function notesRank = SFCNPM(sampleFrameChoice,chordLength)
        notesNonSort = sampleFrameChoice.beat(1,j).noteContent;
        sizeNInBar = size(notesNonSort,1);
        %loop note
-       for k = 1 : sizeNInBar
+       for k = 1 :chordLength: sizeNInBar
           %do not any empty notes -1
            if notesNonSort(k,5) ~= -1
             notesPiorityCount = find(notesRankContentInBeat == notesNonSort(k,5),1);
