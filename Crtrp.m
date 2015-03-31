@@ -55,7 +55,7 @@ for pPopulationSize = 1:pS
         cL = sampleFrameChoice.chordLength;
     %% Ranking Notes In Bar
     %   evaluate priority of notes
-        mainNotesRank = RankingNotes(gaDat,cL);
+        mainNotesRank = NotePriorityMatrix(gaDat,cL);
     for pMeasure = 1 : numMainMeasure
         numMainMeasureBeat = size(gaDat.mainImportInfo.measure(1,numMainMeasure).beat,2);
         for pBeat  = 1 :cL:numMainMeasureBeat %%"cL" for step with sample chord length

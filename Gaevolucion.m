@@ -90,68 +90,6 @@ end
 % GaIteration(gaDat,plotGraph)
     
 %% ---------------------------------------------------------
-function FitV=Ranking(ObjV,RFun)
-% Ranking function
-if nargin==1
-    error('Ranking function needs two parameters');
-end
-
-if ~(length(ObjV(:,1))==length(RFun))
-    error('RFun have to be of the same size than ObjV.');
-end
-
-% (sum the fitness from every part of chromesome at 32 chromesome)
-[val,pos]=sort(ObjV);
-FitV(pos)=flipud(RFun);
-FitV=FitV';
-
-%% ---------------------------------------------------------
-function [SelCh,Indices]=Select(SEL_F, Chrom, FitnV, GGAP)
-% Selection Function
-if (nargin==3) %  No overlap -------------------
-    %{
-    if (SEL_F=='rws')
-        % Roulette wheel selection method
-        indices=rws(FitnV,length(FitnV));
-        SelCh=Chrom(indices,:);
-    elseif (SEL_F=='sus')
-        % Stochastic unversal sampling selection
-        indices=sus(FitnV,length(FitnV));
-        
-        SelCh=Chrom(indices,:);
-    else
-        error('Incorrect selection method');
-    end
-    %}
-elseif (nargin==4) % With overlap -----------------------------
-	% Indexes of new individuals
-    if (SEL_F=='rws')
-        indices=Rws2(FitnV,round(length(FitnV)*GGAP));
-    elseif (SEL_F=='sus')
-        %indices=Sus2(FitnV,round(length(FitnV)*GGAP));
-    else
-        error('Incorrect selection method');
-    end
-
-    if (GGAP<1) % there is overlap
-        % Members of the population to overlap
-        oldpos=(1:length(FitnV))';
-        for k=1:length(FitnV)
-            pos=round(rand*length(FitnV)+0.5);
-            % exchange indexes
-            oldpos([pos k])=oldpos([k pos]);
-        end
-        oldpos=oldpos(1:round(length(FitnV)*GGAP));
-        SelCh=Chrom;
-        SelCh(oldpos,:)=Chrom(indices,:);
-    else % more childs than parents
-        SelCh=Chrom(indices).chromNotes;
-        Indices=indices;
-    end
-else
-    error('Incorrect number of paramenters');
-end
-
 %{
 function NewChrIx=Sus2(FitnV, Nsel)
 
@@ -178,74 +116,7 @@ for i=1:Nsel
 end
 %}
 
-function NewChrlx=Rws2(FitnV,Nsel)
 
-choicednum=2;
-suma = sum(FitnV);
-sumfit(1)= FitnV(1)/suma;
 
-for i=2:Nsel
-    sumfit(i) = sumfit(i-1) + FitnV(i)/suma;
-end
-NewChrlx(Nsel,1) = 0;
-selFitnV=randi([1 100],1,choicednum);
-selFitnV=selFitnV/100;
-
-for j = 1:choicednum
-    search = selFitnV(j);
-    find = Binarysearch(sumfit,search,Nsel);
-    selFinVfind(j) = find;
-end
-
-NewChrlx = selFinVfind;
-
-function find=Binarysearch(sumfit,search,Nsel)
-
-low =1;
-high = Nsel -1;
-
-while(low<=high)
-    mid = (low + high) / 2;
-    mid = int16(mid);
-    
-    %------TESTING---------
-    %{
-    a = 'inThelowHigh---';
-    a
-    mid
-    testsumfit=sumfit(mid);
-    testsumfit
-    search
-    %}
-    %----------------------
-    
-    if (sumfit(mid)>search)
-            if (mid == low)
-              find = mid ; 
-            break
-        else    
-            midlow= mid-1;
-            if (sumfit(midlow)<search)
-                find = mid ; 
-                
-            break
-            end
-        end
-        high = mid -1;
-    elseif (sumfit(mid)<search)
-        if(mid == high)
-            find = high;
-            break
-        else
-            midlow= mid+1;
-            if (sumfit(midlow)>search)
-                find = mid ; 
-            break
-            end
-        end
-        
-        low = mid +1;
-    end
-end
 
 

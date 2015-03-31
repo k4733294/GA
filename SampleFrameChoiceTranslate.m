@@ -1,7 +1,5 @@
 function sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,pBeat,mainTonal,notePriorityInBeat,cL)
 
-mainTonal;
-pBeat;
 %{
 %%tonal meaning maping
 tonalMajorWheel = [-6 -5 -4 -3 -2 -1 1 2 3 4 5 6]; % -6 = 7 F# =Gb
@@ -33,12 +31,16 @@ mainPriorityNote = notePriorityInBeat(1,1);
 sTonal = sampleFrameChoice.tonal;
 %% get the meaning of choiced beat frame
 %    create  chord array at beat frame with same note appeard counting
-sfcNPMatrix = NotePriorityMatrix(sampleFrameChoice,1,cL);
+sfcNPMatrix = NotePriorityMatrix(sampleFrameChoice,cL,pBeat);
 %% choising the note in chord array ane the note is nearly mainPriorityNote
-sfcNPMatrix = BassNoteInChordMatrix(sfcNPMatrix,sTonal,tonalWheel);
+sfcNPMatrix = BassNoteInChordMatrix(sfcNPMatrix,pBeat);
 %% output BassNote We need
-samplePriorityNote = BassNoteChoice(sfcNPMatrix);
+samplePriorityNote = BassNoteChoice(sfcNPMatrix,pBeat);
 %% shift note from note in the chord import(BassNote) to the mainpprioritynote
+
+mainTonal;
+
+
 sizeOfSFC = size(sampleFrameChoice.beat(1,pBeat).noteContent,1);
 for i = 1 : sizeOfSFC
         sampleFrameChoice.beat(1,pBeat).noteContent(i,5) = sampleFrameChoice.beat(1,pBeat).noteContent(i,5) + notePriorityModed;  
