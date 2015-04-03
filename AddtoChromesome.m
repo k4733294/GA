@@ -1,4 +1,4 @@
-function gaDat = AddtoChromesome(gaDat,pPopulationSize,pMeasure,pBeat,sampleFrameChoice)
+function gaDat = AddtoChromesome(gaDat,pPopulationSize,pMeasure,pBeat,sampleFrameChoice,cL)
 %{
 gaDat,
 sampleFrameChoice,
@@ -6,14 +6,15 @@ pMeasure,
 pBeat
 samplePropertiesChoice
 %}
+
+for i = 1:cL
  %% Beat layer and below info we changed to which we create here
-  gaDat.chromsome(1,pPopulationSize).measure(1,pMeasure).beat(1,pBeat) = sampleFrameChoice.beat(1,pBeat);
+  gaDat.chromsome(1,pPopulationSize).measure(1,pMeasure).beat(1,pBeat+cL-1) = sampleFrameChoice.beat(1,pBeat+cL-1);
  %% before the beat layer info , we need to add in , ex measure notecontent
- 
  MforInsert = sampleFrameChoice.noteContent;
  
- fisrtBeatNumInSFC = sampleFrameChoice.beat(1,pBeat).noteContent(1,1) ;
- endBeatNumInSFC = sampleFrameChoice.beat(1,pBeat).noteContent(end,1) ;
+ fisrtBeatNumInSFC = sampleFrameChoice.beat(1,pBeat+cL-1).noteContent(1,1) ;
+ endBeatNumInSFC = sampleFrameChoice.beat(1,pBeat+cL-1).noteContent(end,1) ;
  
  IndexContentFirst = find(MforInsert(:,1) == fisrtBeatNumInSFC,1,'first');
  IndexContentEnd = find(MforInsert(:,1) == endBeatNumInSFC,1,'end');
@@ -33,6 +34,8 @@ samplePropertiesChoice
  tempMeasureNoteContent = EmptyItemFilter(tempMeasureNoteContent);
  %% Export
  gaDat.chromsome(1,pPopulationSize).measure(1,pMeasure).noteContent =  tempMeasureNoteContent;
+ gaDat.chromsome(1,pPopulationSize).measure(1,pMeasure).beat(1,pBeat+cL-1) = sampleFrameChoice.beat(1,pBeat+cL-1);
+end
 
  
  

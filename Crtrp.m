@@ -22,12 +22,12 @@ ylabel('note number');
    
 end
 %}
-%load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat.mat'); %important  must active
+load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat0402Struct.mat'); %important  must active
 %% Change chordImportInfo tonal here
-%gaDat = ChangeImportTonal(gaDat); %important  must active
+    %gaDat = ChangeImportTonal(gaDat); %important  must active
 %% translate notetable from noteimport to chromesome bar beat note layer struct
-%gaDat = StructNoteTable(gaDat); %important  must active
-    load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat_fixedTonal.mat');
+    %gaDat = StructNoteTable(gaDat); %important  must active
+%load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat_fixedTonal.mat');
 %% CreateEmptyChromsome
     gaDat = CreateEmptyChromsome(gaDat);
  % got main tonal 
@@ -64,7 +64,7 @@ for pPopulationSize = 1:pS
         %% adjust the chord by high priority notes in bar
             sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,pBeat,mainTonal,notePriorityInBeat,cL);
         %% added to chromesome at struct of mesure bar note(mbn)
-            gaDat = AddtoChromesome(gaDat,pPopulationSize,pMeasure,pBeat,sampleFrameChoice);
+            gaDat = AddtoChromesome(gaDat,pPopulationSize,pMeasure,pBeat,sampleFrameChoice,cL);
         end
     end
 end

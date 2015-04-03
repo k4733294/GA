@@ -1,6 +1,4 @@
-function sampleFrameChoice = SBC(gaDat,,sampleNumChoice,samplePropertiesChoice)
-
-
+function sampleFrameChoice = SBC(gaDat,sampleNumChoice,samplePropertiesChoice)
 if samplePropertiesChoice == 0
  %%import sample beat choice 
  sampleFrameChoice = gaDat.chordImportInfo(1,sampleNumChoice).measure(1,:);

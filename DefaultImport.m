@@ -30,7 +30,7 @@ defaultImportInfo(rhythmNum).cosNumerator=4;
 defaultImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 defaultImportInfo(rhythmNum).cosTonal(1,1)=1; %C
 defaultImportInfo(rhythmNum).cosTonal(2,1)=0;%Major
-chordImportInfo(rhythmNum).chordLength=2;
+defaultImportInfo(rhythmNum).chordLength=2;
 version = 'default1_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
@@ -51,7 +51,7 @@ defaultImportInfo(rhythmNum).cosNumerator=4;
 defaultImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 defaultImportInfo(rhythmNum).cosTonal(1,1)=1;%C
 defaultImportInfo(rhythmNum).cosTonal(2,1)=0;%Major
-chordImportInfo(rhythmNum).chordLength=2;
+defaultImportInfo(rhythmNum).chordLength=2;
 version = 'default2_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
@@ -72,7 +72,7 @@ defaultImportInfo(rhythmNum).cosNumerator=4;
 defaultImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 defaultImportInfo(rhythmNum).cosTonal(1,1)=1;%C
 defaultImportInfo(rhythmNum).cosTonal(2,1)=0;%Major
-chordImportInfo(rhythmNum).chordLength=2;
+defaultImportInfo(rhythmNum).chordLength=2;
 version = 'default3_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
@@ -93,7 +93,7 @@ defaultImportInfo(rhythmNum).cosNumerator=4;
 defaultImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 defaultImportInfo(rhythmNum).cosTonal(1,1)=3;%D
 defaultImportInfo(rhythmNum).cosTonal(2,1)=1;%Minor
-chordImportInfo(rhythmNum).chordLength=2;
+defaultImportInfo(rhythmNum).chordLength=2;
 version = 'default4_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
@@ -114,7 +114,7 @@ defaultImportInfo(rhythmNum).cosNumerator=4;
 defaultImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 defaultImportInfo(rhythmNum).cosTonal(1,1)=4; %A
 defaultImportInfo(rhythmNum).cosTonal(2,1)=1; %minor
-chordImportInfo(rhythmNum).chordLength=2;
+defaultImportInfo(rhythmNum).chordLength=2;
 version = 'default5_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
@@ -135,7 +135,7 @@ defaultImportInfo(rhythmNum).cosNumerator=4;
 defaultImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 defaultImportInfo(rhythmNum).cosTonal(1,1)=-5;%Db
 defaultImportInfo(rhythmNum).cosTonal(2,1)=0;%Major
-chordImportInfo(rhythmNum).chordLength=2;
+defaultImportInfo(rhythmNum).chordLength=2;
 version = 'default6_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
@@ -156,7 +156,7 @@ defaultImportInfo(rhythmNum).cosNumerator=4;
 defaultImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
 defaultImportInfo(rhythmNum).cosTonal(1,1)=4;%A
 defaultImportInfo(rhythmNum).cosTonal(2,1)=1;%minor
-chordImportInfo(rhythmNum).chordLength=2;
+defaultImportInfo(rhythmNum).chordLength=2;
 version = 'default7_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);

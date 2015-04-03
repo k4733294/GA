@@ -18,6 +18,7 @@ samplePriorityNote = BassNoteChoice(sfcNPMatrix,pBeat);
 
 %% init musical alphabet 
 musicalAlphabet = zeros(2,11);
+musicalAlphabetExtend = [8 9 10 11];
 %% tonal meaning maping
 tonalMajorWheel = [-6 -5 -4 -3 -2 -1 1 2 3 4 5 6]; % -6 = 7 F# =Gb
 tonalMinorWheel = [-3 -2 -1 1 2 3 4 5 6 -6 -5 -4];
@@ -51,19 +52,19 @@ end
 %   ref distance about notes main and sample 
 mainPriorityNote = mod(mainPriorityNote,12);
 samplePriorityNote = mod(samplePriorityNote,12);
-mPNoteInMAIndex = find(musicalAlphabet(1,:)==mainPriorityNote,1,'first');
-sPNoteInMAIndex = find(musicalAlphabet(1,:)==samplePriorityNote,1,'first');
-mPNoteInMA = musicalAlphabet(2,mPNoteInMAIndex);
-sPNoteInMA = musicalAlphabet(2,sPNoteInMAIndex);
+mPNoteInMAIndex = find(musicalAlphabet(2,:)==mainPriorityNote,1,'first');
+sPNoteInMAIndex = find(musicalAlphabet(2,:)==samplePriorityNote,1,'first');
+mPNoteInMA = musicalAlphabet(1,mPNoteInMAIndex);
+sPNoteInMA = musicalAlphabet(1,sPNoteInMAIndex);
 %% fix sPNoteInMA mPNoteInMA have some note not in standard Musical alphabet
-if mPNoteInMA == 8 || mPNoteInMA == 9 || mPNoteInMA == 10 || mPNoteInMA == 11
-    mPNoteInMA = musicalAlphabet(2,mPNoteInMAIndex+1);
+if isempty(find(musicalAlphabetExtend == mPNoteInMA,1,'first'))==0
+    mPNoteInMA = musicalAlphabet(1,mPNoteInMAIndex+1);
     disp('warning SampleFrameChoiceTranslate Line:61');
     disp('warning mainPriorityNote not in the standard musicalAlphabet \n');
     pause
 end
-if sPNoteInMA == 8 || sPNoteInMA == 9 || sPNoteInMA == 10 || sPNoteInMA == 11
-    sPNoteInMA = musicalAlphabet(2,sPNoteInMAIndex+1);
+if isempty(find(musicalAlphabetExtend == sPNoteInMA,1,'first'))==0
+    sPNoteInMA = musicalAlphabet(1,sPNoteInMAIndex+1);
     disp('warning SampleFrameChoiceTranslate Line:67');
     disp('warning mainPriorityNote not in the standard musicalAlphabet \n');
     pause
@@ -71,29 +72,73 @@ end
 %%   ref distance about notes main and sample 
 BassNoteDistance = sPNoteInMA - mPNoteInMA;
 %% shift note from note in the chord import(BassNote) to the mainpprioritynote
-sizeOfSFC = size(sampleFrameChoice.beat(1,pBeat).noteContent,1);
-for i = 1 : sizeOfSFC
-    noteNeedTransPitch = mod(sampleFrameChoice.beat(1,pBeat).noteContent(i,5),12);
-    noteNeedTransOct = fix(sampleFrameChoice.beat(1,pBeat).noteContent(i,5)/12);
-    noteNeedTransIndex = find(musicalAlphabet(1,:) == noteNeedTransPitch,1,'first');
-    noteNeedTransMA = musicalAlphabet(2,noteNeedTransIndex);
-%% B:: appeard noteNeedTransMA not
-%     in standar musical alphabet
-%% A:: fix noteNeedTransMA+BassNoteDistance
-%     have situation  may big than 7
-    noteNeedTransMA=noteNeedTransMA+BassNoteDistance;
-%% trans noteNeedTransMA by musical alphabet to find new translated pitch 
-    noteNeedTransPitch = musicalAlphabet(1,noteNeedTransMA);
-%% repair new pitch to origin octative
-    noteNeedTransPitch = noteNeedTransOct*noteNeedTransPitch;
-    sampleFrameChoice.beat(1,pBeat).noteContent(i,5) = noteNeedTransPitch;  
+for j = 1 : cL
+    sizeOfSFC = size(sampleFrameChoice.beat(1,pBeat+cL-1).noteContent,1);
+    for i = 1 : sizeOfSFC
+        noteNeedTransPitch = mod(sampleFrameChoice.beat(1,pBeat+cL-1).noteContent(i,5),12);
+        noteNeedTransOct = fix(sampleFrameChoice.beat(1,pBeat+cL-1).noteContent(i,5)/12);
+        noteNeedTransIndex = find(musicalAlphabet(2,:) == noteNeedTransPitch,1,'first');
+        noteNeedTransMA = musicalAlphabet(1,noteNeedTransIndex);
+    %% A:: appeard noteNeedTransMA not
+    %     in standar musical alphabet
+    %% B:: fix noteNeedTransMA+BassNoteDistance
+    %     have situation  may big than 7
+        extendIndex = find(musicalAlphabetExtend == noteNeedTransMA,1,'first');
+        if isempty(extendIndex)==0
+            transExtendIndex = extendIndex + BassNoteDistance;
+            if transExtendIndex > 4
+            transExtendIndex = transExtendIndex - 4;
+            end
+            noteNeedTransMA = musicalAlphabetExtend(1,transExtendIndex);
+        else
+            noteNeedTransMA = noteNeedTransMA + BassNoteDistance;
+            if noteNeedTransMA > 7
+                noteNeedTransMA = noteNeedTransMA - 7;
+            end
+        end
+    %% trans noteNeedTransMA by musical alphabet to find new translated pitch 
+         noteNeedTransMAIndex= find(musicalAlphabet(1,:) == noteNeedTransMA,1,'first');
+         noteNeedTransPitch = musicalAlphabet(2,noteNeedTransMAIndex);
+    %% repair new pitch to origin octative
+        noteNeedTransPitch = noteNeedTransOct*noteNeedTransPitch;
+        sampleFrameChoice.beat(1,pBeat+cL-1).noteContent(i,5) = noteNeedTransPitch;  
+    end
+    
+    sizeOfSFCN = size(sampleFrameChoice.beat(1,pBeat+cL-1).note,2);
+    for m = 1 : sizeOfSFCN
+         sizeOfSFCNContent = size(sampleFrameChoice.beat(1,pBeat+cL-1).note(1,m).noteContent,1);
+        for k = 1 : sizeOfSFCNContent
+            noteNeedTransPitch = mod(sampleFrameChoice.beat(1,pBeat+cL-1).note(1,m).noteContent(i,5),12);
+            noteNeedTransOct = fix(sampleFrameChoice.beat(1,pBeat+cL-1).note(1,m).noteContent(i,5)/12);
+            noteNeedTransIndex = find(musicalAlphabet(2,:) == noteNeedTransPitch,1,'first');
+            noteNeedTransMA = musicalAlphabet(1,noteNeedTransIndex);
+        %% A:: appeard noteNeedTransMA not
+        %     in standar musical alphabet
+        %% B:: fix noteNeedTransMA+BassNoteDistance
+        %     have situation  may big than 7
+            extendIndex = find(musicalAlphabetExtend == noteNeedTransMA,1,'first');
+            if isempty(extendIndex)==0
+                transExtendIndex = extendIndex + BassNoteDistance;
+                if transExtendIndex > 4
+                transExtendIndex = transExtendIndex - 4;
+                end
+                noteNeedTransMA = musicalAlphabetExtend(1,transExtendIndex);
+            else
+                noteNeedTransMA = noteNeedTransMA + BassNoteDistance;
+                if noteNeedTransMA > 7
+                    noteNeedTransMA = noteNeedTransMA - 7;
+                end
+            end
+        %% trans noteNeedTransMA by musical alphabet to find new translated pitch 
+             noteNeedTransMAIndex= find(musicalAlphabet(1,:) == noteNeedTransMA,1,'first');
+             noteNeedTransPitch = musicalAlphabet(2,noteNeedTransMAIndex);
+        %% repair new pitch to origin octative
+            noteNeedTransPitch = noteNeedTransOct*noteNeedTransPitch;      
+            sampleFrameChoice.beat(1,pBeat+cL-1).note(1,m).noteContent(k,5) = noteNeedTransPitch;
+        end 
+    end
+    
 end
+ 
 
-sizeOfSFCN = size(sampleFrameChoice.beat(1,pBeat).note,2);
-for j = 1 : sizeOfSFCN
-    sizeOfSFCNContent = size(sampleFrameChoice.beat(1,pBeat).note(1,j).noteContent,1);
-    for k = 1 : sizeOfSFCNContent
-        	sampleFrameChoice.beat(1,pBeat).note(1,j).noteContent(k,5) = sampleFrameChoice.beat(1,pBeat).note(1,j).noteContent(j,5) + notePriorityModed;
-    end 
-end
 
