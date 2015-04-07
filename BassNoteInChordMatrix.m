@@ -13,7 +13,7 @@ sizeChoiceNotes = size(choiceNotes);
 if sizeChoiceNotes(1,1) ~= 1
     for m = 1 : sizeChoiceNotes
     %added to rank col 5
-        if  ismember(sfcNPMatrix.beat(1,pBeat).rank(choiceNotes(m,1),5),1) == 1
+        if  exist('sfcNPMatrix.beat(1,pBeat).rank(choiceNotes(m,1),5)','var') ~= 0
             sfcNPMatrix.beat(1,pBeat).rank(choiceNotes(m,1),5) = sfcNPMatrix.beat(1,pBeat).rank(choiceNotes(m,1),5)+1;
         else
             sfcNPMatrix.beat(1,pBeat).rank(choiceNotes(m,1),5) = 1;    
@@ -33,7 +33,7 @@ sizeChoiceNotes = size(choiceNotes);
 if sizeChoiceNotes(1,1) ~= 1
     for m = 1 : sizeChoiceNotes
     %added to rank col 5
-        if  ismember(sfcNPMatrix.beat(1,pBeat).rank(choiceNotes(m,1),6),1) == 1
+        if  exist('sfcNPMatrix.beat(1,pBeat).rank(choiceNotes(m,1),6)','var') ~= 0
             sfcNPMatrix.beat(1,pBeat).rank(choiceNotes(m,1),6) = sfcNPMatrix.beat(1,pBeat).rank(choiceNotes(m,1),6)+1;
         else
             sfcNPMatrix.beat(1,pBeat).rank(choiceNotes(m,1),6) = 1;    

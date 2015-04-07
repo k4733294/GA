@@ -9,9 +9,9 @@ samplePropertiesChoice
 
 for i = 1:cL
  %% Beat layer and below info we changed to which we create here
-  gaDat.chromsome(1,pPopulationSize).measure(1,pMeasure).beat(1,pBeat+cL-1) = sampleFrameChoice.beat(1,pBeat+cL-1);
+  gaDat.chromsome(1,pPopulationSize).measure(1,pMeasure).beat(1,pBeat+cL-1) = sampleFrameChoice.measure.beat(1,pBeat+cL-1);
  %% before the beat layer info , we need to add in , ex measure notecontent
- MforInsert = sampleFrameChoice.noteContent;
+ MforInsert = sampleFrameChoice.measure.noteContent;
  
  fisrtBeatNumInSFC = sampleFrameChoice.beat(1,pBeat+cL-1).noteContent(1,1) ;
  endBeatNumInSFC = sampleFrameChoice.beat(1,pBeat+cL-1).noteContent(end,1) ;

@@ -22,12 +22,12 @@ ylabel('note number');
    
 end
 %}
-load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat0402Struct.mat'); %important  must active
+%load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat0402Struct.mat'); %important  must active
 %% Change chordImportInfo tonal here
-    %gaDat = ChangeImportTonal(gaDat); %important  must active
+   %gaDat = ChangeImportTonal(gaDat); %important  must active
 %% translate notetable from noteimport to chromesome bar beat note layer struct
     %gaDat = StructNoteTable(gaDat); %important  must active
-%load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat_fixedTonal.mat');
+load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat0402Struct.mat');
 %% CreateEmptyChromsome
     gaDat = CreateEmptyChromsome(gaDat);
  % got main tonal 
@@ -68,6 +68,7 @@ for pPopulationSize = 1:pS
         end
     end
 end
+a=1;
 %% 
 %{
 %get measure nums

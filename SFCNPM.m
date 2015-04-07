@@ -1,9 +1,9 @@
-function notesRank = SFCNPM(sampleFrameChoice,chordLength,pBeat)
+function notesRank = SFCNPM(importStruct,chordLength,pBeat)
  
 %%loop extend notes in the chord length(flexible) 
 notesNonSort = [];
 for i = pBeat:pBeat+chordLength-1
-    temp = sampleFrameChoice.beat(1,i).noteContent;
+    temp = importStruct.beat(1,i).noteContent;
     notesNonSort = cat(1,notesNonSort,temp);
 end
 
