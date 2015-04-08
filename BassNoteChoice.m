@@ -4,9 +4,9 @@ function samplePriorityNote = BassNoteChoice(sfcNPMatrix,pBeat)
 
 totalSamePitchWeight = 0;
 if exist('sfcNPMatrix.beat(1,pBeat).rank(choiceNotes(m,1),5)','var') ~= 0
-totalSamePitchWeight = sum(sfcNPMatrix.beat(1,pBeat).rank(:,5));
+    totalSamePitchWeight = sum(sfcNPMatrix.beat(1,pBeat).rank(:,5));
 else
-totalSamePitchWeight = 0;
+    totalSamePitchWeight = 0;
 end
 
 totalSameLengthWeight = 0;
@@ -17,8 +17,8 @@ else
 end
 
 totalLengthWeight = sum(sfcNPMatrix.beat(1,pBeat).rank(:,2)); 
-lWBonus = totalLengthWeight*0.1;
-totalWeight = round(lWBonus)*(totalSamePitchWeight+totalSameLengthWeight);
+lWBonus = totalLengthWeight*0.5;
+totalWeight = totalLengthWeight + round(lWBonus)*(totalSamePitchWeight+totalSameLengthWeight);
 
 indexNotes = size(sfcNPMatrix.beat(1,pBeat).rank,1);
 for n = 1 : indexNotes
@@ -41,10 +41,12 @@ for n = 1 : indexNotes
     if n == 1
         sfcNPMatrix.beat(1,pBeat).rank(1,7) = percenWeight;
    else
-        sfcNPMatrix.beat(1,pBeat).rank(n-1,7) = sfcNPMatrix.beat(1,pBeat).rank(n-1,7)+percenWeight;
+        sfcNPMatrix.beat(1,pBeat).rank(n,7) = sfcNPMatrix.beat(1,pBeat).rank(n-1,7)+percenWeight;
    end
 end
 
-bassNoteChoice = rand();
+%In general, you can generate N random numbers in the interval [a,b] with the formula r = a + (b-a).*rand(N,1).
+bassNoteChoice = -0.01*(1-0.01).*rand();
 WheelMatrix = sfcNPMatrix.beat(1,pBeat).rank(:,7);
-samplePriorityNote = Binarysearch(WheelMatrix,bassNoteChoice,indexNotes+1);
+samplePriorityNoteIndex = Binarysearch(WheelMatrix,bassNoteChoice,indexNotes+1);
+samplePriorityNote = sfcNPMatrix.beat(1,pBeat).rank(samplePriorityNoteIndex,4);

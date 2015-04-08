@@ -1,12 +1,11 @@
 function find=Binarysearch(sumfit,search,Nsel)
 
 low =1;
-high = Nsel -1;
+high = Nsel - 1;
 
 while(low<=high)
     mid = (low + high) / 2;
     mid = int16(mid);
-    
     %------TESTING---------
     %{
     a = 'inThelowHigh---';
@@ -17,16 +16,14 @@ while(low<=high)
     search
     %}
     %----------------------
-    
     if (sumfit(mid)>search)
-            if (mid == low)
+         if (mid == low)
               find = mid ; 
             break
         else    
             midlow= mid-1;
             if (sumfit(midlow)<search)
                 find = mid ; 
-                
             break
             end
         end
@@ -42,7 +39,6 @@ while(low<=high)
             break
             end
         end
-        
         low = mid +1;
     end
 end

@@ -1,4 +1,4 @@
-function notesRank = NotePriorityMatrix(importStruct,cL,qbeat)
+function notesRank = NotePriorityMatrix(importStruct,cL,pbeat)
 %load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat.mat');
 %{
 gaDat.chordImportInfo(1,sampleNumChoice).measure(1,pMeasure).beat(1,1).noteContent
@@ -14,7 +14,7 @@ if (nargin == 2)
     %using for mainchord got chordmatrix input 
     notesRank = MainNPM(importStruct,cL);   
 else
-    notesRank = SFCNPM(importStruct,cL,qbeat);
+    notesRank = SFCNPM(importStruct,cL,pbeat);
 end
 
 

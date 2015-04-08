@@ -3,16 +3,14 @@ function notesRank = SFCNPM(importStruct,chordLength,pBeat)
 %%loop extend notes in the chord length(flexible) 
 notesNonSort = [];
 for i = pBeat:pBeat+chordLength-1
-    temp = importStruct.beat(1,i).noteContent;
-    notesNonSort = cat(1,notesNonSort,temp);
+    notesNonSort = [ notesNonSort ; importStruct(1,1).beat(1,i).noteContent ];
 end
-
 sizeNInBar = size(notesNonSort,1);
 %loop beat
 notesRank.beat(1,pBeat).rank = zeros(200,2);   
 notesRankContentInBeat = notesRank.beat(1,pBeat).rank;
 %loop note
-for k = 1 :chordLength: sizeNInBar
+for k = 1 : sizeNInBar
   %do not any empty notes -1
    if notesNonSort(k,5) ~= -1
     notesPiorityCount = find(notesRankContentInBeat == notesNonSort(k,5),1);
