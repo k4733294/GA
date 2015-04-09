@@ -52,7 +52,8 @@ for pPopulationSize = 1:pS
         sampleNumChoice = SPC(gaDat,samplePropertiesChoice);
     %% choice Data Actually from 
         sampleFrameChoice = SBC(gaDat,sampleNumChoice,samplePropertiesChoice);
-        cL = sampleFrameChoice.chordLength;
+         cL = sampleFrameChoice.chordLength;
+         save('/Users/hooshuu/Documents/MATLAB/GA/struct_data/SFCBefore','sampleFrameChoice','-v7.3');
     %% Ranking Notes In Bar
     %   evaluate priority of notes
         mainNotesRank = NotePriorityMatrix(gaDat,cL);
@@ -63,13 +64,23 @@ for pPopulationSize = 1:pS
             notePriorityInBeat = ChooseNotesPriorityInBeat(mainNotesRank,pMeasure,pBeat);
         %% adjust the chord by high priority notes in bar
             sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,pBeat,mainTonal,notePriorityInBeat,cL);
-        %% added to chromesome at struct of mesure bar note(mbn)
-            gaDat = AddtoChromesome(gaDat,pPopulationSize,pMeasure,pBeat,sampleFrameChoice,cL);
         end
+        %% sampleFrameChoice fully restrut
+            sampleFrameChoice = SFCRestruct(sampleFrameChoice);
+        %% added to chromesome at struct of mesure bar note(mbn)
+            gaDat = AddtoChromesome(gaDat,pPopulationSize,pMeasure,sampleFrameChoice);
     end
-end
-a=1;
+    sampleFrameChoice = gaDat.sampleFrameChoice;
+    %save('/Users/hooshuu/Documents/MATLAB/GA/struct_data/SFCAfter','sampleFrameChoice','-v7.3');
+    %visdiff('/Users/hooshuu/Documents/MATLAB/GA/struct_data/SFCBefore.mat', '/Users/hooshuu/Documents/MATLAB/GA/struct_data/SFCAfter.mat');
+ end
+ChromsomeExport(gaDat);
 %% 
+%{
+     save('/Users/hooshuu/Documents/MATLAB/GA/struct_data/SFCBefore','sampleFrameChoice','-v7.3');
+   save('/Users/hooshuu/Documents/MATLAB/GA/struct_data/SFCAfter','sampleFrameChoice','-v7.3');
+    visdiff('/Users/hooshuu/Documents/MATLAB/GA/struct_data/SFCBefore.mat', '/Users/hooshuu/Documents/MATLAB/GA/struct_data/SFCAfter.mat');
+%}
 %{
 %get measure nums
 size(gaDat.mainimportinfo.measure,2)

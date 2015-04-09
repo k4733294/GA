@@ -1,11 +1,4 @@
 function sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,pBeat,mainTonal,notePriorityInBeat,cL)
-%{
-priorityCount
- = sTonal(1,1);
- = sTonal(1,2);
-%}
-%% nil which bassnote we want
-samplePriorityNote = 0; 
 %% choose top high priorityBeat in mainmelo
 mainPriorityNote = notePriorityInBeat(1,1);
 %% get the meaning of choiced beat frame
@@ -13,6 +6,7 @@ mainPriorityNote = notePriorityInBeat(1,1);
 sfcNPMatrix = NotePriorityMatrix(sampleFrameChoice.measure,cL,pBeat);
 %% choising the note in chord array ane the note is nearly mainPriorityNote
 sfcNPMatrix = BassNoteInChordMatrix(sfcNPMatrix,pBeat);
+%% nil which bassnote we want
 %% output BassNote We need
 samplePriorityNote = BassNoteChoice(sfcNPMatrix,pBeat);
 %% init musical alphabet 
@@ -76,12 +70,13 @@ for j = 1 : cL
     for i = 1 : sizeOfSFC
         if sampleFrameChoice.measure(1,1).beat(1,pBeat+j-1).noteContent(i,5)>=30
             noteNeedTransPitch = mod(sampleFrameChoice.measure(1,1).beat(1,pBeat+j-1).noteContent(i,5),12);
-            noteNeedTransOct = fix(sampleFrameChoice.measure(1,1).beat(1,pBeat+j-1).noteContent(i,5)/12);
+            %noteNeedTransOct = fix(sampleFrameChoice.measure(1,1).beat(1,pBeat+j-1).noteContent(i,5)/12);
+            noteNeedTransOct = sampleFrameChoice.measure(1,1).beat(1,pBeat+j-1).noteContent(i,4);
             noteNeedTransIndex = find(musicalAlphabet(2,:) == noteNeedTransPitch,1,'first');
             noteNeedTransMA = musicalAlphabet(1,noteNeedTransIndex);
             noteNeedTransPitch = NoteTrans(noteNeedTransMA,musicalAlphabet,musicalAlphabetExtend,BassNoteDistance);
             %% repair new pitch to origin octative
-            noteNeedTransPitch = noteNeedTransOct*noteNeedTransPitch;
+            noteNeedTransPitch = (noteNeedTransOct*12)+noteNeedTransPitch;
             sampleFrameChoice.measure(1,1).beat(1,pBeat+j-1).noteContent(i,5) = noteNeedTransPitch;  
         end
     end
@@ -91,12 +86,13 @@ for j = 1 : cL
         for k = 1 : sizeOfSFCNContent
             if sampleFrameChoice.measure(1,1).beat(1,pBeat+j-1).noteContent(i,5)>=30
                 noteNeedTransPitch = mod(sampleFrameChoice.measure(1,1).beat(1,pBeat+j-1).note(1,m).noteContent(k,5),12);
-                noteNeedTransOct = fix(sampleFrameChoice.measure(1,1).beat(1,pBeat+j-1).note(1,m).noteContent(k,5)/12);
+                %noteNeedTransOct = fix(sampleFrameChoice.measure(1,1).beat(1,pBeat+j-1).note(1,m).noteContent(k,5)/12);
+                noteNeedTransOct = sampleFrameChoice.measure(1,1).beat(1,pBeat+j-1).note(1,m).noteContent(k,4);
                 noteNeedTransIndex = find(musicalAlphabet(2,:) == noteNeedTransPitch,1,'first');
                 noteNeedTransMA = musicalAlphabet(1,noteNeedTransIndex);
                 noteNeedTransPitch = NoteTrans(noteNeedTransMA,musicalAlphabet,musicalAlphabetExtend,BassNoteDistance);
                 %% repair new pitch to origin octative
-                noteNeedTransPitch = noteNeedTransOct*noteNeedTransPitch;      
+                noteNeedTransPitch = (noteNeedTransOct*12)+noteNeedTransPitch;      
                 sampleFrameChoice.measure(1,1).beat(1,pBeat+j-1).note(1,m).noteContent(k,5) = noteNeedTransPitch;
             end
         end 
