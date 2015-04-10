@@ -143,7 +143,7 @@ for i = 1 : sizeNITM
         notesInTheMeasure(i,5)=notesInTheMeasure(i,4)*12+tranNow;
      %FORpartA----------------------------------------------------------
         modNITM=mod(notesInTheMeasure(i,5),12);
-        iMTNoteMeanIndex = find(iMTNoteMean==modNITM);
+        iMTNoteMeanIndex = find(iMTNoteMean==modNITM,1,'first');
         %notesInTheMeasure(i,7) = find(iMTNoteMean==modNITM);
         notesInTheMeasure(i,7) = iMTNoteMean(1,iMTNoteMeanIndex);
 end

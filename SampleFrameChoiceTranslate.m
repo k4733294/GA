@@ -38,7 +38,7 @@ for i = 1 : 12
      if loopEdge >= 12
         musicalAlphabet(2,i) = mainTonalNote + i - 1 -12;
      else
-          musicalAlphabet(2,i) = mainTonalNote + i - 1;
+        musicalAlphabet(2,i) = mainTonalNote + i - 1;
      end
 end
 %% trans Notes to the musical alphabet meaning
@@ -63,7 +63,7 @@ if isempty(findSPNoteInMA) == 0
     disp('warning samplePriorityNote not in the standard musicalAlphabet \n');
 end
 %%   ref distance about notes main and sample 
-BassNoteDistance = sPNoteInMA - mPNoteInMA;
+BassNoteDistance = mPNoteInMA - sPNoteInMA;
 %% shift note from note in the chord import(BassNote) to the mainpprioritynote
 for j = 1 : cL
     sizeOfSFC = size(sampleFrameChoice.measure(1,1).beat(1,pBeat+j-1).noteContent,1);
