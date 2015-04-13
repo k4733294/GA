@@ -4,6 +4,7 @@ if samplePropertiesChoice == 0
      sampleFrameChoice.measure = gaDat.chordImportInfo(1,sampleNumChoice).measure(1,:);
      sampleFrameChoice.tonal = gaDat.chordImportInfo(1,sampleNumChoice).tonal;
      sampleFrameChoice.chordLength = gaDat.chordImportInfo(1,sampleNumChoice).chordLength;
+     sampleFrameChoice.midiString = gaDat.chordImportInfo(1,sampleNumChoice).midiString;
      %sampleFrameChoice.timeSignatureNumerator = gaDat.chordImportInfo(1,sampleNumChoice).timeSignatureNumerator;
      %sampleFrameChoice.timeSignatureDenominator = gaDat.chordImportInfo(1,sampleNumChoice).timeSignatureDenominator;
 else
@@ -11,6 +12,8 @@ else
      sampleFrameChoice.measure = gaDat.defaultImportInfo(1,sampleNumChoice).measure(1,:);
      sampleFrameChoice.tonal = gaDat.defaultImportInfo(1,sampleNumChoice).tonal;
      sampleFrameChoice.chordLength = gaDat.defaultImportInfo(1,sampleNumChoice).chordLength;
+     sampleFrameChoice.midiString = gaDat.defaultImportInfo(1,sampleNumChoice).midiString;
+     
      %sampleFrameChoice.timeSignatureNumerator = gaDat.defaultImportInfo(1,sampleNumChoice).timeSignatureNumerator;
      %sampleFrameChoice.timeSignatureDenominator = gaDat.defaultImportInfo(1,sampleNumChoice).timeSignatureDenominator;
 end

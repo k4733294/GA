@@ -47,7 +47,7 @@ chordImportInfo(rhythmNum).forcecosDeNu = 1; %%force use the cosDenominator cosN
 chordImportInfo(rhythmNum).cosDenominator=4;
 chordImportInfo(rhythmNum).cosNumerator=4;
 chordImportInfo(rhythmNum).forcecosTonal = 1; %%force use the cosTonal 1 = true
-chordImportInfo(rhythmNum).cosTonal(1,1)=5;    % B
+chordImportInfo(rhythmNum).cosTonal(1,1)=6;    % B
 chordImportInfo(rhythmNum).cosTonal(2,1)=1;    % minor
 chordImportInfo(rhythmNum).chordLength=2;
 version = 'davidguetta_Output';

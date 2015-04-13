@@ -12,138 +12,63 @@ function notesInTheMeasure = Transportmeasure(mainImportInfo,chordImportInfo)
 %CIT= chordImportInfo.tonal;
 major =1; minor = 2;
 if mainImportInfo.tonal(2,1) == 0
-    MIT = mainImportInfo.tonal(1,1)*major;
+    MIT = major;
 else
-    MIT = mainImportInfo.tonal(1,1)*minor;
+    MIT = minor;
 end
-
 if chordImportInfo.tonal(2,1) == 0
-    CIT = chordImportInfo.tonal(1,1)*major;
+    CIT = major;
 else
-    CIT = chordImportInfo.tonal(1,1)*minor;
+    CIT = minor;
 end
-
 %%notesInTheMeasure in chordimoort we need to trans
 notesInTheMeasure = chordImportInfo.notesInTheMeasure;
 %%some infoi init
-iMTNoteMean = [];
-compareMT=0;
-%% tonaltranswheel structure we need to use later
-%                  c    d    e     f g     a      b
-modWheel=[0 1 2 3 4 5 6 7 8 9 10 11];
-                    
+mMTNoteMean = zeros(2,12);
+iMTNoteMean = zeros(2,12);
 %%tonal meaning maping
 tonalMajorWheel = [-6 -5 -4 -3 -2 -1 1 2 3 4 5 6]; % -6 = 7 F# =Gb
 tonalMinorWheel = [-3 -2 -1 1 2 3 4 5 6 -6 -5 -4];
-
 %%note meaning maping
 tonalMajorWheelMod = [6 1 8 3 10 5 0 7 2 9 4 11]; %pitch mod 12
 tonalMinorWheelMod = [3 10 5 0 7 2 9 4 11 6 1 8];
-
-IMTmaOrMi=0; % 0 is major ///  1 is minor
-MMTmaOrMi=0; % 0 is major ///  1 is minor
-
-%% PartA----------------------------------------------------------
-%% anlysis importMeasure is minor or major and find index in tonal"M/m"Whell
-importMeasureTonal = mod(CIT,2);
-if (importMeasureTonal == 0) %is minor and must extract from /2
-    IMTmaOrMi=1;
-    importMeasureTonal = CIT/2;  %make minor finding the content from major tonal
-    indexIMT = find(tonalMinorWheel == importMeasureTonal);
-else %Is major
-    %importMeasureTonal  no chage
-    indexIMT = find(tonalMajorWheel == importMeasureTonal);
-end
-%% PartB----------------------------------------------------------
+%% 1~7 note in the music alphabet  8~11 out of music alphabet
+majorMa = [0 7 1 8 2 3 9 4 10 5 11 6]; %  f f h f f f  
+minorMa = [0 7 1 2 8 3 9 4 5 10 6 11];   % f h f f h f
 %SET the mainMeasure Infomation about tonal direction in cycle
 %IS major or minor
 %ATTATION!!!!!!! we can set  the higher layer funtion then here
-mainMeasureTonal = mod(MIT,2);
-if (mainMeasureTonal == 0) %is minor and must extract from /2
-    mainMeasureTonal = MIT/2;
-    indexMMT = find(tonalMinorWheel == mainMeasureTonal);
-    MMTmaOrMi=1;
-else %is major
-    %importMeasureTonal      no chage
-    indexMMT = find(tonalMajorWheel == mainMeasureTonal);
+if (MIT == 1) %is major
+    indexMMT = find(tonalMajorWheel == mainImportInfo.tonal(1,1));  
+else 
+    indexMMT = find(tonalMinorWheel == mainImportInfo.tonal(1,1));
 end
-
+%% anlysis importMeasure is minor or major and find index in tonal"M/m"Whell
+if (CIT == 1) %Is major
+    indexIMT = find(tonalMajorWheel == chordImportInfo.tonal(1,1));
+else 
+    %make minor finding the content from minor tonal
+    indexIMT = find(tonalMinorWheel == chordImportInfo.tonal(1,1));
+end
 %% give the meaning into measure tonal like in Maintonal
 % major c with  c  d   e   f   g  a    b   
 %                        I II III VI V VI VII
 %note meaning maping
-%%{
-if  (MMTmaOrMi == 0)
-    startIMTIndex= tonalMajorWheelMod(1,indexMMT);
-else
-    startIMTIndex= tonalMinorWheelMod(1,indexMMT);
-end
-startIMTIndex = startIMTIndex+1;
-
-iMTNoteMean = zeros(1,12);
-for i = 1 : 12
-    iMTNoteMean(1,i) = modWheel(1,startIMTIndex);
-    %reloop the notes mod in to a cycle like c d e f g a b 'c'
-    if (startIMTIndex == 12)
-        startIMTIndex = 1;
-    else
-        %donothing
-        startIMTIndex = startIMTIndex + 1;
-    end
-end
-%}
-%% present major or minor note meaning here
-%% we focus on the two tonal direction and way
-% if the anthor way is short ,so we path another way 
-%that must minus12 and give plus or minus diffrent then before
-%compareMT  " + " is  plus5 refrence in tranpose " - " is  mius5 refrence in tranpose 
-compareMT = indexMMT - indexIMT;
-compareMTabs = abs(compareMT);
-compareMTa = 12 - compareMTabs;
-
-%% try to know which path in cycle is short
-if compareMTabs > compareMTa
-    %if the another way is short so we change it
-    if compareMT<0
-        %give different way meaning  + to -    -  to +
-        compareMT = compareMTa;
-    else
-        compareMT = -compareMTa;
-    end
-else
-    %compare MT is short, so we donothing
-end
-
-%% rule of 7semitone progress cycle
-compareMT = 7*compareMT;
-        
-%% know the import tonal mesare is minor or not
-%cuz major is have 3 semitone with minor
-if MMTmaOrMi ~= IMTmaOrMi
-    if IMTmaOrMi==1
-        compareMT=compareMT+3;
-    else
-        compareMT=compareMT-3;
-    end
-else
-    %do nothing
-end
-
+mMTNoteMean = NoteMeanCreate(mMTNoteMean,indexMMT,MIT,tonalMajorWheelMod,tonalMinorWheelMod,majorMa,minorMa);
+iMTNoteMean = NoteMeanCreate(iMTNoteMean,indexIMT,CIT,tonalMajorWheelMod,tonalMinorWheelMod,majorMa,minorMa);
 %% START translate every note
 %%need to fix the notesInTheMeasure(i,7) notesInTheMeasure(i,8) meaning
-%%here
+%% try to find every sample note Meaning in iMTNoteMean to mMTNoteMean presenting Maintoanl Musical Alphabet
 sizeNITM = size(notesInTheMeasure,1);
 for i = 1 : sizeNITM
-    %FORpartB----------------------------------------------------------
-        tranNow=(notesInTheMeasure(i,5)+compareMT);
-        tranNow=mod(tranNow,12);
+        abNotes= mod(notesInTheMeasure(i,5),12);
+        noteiMTMAIndex= find(iMTNoteMean(2,:) == abNotes,1,'first');
+        noteiMTMAIndex = iMTNoteMean(1,noteiMTMAIndex);
         %move untransNote to 8 col
-        notesInTheMeasure(i,8) = notesInTheMeasure(i,5);
+        %notesInTheMeasure(i,8) = notesInTheMeasure(i,5);
         %changed Note at 5 col
-        notesInTheMeasure(i,5)=notesInTheMeasure(i,4)*12+tranNow;
-     %FORpartA----------------------------------------------------------
-        modNITM=mod(notesInTheMeasure(i,5),12);
-        iMTNoteMeanIndex = find(iMTNoteMean==modNITM,1,'first');
-        %notesInTheMeasure(i,7) = find(iMTNoteMean==modNITM);
-        notesInTheMeasure(i,7) = iMTNoteMean(1,iMTNoteMeanIndex);
+        noteiMTMAIndex = find(mMTNoteMean(1,:)==noteiMTMAIndex,1,'first');
+        notesInTheMeasure(i,5) = mMTNoteMean(2,noteiMTMAIndex) + 12*notesInTheMeasure(i,4);
+        %modNITM = mod(notesInTheMeasure(i,5),12);
+        %notesInTheMeasure(i,7) = modNITM;
 end
