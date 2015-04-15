@@ -22,9 +22,9 @@ ylabel('note number');
    
 end
 %}
-load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat0412NoStruct.mat'); %important  must active
+    load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat0412NoStruct.mat'); %important  must active
 %% Change chordImportInfo tonal here
-   gaDat = ChangeImportTonal(gaDat); %important  must active
+    gaDat = ChangeImportTonal(gaDat); %important  must active
 %% translate notetable from noteimport to chromesome bar beat note layer struct
     gaDat = StructNoteTable(gaDat); %important  must active
 %load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat0402Struct.mat');
@@ -32,34 +32,20 @@ load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat0412NoStruct.mat'); %i
     gaDat = CreateEmptyChromsome(gaDat);
  % got main tonal 
     mainTonal = gaDat.mainImportInfo.tonal;
-% got MainMeasureLength
+%%
     numMainMeasure = size(gaDat.mainImportInfo.measure,2);
-%% loop detail:
-%{
-    bar is loop unit
-    4/4 got 4 bar in measure 
-    ***we think about every  1 3 bar in measure have chance to rand  
-%}
+    numMainMeasureBeat = size(gaDat.mainImportInfo.measure(1,numMainMeasure).beat,2);
 %% loop the measure length choice the " bar " first 
 %   got ref from  mainimportinfo.measure.beat
 pS = gaDat.populationSize;
-for pPopulationSize = 1:pS
-    %% rand choicing sample from importsamplebeat or defaultsamplebeat
-    %   setting probability   importsamplebeat 20%  defautsamplebeat 80%
-        samplePropertiesChoice = getRandSampleProperties();
-    %% sample choiced
-    %   choice which frame in that properties we want
-        sampleNumChoice = SPC(gaDat,samplePropertiesChoice);
-    %% choice Data Actually from 
-        sampleFrameChoice = SBC(gaDat,sampleNumChoice,samplePropertiesChoice);
-         cL = sampleFrameChoice.chordLength;
-       
+for pPopulationSize = 1 : pS
+    sampleFrameChoice = SFCmix(gaDat,numMainMeasure,numMainMeasureBeat);
     %% Ranking Notes In Bar
     %   evaluate priority of notes
-        mainNotesRank = NotePriorityMatrix(gaDat,cL);
+     cL = sampleFrameChoice.chordLength;
+    mainNotesRank = NotePriorityMatrix(gaDat,cL);
     for pMeasure = 1 : numMainMeasure
-        numMainMeasureBeat = size(gaDat.mainImportInfo.measure(1,numMainMeasure).beat,2);
-        for pBeat  = 1 :cL:numMainMeasureBeat %%"cL" for step with sample chord length
+        for pBeat  = 1 : cL : numMainMeasureBeat %%"cL" for step with sample chord length
         %% evaluate priority of notes in bar
             notePriorityInBeat = ChooseNotesPriorityInBeat(mainNotesRank,pMeasure,pBeat);
         %% adjust the chord by high priority notes in bar
@@ -72,7 +58,11 @@ for pPopulationSize = 1:pS
     end
 end
 ChromsomeExport(gaDat);
-a=1;
+%{
+    %% loop detail:
+    bar is loop unit
+    4/4 got 4 bar in measure 
+%}
 %% 
 %{
     diff file
@@ -133,30 +123,4 @@ midiinfoStruct.Measure(mLtemp).beat(bLtemp).note(nLtemp).noteContent(ncount,:)
                                                                        otherCalinfo.....
                                                                                               otherCalinfo.... 
  ::notedata:: variable is Notesinfo             
-%}
-%{
-function Chrom=AdjustMeasureLength(gaDat)
-
-number=gaDat.populationSize;
-rhythmNumber = gaDat.chordimportinfoRhythmNum;
-mNiTMs=size(gaDat.mainimportinfo.notesinTheMeasure,1);
-cNiTMs=size(gaDat.chordimportinfo(rhythmNumber).notesinTheMeasure,1);
-
-for i = 1 : number
-count=1;
-    if cNiTMs>mNiTMs
-          Chrom(number).chromNotes(1:mNiTMs,:) = gaDat.chordimportinfo(rhythmNumber).notesinTheMeasure(1:mNiTMs,:);
-    elseif cNiTMs<mNiTMs
-        for i= 1 : mNiTMs
-                Chrom(number).chromNotes(i,:) = gaDat.chordimportinfo(rhythmNumber).notesinTheMeasure(count,:);
-                if count == cNiTMs
-                    count=1;
-                else
-                    count=count+1;
-                end
-        end
-    else
-         Chrom(number).chromNotes= gaDat.chordimportinfo(rhythmNumber).notesinTheMeasure;
-    end
-end
 %}
