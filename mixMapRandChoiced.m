@@ -1,4 +1,8 @@
-function mixMapChoice = mixMapRandChoiced(numMainMeasure,numMainMeasureBeat,randMeasure,randBeat,mixMap)
+function mixMapChoice = mixMapRandChoiced(numMainMeasure,numMainMeasureBeat,mixMap)
+
+randPattern = randMixMap(0);
+randMeasure = randMixMap(1);
+randBeat = randMixMap(2);
 
 PatternMixChoiced = mixMap.patternMixMap(randPattern,:);
 measureMixChoiced = mixMap.measureMixMap(randMeasure,:);
