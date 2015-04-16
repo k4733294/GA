@@ -8,22 +8,23 @@ PatternMixChoiced = mixMap.patternMixMap(randPattern,:);
 measureMixChoiced = mixMap.measureMixMap(randMeasure,:);
 beatMixChoiced = mixMap.beatMixMap(randBeat,:);
 
-%mPatternfix= fix(numMainMeasure/4);
-%mPatternmod= fix(numMainMeasure/4);
-for i = 1 : numMainMeasure
-    mPatternfix = fix(numMainMeasure/4);
-    mPatternfix = mod(mPatternfix,4)+1;
-    
-    if PatternMixChoiced(1,mPatternfix) == 0
+mPatternfix= fix(numMainMeasure/4);
+for i = 1 : mPatternfix
+    mPatternmod = mod(i,4);
+
+    %pMtemplate = PatternMixChoiced;
+    %pMtemplate(1,i)
+    for k = 1 : numMainMeasure
+        mPatternfix = fix(k/4);
+        mPatternmod = fix(k/4);
+        mMtemplate = measureMixChoiced;
+        mMtemplate(1,k);
         
-    else
-        
+        mixMapChoice.measureMix(1,mPatternfix).mixMap = cat(1, mixMapChoice.measureMix(1,mPatternfix).mixMap, mMtemplate+PatternMixChoiced(1,mPatternfix));
+
+        for k = 1 : numMainMeasureBeat
+            bMtemplate = beatMixChoiced;
+            mixMapChoice.measureMix(1,i).beat(1,k).mixMap = cat(1, mixMapChoice.measure(1,i).beat(1,k).mixMap, bMtemplate+PatternMixChoiced(1,mPatternfix));
+        end
     end
 end
-
-        mMtemplate = measureMixChoiced;
-        mixMapChoice.measureMix(1,i).mixMap = cat(1, mixMapChoice.measure(1,i).mixMap, mMtemplate);
-        for j = 1 : numMainMeasureBeat
-            bMtemplate = beatMixChoiced;
-            mixMapChoice.measureMix(1,i).beat(1,j).mixMap = cat(1, mixMapChoice.measure(1,i).beat(1,j).mixMap, bMtemplate);
-        end

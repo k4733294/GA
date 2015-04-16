@@ -37,8 +37,8 @@ end
     numMainMeasureBeat = size(gaDat.mainImportInfo.measure(1,numMainMeasure).beat,2);
 %% loop the measure length choice the " bar " first 
 %   got ref from  mainimportinfo.measure.beat
-pS = gaDat.populationSize;
-for pPopulationSize = 1 : pS
+populationSize = gaDat.populationSize;
+for populationPosition = 1 : populationSize
     sampleFrameChoice = SFCmix(gaDat,numMainMeasure,numMainMeasureBeat);
     %% Ranking Notes In Bar
     %   evaluate priority of notes
@@ -54,7 +54,7 @@ for pPopulationSize = 1 : pS
         %% sampleFrameChoice fully restrut
             sampleFrameChoice = SFCRestruct(sampleFrameChoice);
         %% added to chromesome at struct of mesure bar note(mbn)
-            gaDat = AddtoChromesome(gaDat,pPopulationSize,pMeasure,sampleFrameChoice);
+            gaDat = AddtoChromesome(gaDat,populationPosition,pMeasure,sampleFrameChoice);
     end
 end
 ChromsomeExport(gaDat);
