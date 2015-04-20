@@ -32,24 +32,25 @@ end
     gaDat = CreateEmptyChromsome(gaDat);
  % got main tonal 
     mainTonal = gaDat.mainImportInfo.tonal;
-%%
-    numMainMeasure = size(gaDat.mainImportInfo.measure,2);
-    numMainMeasureBeat = size(gaDat.mainImportInfo.measure(1,numMainMeasure).beat,2);
+%% important loop info   to count every num measure beat we have
+    mainMeasureNumProperty = getMainMeasureNumProperty(gaDat);
 %% loop the measure length choice the " bar " first 
 %   got ref from  mainimportinfo.measure.beat
 populationSize = gaDat.populationSize;
 for populationPosition = 1 : populationSize
-    sampleFrameChoice = SFCmix(gaDat,numMainMeasure,numMainMeasureBeat);
+    sampleFrameChoice = SFCmix(gaDat,mainMeasureNumProperty);
     %% Ranking Notes In Bar
     %   evaluate priority of notes
-     cL = sampleFrameChoice.chordLength;
-    mainNotesRank = NotePriorityMatrix(gaDat,cL);
+     chordLength = sampleFrameChoice.chordLength;
+    mainNotesRank = NotePriorityMatrix(gaDat,chordLength);
+    numMainMeasure = mainMeasureNumProperty.totalNumMainMeasure;
     for pMeasure = 1 : numMainMeasure
-        for pBeat  = 1 : cL : numMainMeasureBeat %%"cL" for step with sample chord length
+        numMainMeasureBeat = size(gaDat.mainImportInfo.measure(1,numMainMeasure).beat,2);
+        for pBeat  = 1 : chordLength : numMainMeasureBeat %%"cL" for step with sample chord length
         %% evaluate priority of notes in bar
             notePriorityInBeat = ChooseNotesPriorityInBeat(mainNotesRank,pMeasure,pBeat);
         %% adjust the chord by high priority notes in bar
-            sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,pBeat,mainTonal,notePriorityInBeat,cL);
+            sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,pBeat,mainTonal,notePriorityInBeat,chordLength);
         end
         %% sampleFrameChoice fully restrut
             sampleFrameChoice = SFCRestruct(sampleFrameChoice);

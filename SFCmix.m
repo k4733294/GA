@@ -1,7 +1,7 @@
-function sampleFrameChoice = SFCmix(gaDat,numMainMeasure,numMainMeasureBeat)
+function sampleFrameChoice = SFCmix(gaDat,mainMeasureNumProperty)
 %% Create MixMap
 mixMap = MixMapCreate();
 
-mixMapChoice = mixMapRandChoiced(numMainMeasure,numMainMeasureBeat,mixMap);
+mixMapChoice = mixMapRandChoiced(mainMeasureNumProperty,mixMap);
 
 sampleFrameChoice = SFCcreate(mixMapChoice,gaDat);
