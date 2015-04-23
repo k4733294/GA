@@ -31,7 +31,7 @@ mainImportInfo.track=3;
 mainImportInfo.howManyMeasureWeWant=16;
 mainImportInfo.whichMeasureWeStart=80;
 %}
-mainImportInfo.howManyMeasureWeWant=64;
+mainImportInfo.howManyMeasureWeWant=256;
 mainImportInfo.whichMeasureWeStart=1;
 mainImportInfo.rhythm=1;
 mainImportInfo.forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true

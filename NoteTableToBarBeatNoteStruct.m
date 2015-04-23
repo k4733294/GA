@@ -111,11 +111,12 @@ for i = 1: endOfNITM
      else
          bLtemp = 1;
      end
-
+    %{
      if mLtemp <= measureLength
      else
          mLtemp = 1;
      end
+     %}
 end
 
  
