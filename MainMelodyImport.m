@@ -21,13 +21,13 @@ mainImportInfo.exportVersion=version;
 mainImportInfo = Variabledefine(mainImportInfo,mainImportInfo.rhythm);
 Melodyexport(mainImportInfo,version);
 %}
-%{
+%%{
 %except added  have some error here so i try another way to import 
 mainImportInfo.Objfun='mainMelody';
 mainImportInfo.midiString = 'avicii-the_days_ft_robbie_williams.mid';
 mainImportInfo.mainOrChord=1; % 0 = main melody 1=import chord melody
 mainImportInfo.track=3;
-mainImportInfo.howManyMeasureWeWant=256;
+mainImportInfo.howManyMeasureWeWant=128;
 mainImportInfo.whichMeasureWeStart=1;
 mainImportInfo.rhythm=1;
 mainImportInfo.forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true
@@ -42,7 +42,7 @@ mainImportInfo.exportVersion=version;
 mainImportInfo = Variabledefine(mainImportInfo,mainImportInfo.rhythm);
 Melodyexport(mainImportInfo,version);
 %}
-%%{
+%{
 mainImportInfo.Objfun='mainMelody';
 mainImportInfo.midiString = 'adele-rolling_in_the_deep_logicFormat.mid';
 mainImportInfo.mainOrChord=1; % 0 = main melody 1=import chord melody
@@ -61,5 +61,5 @@ version = 'main_adele-rolling_in_the_deep_Output';
 mainImportInfo.exportVersion=version;
 mainImportInfo = Variabledefine(mainImportInfo,mainImportInfo.rhythm);
 Melodyexport(mainImportInfo,version)
-%};
+%}
 gaDat.mainImportInfo=mainImportInfo;

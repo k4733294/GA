@@ -24,7 +24,7 @@ end
 %}
   %load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat0423NoStruct.mat'); %important  must active
 %% Change chordImportInfo tonal here
-   load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatRollingInTheDeepNoStructFixAllnote.mat');
+   load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatTheDaysNoStructFixAllnote.mat');
    gaDat = ChangeImportTonal(gaDat); %important  must active
 %% translate notetable from noteimport to chromesome bar beat note layer struct
    gaDat = StructNoteTable(gaDat); %important  must active
