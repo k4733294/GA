@@ -13,12 +13,12 @@ sizeOfNoteTrack = 0;
 for j = 1 : cSmSize
     sizeOfNoteTrack = size(cS(1,j).noteContent,1) + sizeOfNoteTrack;
 end
-sizeOfNoteTrackInfo = size(cS(1,j).noteContent,2);
+sizeOfNoteTrackInfo = size(cS(1,1).noteContent,2);
 noteTrack = zeros(sizeOfNoteTrack,sizeOfNoteTrackInfo);
 noteInpStart = 1;
 noteIndexTotal = 0;
 for k = 1 : cSmSize
-    noteInpEnd= size(cS(1,k).noteContent,1);      
+    noteInpEnd = size(cS(1,k).noteContent,1);      
     noteInpEnd = noteInpStart + noteInpEnd -1;
     startFix = 0;
     if cS(1,k).noteContent(1,1) ~= 1
@@ -30,7 +30,7 @@ for k = 1 : cSmSize
         noteTrack(noteInpStart:noteInpEnd,1) = cS(1,k).noteContent(:,1);
     else
         if noteTrack(noteInpStart-1,1) == startFix 
-            noteIndexTotal = noteIndexTotal -1 ;
+            noteIndexTotal = noteIndexTotal - 1;
         else
            %noteIndexTotal do not fix
         end

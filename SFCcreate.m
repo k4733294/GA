@@ -9,15 +9,12 @@ for i = 1 : 2
     sampleNumChoice = SPC(gaDat,samplePropertiesChoice);
 %% choice Data Actually from 
     sampleFrameChoiceMatrix(1,i) = SBC(gaDat,sampleNumChoice,samplePropertiesChoice);
-    sampleFrameChoiceMatrix(1,i).sizeOfSFCM = size(sampleFrameChoiceMatrix(1,i).measure,2);
 end
 
-
-mainMeasureSize = size(2,mixMapChoice.measureMix);
+mainMeasureSize = size(mixMapChoice.measureMix,2);
 for measureIndex = 1 : mainMeasureSize
     %choice sel by measure is all zero (donothing) or have 1(choice from another sfc) in it
-    beatInMeasure = size(2,mixMapChoice.measureMix.mixMap);
-    measureChoice = max(beatInMeasure);
+    measureChoice = max(mixMapChoice.measureMix(1,measureIndex).mixMap);
     % all zero (donothing)
     if measureChoice == 0  
         sizeOfSFCM = sampleFrameChoiceMatrix(1,1).sizeOfSFCM;
@@ -30,4 +27,6 @@ for measureIndex = 1 : mainMeasureSize
         sampleFrameChoice.measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,sFCMChoice + 1);
     end  
 end
+sampleFrameChoice.chordLength = sampleFrameChoiceMatrix(1,1).chordLength;
 sampleFrameChoice.mixMapChoice = mixMapChoice;
+

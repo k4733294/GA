@@ -7,4 +7,4 @@ mixMapChoice = mixMapRandChoiced(mainMeasureNumProperty,mixMap);
 mixMapChoice = mixMapPartionWeight(mixMapChoice);
 
 sampleFrameChoice = SFCcreate(mixMapChoice,gaDat);
-a=1;
+

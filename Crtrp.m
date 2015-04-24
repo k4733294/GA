@@ -22,14 +22,14 @@ ylabel('note number');
    
 end
 %}
-  %load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat0412NoStruct.mat'); %important  must active
+  %load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat0423NoStruct.mat'); %important  must active
 %% Change chordImportInfo tonal here
-   %gaDat = ChangeImportTonal(gaDat); %important  must active
+   load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatRollingInTheDeepNoStructFixAllnote.mat');
+   gaDat = ChangeImportTonal(gaDat); %important  must active
 %% translate notetable from noteimport to chromesome bar beat note layer struct
-   %gaDat = StructNoteTable(gaDat); %important  must active
-load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDat0412Struct.mat');
+   gaDat = StructNoteTable(gaDat); %important  must active
 %% CreateEmptyChromsome
-    gaDat = CreateEmptyChromsome(gaDat);
+   gaDat = CreateEmptyChromsome(gaDat);
  % got main tonal 
     mainTonal = gaDat.mainImportInfo.tonal;
 %% important loop info   to count every num measure beat we have
@@ -41,7 +41,7 @@ for populationPosition = 1 : populationSize
     sampleFrameChoice = SFCmix(gaDat,mainMeasureNumProperty);
     %% Ranking Notes In Bar
     %   evaluate priority of notes
-     chordLength = sampleFrameChoice.chordLength;
+    chordLength = sampleFrameChoice.chordLength;
     mainNotesRank = NotePriorityMatrix(gaDat,chordLength);
     numMainMeasure = mainMeasureNumProperty.totalNumMainMeasure;
     for pMeasure = 1 : numMainMeasure
@@ -50,7 +50,7 @@ for populationPosition = 1 : populationSize
         %% evaluate priority of notes in bar
             notePriorityInBeat = ChooseNotesPriorityInBeat(mainNotesRank,pMeasure,pBeat);
         %% adjust the chord by high priority notes in bar
-            sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,pBeat,mainTonal,notePriorityInBeat,chordLength);
+            sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,pMeasure,pBeat,mainTonal,notePriorityInBeat,chordLength);
         end
         %% sampleFrameChoice fully restrut
             sampleFrameChoice = SFCRestruct(sampleFrameChoice);
