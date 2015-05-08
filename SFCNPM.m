@@ -30,7 +30,7 @@ for k = 1 : sizeNInBar
             notesRankContentInBeat(pFirstEmptyNotesRankContentInBeat,4) = mod(notesNonSort(k,5),12);
         else
             %% yes , we already have the note at notesRankContentInBeat and find the position about it
-            pFirstEmptyNotesRankContentInBeat=find(notesRankContentInBeat(:,1) == notesNonSort(k,5),1,'first');
+            pFirstEmptyNotesRankContentInBeat = find(notesRankContentInBeat(:,1) == notesNonSort(k,5),1,'first');
             %then make this note plus 1 cuz appeard once now
             plus1 = notesRankContentInBeat(pFirstEmptyNotesRankContentInBeat,2) + 1;
             notesRankContentInBeat(pFirstEmptyNotesRankContentInBeat,2) = plus1;

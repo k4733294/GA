@@ -1,14 +1,16 @@
 function sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,pMeasure,pBeat,mainTonal,notePriorityInBeat,cL)
 %% choose top high priorityBeat in mainmelo
 mainPriorityNote = notePriorityInBeat(1,1);
+%{
 %% get the meaning of choiced beat frame
 %    create  chord array at beat frame with same note appeard counting
-sfcNPMatrix = NotePriorityMatrix(sampleFrameChoice.measure(1,pMeasure),cL,pBeat);
+    sfcNPMatrix = NotePriorityMatrix(sampleFrameChoice.measure(1,pMeasure),cL,pBeat);
 %% choising the note in chord array ane the note is nearly mainPriorityNote
-sfcNPMatrix = BassNoteInChordMatrix(sfcNPMatrix,pBeat);
+    sfcNPMatrix = BassNoteInChordMatrix(sfcNPMatrix,pBeat);
 %% nil which bassnote we want
 %% output BassNote We need
-samplePriorityNote = BassNoteChoice(sfcNPMatrix,pBeat);
+    samplePriorityNote = BassNoteChoice(sfcNPMatrix,pBeat);
+%}
 %% init musical alphabet 
 musicalAlphabet = zeros(2,12);
 musicalAlphabetExtend = [8 9 10 11 12];

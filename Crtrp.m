@@ -23,7 +23,7 @@ ylabel('note number');
 end
 %}
 %% Change chordImportInfo tonal here
-   load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatTheDaysNoStructFixAllnote.mat');
+   load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatRollingInTheDeepNoStructFixAllnote.mat');
    gaDat = ChangeImportTonal(gaDat); %important  must active
 %% translate notetable from noteimport to chromesome bar beat note layer struct
    gaDat = StructNoteTable(gaDat); %important  must active
@@ -37,12 +37,16 @@ end
 %   got ref from  mainimportinfo.measure.beat
 populationSize = gaDat.populationSize;
 for populationPosition = 1 : populationSize
-    sampleFrameChoice = SFCmix(gaDat,mainMeasureNumProperty);
-    %% Ranking Notes In Bar
-    %   evaluate priority of notes
-    chordLength = sampleFrameChoice.chordLength;
-    mainNotesRank = NotePriorityMatrix(gaDat,chordLength);
-    numMainMeasure = mainMeasureNumProperty.totalNumMainMeasure;
+    %%  create SFC chordLength numMainMeasure(for pMeasure)
+        sampleFrameChoice = SFCmix(gaDat,mainMeasureNumProperty);
+        chordLength = sampleFrameChoice.chordLength;
+        numMainMeasure = mainMeasureNumProperty.totalNumMainMeasure;
+    %%  evaluate priority of notes in Main Chord
+        mainNotesRank = NotePriorityMatrix(gaDat,chordLength);
+    %% SFC noteRank
+    % Ranking Notes In Bar
+        sfcNotesRank = SFCNotesRankCreate(sampleFrameChoice,numMainMeasure,chordLength,gaDat);
+    %% 
     for pMeasure = 1 : numMainMeasure
         numMainMeasureBeat = size(gaDat.mainImportInfo.measure(1,numMainMeasure).beat,2);
         for pBeat  = 1 : chordLength : numMainMeasureBeat %%"cL" for step with sample chord length

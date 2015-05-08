@@ -7,7 +7,7 @@ randDialog = randMixMap(0);
 randPattern = randMixMap(1);
 randMeasure = randMixMap(2);
 
-dialogMixChoiced = mixMap.patternMixMap(randDialog,:);
+dialogMixChoiced = mixMap.dialogMixMap(randDialog,:);
 patternMixChoiced = mixMap.patternMixMap(randPattern,:);
 measureMixChoiced = mixMap.measureMixMap(randMeasure,:);
 

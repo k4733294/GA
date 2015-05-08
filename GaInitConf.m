@@ -10,7 +10,7 @@ gaDat.Objfun='Objfunchordfit';
 
 %% //////adjust///////////
 %the population pool
-gaDat.populationSize = 100;
+gaDat.populationSize = 200;
 %how many time will generate
 gaDat.MAXGEN = 100;
 %tonal means : major note  default  65F 64E 62D 60C 59B 57A 55G 
