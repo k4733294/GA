@@ -42,10 +42,10 @@ for populationPosition = 1 : populationSize
         chordLength = sampleFrameChoice.chordLength;
         numMainMeasure = mainMeasureNumProperty.totalNumMainMeasure;
     %%  evaluate priority of notes in Main Chord
-        mainNotesRank = NotePriorityMatrix(gaDat,chordLength);
+        mainNotesRank = MainNotesRankCreate(gaDat,chordLength);
     %% SFC noteRank
     % Ranking Notes In Bar
-        sfcNotesRank = SFCNotesRankCreate(sampleFrameChoice,numMainMeasure,chordLength,gaDat);
+        sfcNotesRank = SFCNotesRankCreate(sampleFrameChoice,chordLength,gaDat);
     %% 
     for pMeasure = 1 : numMainMeasure
         numMainMeasureBeat = size(gaDat.mainImportInfo.measure(1,numMainMeasure).beat,2);
@@ -53,7 +53,7 @@ for populationPosition = 1 : populationSize
         %% evaluate priority of notes in bar
             notePriorityInBeat = ChooseNotesPriorityInBeat(mainNotesRank,pMeasure,pBeat);
         %% adjust the chord by high priority notes in bar
-            sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,pMeasure,pBeat,mainTonal,notePriorityInBeat,chordLength);
+            sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,pMeasure,pBeat,mainTonal,notePriorityInBeat,chordLength,sfcNotesRank);
         end
         %% sampleFrameChoice fully restrut
             sampleFrameChoice = SFCRestruct(sampleFrameChoice);

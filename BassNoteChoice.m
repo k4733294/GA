@@ -1,4 +1,4 @@
-function samplePriorityNote = BassNoteChoice(sfcNPMatrix,pBeat)
+function sfcNPMatrix = BassNoteChoice(sfcNPMatrix,pBeat)
 %%part1, trans every rank count to the choice percent
 %%part2, choice the bassnote from percentwheel
 
@@ -50,3 +50,4 @@ bassNoteChoice = -0.01*(1-0.01).*rand();
 WheelMatrix = sfcNPMatrix.beat(1,pBeat).rank(:,7);
 samplePriorityNoteIndex = Binarysearch(WheelMatrix,bassNoteChoice,indexNotes+1);
 samplePriorityNote = sfcNPMatrix.beat(1,pBeat).rank(samplePriorityNoteIndex,4);
+sfcNPMatrix.beat(1,pBeat).samplePriorityNote = samplePriorityNote;
