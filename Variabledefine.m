@@ -15,6 +15,7 @@ chordImportInfo(rhythmNum).chordLength = chordImport.chordLength;
 
 
 
+
 %{
 if rhythmNum ==5
 a=1;

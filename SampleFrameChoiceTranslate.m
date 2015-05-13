@@ -2,7 +2,7 @@ function sampleFrameChoice = SampleFrameChoiceTranslate(sampleFrameChoice,pMeasu
 %% choose top high priorityBeat in mainmelo
 mainPriorityNote = notePriorityInBeat(1,1);
 %% choose top high priorityBeat in sampleMelo
-samplePriorityNote = sfcNotesRank.measure(1,pMeasure).beat(1,pBeat);
+samplePriorityNote = sfcNotesRank.measure(1,pMeasure).beat(1,pBeat).samplePriorityNote;
 %% init musical alphabet 
 musicalAlphabet = zeros(2,12);
 musicalAlphabetExtend = [8 9 10 11 12];

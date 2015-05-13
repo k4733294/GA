@@ -42,7 +42,7 @@ mainImportInfo.exportVersion=version;
 mainImportInfo = Variabledefine(mainImportInfo,mainImportInfo.rhythm);
 Melodyexport(mainImportInfo,version);
 %}
-%{
+%%{
 mainImportInfo.Objfun='mainMelody';
 mainImportInfo.midiString = 'adele-rolling_in_the_deep_logicFormat.mid';
 mainImportInfo.mainOrChord=1; % 0 = main melody 1=import chord melody
@@ -57,12 +57,13 @@ mainImportInfo.forcecosTonal = 1; %%force use the cosTonal 1 = true
 mainImportInfo.cosTonal(1,1)=1;
 mainImportInfo.cosTonal(2,1)=1;
 mainImportInfo.chordLength=2; %how many beat of chord
+mainImportInfo.chorusPoint = [24,32];% which is mainMelody sub(chorus) MelodyStart [Start,End]
 version = 'main_adele-rolling_in_the_deep_Output';
 mainImportInfo.exportVersion=version;
 mainImportInfo = Variabledefine(mainImportInfo,mainImportInfo.rhythm);
 Melodyexport(mainImportInfo,version)
 %}
-%%{
+%{
 mainImportInfo.Objfun='mainMelody';
 mainImportInfo.midiString = 'john_legend-all_of_me_logicFormat.mid';
 mainImportInfo.mainOrChord=1; % 0 = main melody 1=import chord melody
@@ -77,6 +78,7 @@ mainImportInfo.forcecosTonal = 1; %%force use the cosTonal 1 = true
 mainImportInfo.cosTonal(1,1)=1;
 mainImportInfo.cosTonal(2,1)=1;
 mainImportInfo.chordLength=2; %how many beat of chord
+mainImportInfo.chorusPoint = [24,32];% which is mainMelody sub(chorus) MelodyStart [Start,End]
 version = 'main_john_legend-all_of_me_Output';
 mainImportInfo.exportVersion=version;
 mainImportInfo = Variabledefine(mainImportInfo,mainImportInfo.rhythm);

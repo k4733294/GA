@@ -29,4 +29,6 @@ for measureIndex = 1 : mainMeasureSize
 end
 sampleFrameChoice.chordLength = sampleFrameChoiceMatrix(1,1).chordLength;
 sampleFrameChoice.mixMapChoice = mixMapChoice;
+sampleFrameChoice.chordString1 = sampleFrameChoiceMatrix(1,1).midiString;
+sampleFrameChoice.chordString2 = sampleFrameChoiceMatrix(1,2).midiString;
 

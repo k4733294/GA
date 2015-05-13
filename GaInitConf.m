@@ -6,8 +6,6 @@ gaDat.Objfun='Objfunchordfit';
 %ub=[500 500];
 %create  matrix with maximum and minimum                
 
-
-
 %% //////adjust///////////
 %the population pool
 gaDat.populationSize = 200;
@@ -20,6 +18,7 @@ gaDat.majorNote = 57;
 %%how many measure in oneblocks
 %gaDat.howManyMeasureInOneBlock = 2;
 
+
 %% create size of numbers in the bar  which is the same length with others 
 measureLength = gaDat.mainImportInfo.notesInTheMeasure(end,1);
 gaDat.barSize = numel(measureLength);
@@ -30,6 +29,8 @@ gaDat.barNum= gaDat.mainImportInfo.howManyMeasureWeWant;
 gaDat.NIND = numel(gaDat.mainImportInfo.notesInTheMeasure); 
 %% evaluation in the ranking function
 gaDat.rf = (1:gaDat.populationSize)';
+
+
 %evaluation in the objfun  
 %ub = ones(1,psize)*107; % maxium  to octave-3 / C1    middle c is 4 (remember)
 %lb = ones(1,psize)*24; %maximun to octave3 /  C7

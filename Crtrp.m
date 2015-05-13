@@ -38,14 +38,15 @@ end
 populationSize = gaDat.populationSize;
 for populationPosition = 1 : populationSize
     %%  create SFC chordLength numMainMeasure(for pMeasure)
-        sampleFrameChoice = SFCmix(gaDat,mainMeasureNumProperty);
+        sampleFrameChoice = SFCPatternCreateMix(gaDat,mainMeasureNumProperty);
         chordLength = sampleFrameChoice.chordLength;
         numMainMeasure = mainMeasureNumProperty.totalNumMainMeasure;
     %%  evaluate priority of notes in Main Chord
         mainNotesRank = MainNotesRankCreate(gaDat,chordLength);
-    %% SFC noteRank
-    % Ranking Notes In Bar
+    %% SFC noteRank evaluate priority of notes in Main Chord
         sfcNotesRank = SFCNotesRankCreate(sampleFrameChoice,chordLength,gaDat);
+    %% choiced pattern with pattern mutate in notes unit
+        sampleFrameChoice = SFCPatternMutate(sampleFrameChoice,sfcNotesRank,gaDat,chordLength);
     %% 
     for pMeasure = 1 : numMainMeasure
         numMainMeasureBeat = size(gaDat.mainImportInfo.measure(1,numMainMeasure).beat,2);

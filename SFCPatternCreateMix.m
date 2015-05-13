@@ -1,4 +1,4 @@
-function sampleFrameChoice = SFCmix(gaDat,mainMeasureNumProperty)
+function sampleFrameChoice = SFCPatternCreateMix(gaDat,mainMeasureNumProperty)
 %% Create MixMap
 mixMap = MixMapCreate();
 
