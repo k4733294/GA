@@ -6,7 +6,6 @@ ObjV = inf(gaDat.BlockSize,gaDat.populationSize);
 
 disp('######   FitnessProcess   #########')
 %% FITNESSS ---------------------------------------------------------
-
 for i = 1: gaDat.populationSize %(population have size of chromsomes)
     for j = 1:gaDat.blockSize
         if isempty(gaDat.ObjfunPar)
@@ -22,14 +21,11 @@ for i = 1: gaDat.populationSize %(population have size of chromsomes)
         %disp(['ObjV(i:j) ' ,num2str(ObjV(i:j))])
     end
 end
-
 % ######   Next   #########
 %%
 %Generation*******************************************************************
-
 % Best individual of the generation ---------------------------------------------------------
-%{
-    
+%%{   
     gaDat.ObjV=ObjV;
     sumObjV=sum(ObjV,1);
     [v,maxIndex]=max(sumObjV); %[v,p] is [ value , position ]
@@ -45,76 +41,53 @@ end
         gaDat.fxmin=x;
     end
 %}
-%SumFitnessinChromesomeBeforeRanking---------------------------------
-%{
+%% SumFitnessinChromesomeBeforeRanking---------------------------------
+%%{
      for i = 1 : gaDat.populationsize  
          objVToSort(i) = sum(gaDat.ObjV(:,i));
      end
      objVToSort = objVToSort' ;
 %} 
 %Ranking-----------------------------------------------------------
-%{
+%%{
      FitnV = Ranking(objVToSort,gaDat.rf);
-%}
      %%make a fake FitnV result here
-    FitnV = randi(100,[1,100]);
-
+     %FitnV = randi(100,[1,100]);
+%}
 %% 
 %SELECTION for CROSSOVER---------------------------------------------------------
 % Stochastic Universal Sampling (SUS).
-
+%%{
    [SelCh,Indices] = Select('rws',gaDat.Chrom,FitnV,1);
-
+%}
 % CROSSOVER--------------------------------------------------------------------------------
 % Uniform crossover.
+%%{
     %{
     % give a fack SELCH result  pick up  from POPULATION pool certainly
     % SelCh = gaDat.Chrom(1:2,:);   
     %}
     SelCh = lxov(SelCh,gaDat.Pc,gaDat.alfa,gaDat.barsize);
-    
+%}   
 %SELECTION for Mutation---------------------------------------------------------------
 %Stochastic Universal Sampling (SUS).
-
+%%{
    [SelCh,Indices] = Select('rws',gaDat.Chrom,FitnV,1);
-   
-% MUTATION----------------------------------------------------------------------------------
-% SelCh = Mutbga(SelCh,gaDat.FieldD,[gaDat.Pm 1]); % Codificaci???n Real.
+%}   
+%% MUTATION----------------------------------------------------------------------------------
+%%{ 
+SelCh = Mutbga(SelCh,gaDat.FieldD,[gaDat.Pm 1]); % Codificaci???n Real.
     
 % Reinsert the best individual  -----------------------------------------------------
  %minIndex just one but i have two of CHROM result here so.... how should i
  %do
- % gaDat.Chrom(Indices,:) = SelCh;
+  gaDat.Chrom(Indices,:) = SelCh;
     
 % Optional additional task required by user
-% GaIteration(gaDat,plotGraph)
-    
-%% ---------------------------------------------------------
-%{
-function NewChrIx=Sus2(FitnV, Nsel)
-
-suma=sum(FitnV);   
-
-% Position of the roulette pointersXS
-j=0;
-sumfit=0; 
-paso=suma/Nsel; % distance between pointers
-flecha=rand*paso; % offset of the first pointer
-
-NewChrIx(Nsel,1)=0; 
-
-for i=1:Nsel
-    sumfit=sumfit+FitnV(i);
-   
-    while (sumfit>=flecha)
-        j=j+1;
-        NewChrIx(j)=i;
-        
-        flecha=flecha+paso;
-        
-    end
-end
+ GaIteration(gaDat,plotGraph)
 %}
+    
+
 
 
 

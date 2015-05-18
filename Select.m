@@ -43,3 +43,30 @@ elseif (nargin==4) % With overlap -----------------------------
 else
     error('Incorrect number of paramenters');
 end
+
+%% ---------------------------------------------------------
+%{
+function NewChrIx=Sus2(FitnV, Nsel)
+
+suma=sum(FitnV);   
+
+% Position of the roulette pointersXS
+j=0;
+sumfit=0; 
+paso=suma/Nsel; % distance between pointers
+flecha=rand*paso; % offset of the first pointer
+
+NewChrIx(Nsel,1)=0; 
+
+for i=1:Nsel
+    sumfit=sumfit+FitnV(i);
+   
+    while (sumfit>=flecha)
+        j=j+1;
+        NewChrIx(j)=i;
+        
+        flecha=flecha+paso;
+        
+    end
+end
+%}
