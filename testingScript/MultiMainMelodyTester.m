@@ -1,5 +1,7 @@
+function MultiMainMelodyTester()
+
 %%  ////main melody import/////
-gaDat = MainMelodyImport(Num);
+gaDat = MainMelodyImport(whichMalodyImport);
 %%  ////sample import/////
 gaDat = ChordImport(gaDat);
 %%  ////default import/////
@@ -8,5 +10,7 @@ gaDat = DefaultImport(gaDat);
 %some conf var get from MainMelodyImport
 gaDat = GaInitConf(gaDat);
 %%  ////Execute GA/////
-gaDat = Ga(gaDat);
-% Result are 
+gaDat = Crtrp(gaDat);
+clearvars gaDat
+
+

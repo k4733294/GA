@@ -26,7 +26,7 @@ resizeM = EmptyItemFilter(M);
 %midi_new = matrix2midi(resizeM,mainMelody);
 midi_new = matrix2midi(resizeM,mainMelody.ticksPerQuarterNote);
 %In hooshuu mac desktop
-fileExportPath = strcat('/Users/hooshuu/Documents/MATLAB/GA/GA_result/', version,'.mid');
+fileExportPath = strcat(version,'.mid');
 %In hp letop
 %fileExportPath = strcat('C:\Users\HP\Documents\Matlab\GA\GA_result\', version,'.mid');
 writemidi(midi_new, fileExportPath);
