@@ -12,18 +12,15 @@ gaDat.populationSize = 200;
 %how many time will generate
 gaDat.MAXGEN = 100;
 %tonal means : major note  default  65F 64E 62D 60C 59B 57A 55G 
-gaDat.majorNote = 57;
-%chromesomeLength
-%gaDat.blockSize = 2;
+%gaDat.majorNote = 57;
 %%how many measure in oneblocks
 %gaDat.howManyMeasureInOneBlock = 2;
 
-
 %% create size of numbers in the bar  which is the same length with others 
-measureLength = gaDat.mainImportInfo.notesInTheMeasure(end,1);
-gaDat.barSize = numel(measureLength);
+%measureLength = gaDat.mainImportInfo.notesInTheMeasure(end,1);
+%gaDat.barSize = numel(measureLength);
 %% create number of the bar  which is the same length with others 
-gaDat.barNum= gaDat.mainImportInfo.howManyMeasureWeWant;
+%gaDat.barNum= gaDat.mainImportInfo.howManyMeasureWeWant;
 %% createmeasureLengthNoteNum total length of the chrosome  is the same length with others 
 % ATTATION --- here we need to change the evalute variable
 gaDat.NIND = numel(gaDat.mainImportInfo.notesInTheMeasure); 

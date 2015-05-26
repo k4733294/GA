@@ -23,7 +23,7 @@ ylabel('note number');
 end
 %}
 %% Change chordImportInfo tonal here
-   load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatRollingInTheDeepNoStructFixAllnote.mat');
+   %load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatRollingInTheDeepNoStructFixAllnote.mat');
    gaDat = ChangeImportTonal(gaDat); %important  must active
 %% translate notetable from noteimport to chromesome bar beat note layer struct
    gaDat = StructNoteTable(gaDat); %important  must active
@@ -33,6 +33,7 @@ end
     mainTonal = gaDat.mainImportInfo.tonal;
 %% important loop info   to count every num measure beat we have
     mainMeasureNumProperty = getMainMeasureNumProperty(gaDat);
+    gaDat.mainImportInfo.mainMeasureNumProperty = mainMeasureNumProperty;
 %% loop the measure length choice the " bar " first 
 %   got ref from  mainimportinfo.measure.beat
 populationSize = gaDat.populationSize;
@@ -71,10 +72,11 @@ ChromsomeExport(gaDat);
 %% 
 %{
     diff file
-     save('/Users/hooshuu/Documents/MATLAB/GA/struct_data/SFCBefore','sampleFrameChoice','-v7.3');
-   save('/Users/hooshuu/Documents/MATLAB/GA/struct_data/SFCAfter','sampleFrameChoice','-v7.3');
+    save('/Users/hooshuu/Documents/MATLAB/GA/struct_data/SFCBefore','sampleFrameChoice','-v7.3');
+    save('/Users/hooshuu/Documents/MATLAB/GA/struct_data/SFCAfter','sampleFrameChoice','-v7.3');
     visdiff('/Users/hooshuu/Documents/MATLAB/GA/struct_data/SFCBefore.mat', '/Users/hooshuu/Documents/MATLAB/GA/struct_data/SFCAfter.mat');
 %}
+
 %{
 %get measure nums
 size(gaDat.mainimportinfo.measure,2)
@@ -89,34 +91,15 @@ size(gaDat.mainimportinfo.measure.beat(1,1).note,2)
 %get note noteContent total nums
 size(gaDat.mainimportinfo.measure.beat(1,1).note(1,1).noteContent,1)
 %}
-%{
-%% find something eiganvalue at diffrent length in notes
-% eigan1
-%calculate eigan1 in every measure
-%calculate eigan1 in every beat
-%calculate eigan1 in every note
-% eigan2
-%calculate eigan2 in every measure
-%calculate eigan2 in every beat
-%calculate eigan2 in every note
-%% conclusion the eiganvalue ( for after instuction at sample edit? )
- % way1 true false
- % way2 true false
-%% dicide the way to edit  sample to population here
-% way 1
-% way 2
-%}
 %{ 
 %% ref about important variable
 chome = populationSize
 block  == bar = Denominator
 beat  Numerator
 note  4 = base 1/16 unit of note leangth
-
 midiinfoStruct.Measure(mLtemp).noteContent(mcount,:) 
 midiinfoStruct.Measure(mLtemp).beat(bLtemp).noteContent(bcount,:) 
 midiinfoStruct.Measure(mLtemp).beat(bLtemp).note(nLtemp).noteContent(ncount,:) 
-
 %}
 %{
     chromesome structure design like :

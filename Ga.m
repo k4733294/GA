@@ -65,7 +65,6 @@ if ~isfield(gaDat,'rf')
    gaDat.rf= (1:gaDat.NIND)';
 end
 
-
 %%  Internal parameters
 gaDat.Chrom=[];
 gaDat.ObjV=[];
@@ -81,8 +80,8 @@ gaDat.gen=0;
 gaDat.rhythm=[];
 y=0;
 x=0;
-%figure;
-%plotGraph=plot(x,y);
+figure;
+plotGraph=plot(x,y);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Main loop
@@ -90,13 +89,10 @@ x=0;
 tic;
 % Generation counter
 gen=0;
-
 % Initial population
 % -------------------------------------------
  gaDat= Crtrp(gaDat);
  %-------------------------------------------
- % gaDat.Chrom = Chrom;
- % Real codification
  % Individuals of gaDat.indini are randomly added in the initial population
  %{
     disp('------------------------------------------------')
