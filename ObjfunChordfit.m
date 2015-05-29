@@ -2,18 +2,44 @@ function FitnV = ObjfunChordFit(sampleFrameChoice,mainMelody,gaDat)
 totalNumMainMeasure = gaDat.mainImportInfo.mainMeasureNumProperty.totalNumMainMeasure;
 numMainMeasureBeat = size(gaDat.mainImportInfo.measure(1,numMainMeasure).beat,2);
 chordLength = sampleFrameChoice.chordLength;
+chorusPoint = gaDat.mainImportInfo.chorusPoint;
+
+%%init meausreVelocityMatrix
+meausreVelocityMatrix(1,1:totalNumMainMeasure).mainBeatVelocityMatrix(1,1:numMainMeasureBeat).noteVelocity = [];
+meausreVelocityMatrix(1,1:totalNumMainMeasure).sfcBeatVelocityMatrix(1,1:numMainMeasureBeat).noteVelocity = [];
+%%
  for pMeasure = 1 : totalNumMainMeasure
      for pBeat  = 1 : numMainMeasureBeat %%"cL" for step with sample chord length
          sizeOfMainNote = size(mainMelody.measure(1,pMeasure).beat(1,pBeat).noteContent,1);
+         mainBeatVelocityMatrix = zeros(sizeOfMainNote,1);
          for pMainNote = 1 : sizeOfMainNote
-             gaDat.mainImportInfo.measure(1,numMainMeasure).beat(1,pBeat).noteContent(pMainNote,6);
+             mainBeatVelocityMatrix(pMainNote,1) = gaDat.mainImportInfo.measure(1,numMainMeasure).beat(1,pBeat).noteContent(pMainNote,6);
          end
+         meausreVelocityMatrix(1,totalNumMainMeasure).mainBeatVelocityMatrix(1,pBeat).noteVelocity = mainBeatVelocityMatrix;
+         
          sizeOfSFCNote = size(sampleFrameChoice.measure(1,pMeasure).beat(1,pBeat).noteContent,1);
+          sfcBeatVelocityMatrix = zeros(sizeOfSFCNote,1);
          for pSFCNote = 1 : sizeOfSFCNote
-            sampleFrameChoice.measure(1,pMeasure).beat(1,pBeat).noteContent(pSFCNote,6);
+            sfcBeatVelocityMatrix(pSFCNote,1) = sampleFrameChoice.measure(1,pMeasure).beat(1,pBeat).noteContent(pSFCNote,6);
          end
+         meausreVelocityMatrix(1,totalNumMainMeasure).sfcBeatVelocityMatrix(1,pBeat).noteVelocity = sfcBeatVelocityMatrix;   
      end
  end
+ 
+ clearvars pMeasure pBeat
+
+ chorusStart = chorusPoint(1,1);
+ chorusEnd = chorusPoint(1,2);
+ noteVelocity
+ for pMeasure = chorusStart : chorusEnd
+     for pBeat  = 1 : numMainMeasureBeat %%"cL" for step with sample chord length
+         = meausreVelocityMatrix(1,pMeasure).sfcBeatVelocityMatrix(1,pBeat).noteVelocity;
+         
+         = meausreVelocityMatrix(1,pMeasure).mainBeatVelocityMatrix(1,pBeat).noteVelocity;
+         
+     end
+ end
+ 
  
  %One times templating created in this funtion
 ObjV = inf(gaDat.BlockSize,gaDat.populationSize);
