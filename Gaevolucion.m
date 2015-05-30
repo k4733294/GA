@@ -2,18 +2,20 @@ function gaDat=Gaevolucion(gaDat,plotGraph)
 
 disp('######   FitnessProcess   #########')
 %% FITNESSS ---------------------------------------------------------
-for i = 1: gaDat.populationSize %(population have size of chromsomes)
         if isempty(gaDat.ObjfunPar)
-           FitnV = ObjfunChordFit(gaDat.Chrom(i,:),gaDat.mainImportInfo,gaDat);
+           FitnV = ObjfunChordFit(gaDat.populationSize,gaDat.Chrom,gaDat.mainImportInfo,gaDat);
         else
-            %% no needed 
+            %{
+            % no needed 
             %ObjV(:,i) = Objfunchordfit2(gaDat.Chrom(i),gaDat.mainImportInfo,gaDat.ObjfunPar);
             %ObjV(:,i) =  returnToObjV ;
+            %}
         end
-        %% display the var variation
-        %disp(['(i:j) is '  , num2str(j)])
-        %disp(['ObjV(i:j) ' ,num2str(ObjV(i:j))])
-end
+        %{
+        % display the var variation
+        disp(['(i:j) is '  , num2str(j)])
+        disp(['ObjV(i:j) ' ,num2str(ObjV(i:j))])
+        %}
 %% 
 %SELECTION for CROSSOVER---------------------------------------------------------
 % Stochastic Universal Sampling (SUS).
