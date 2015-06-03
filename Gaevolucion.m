@@ -3,7 +3,7 @@ function gaDat=Gaevolucion(gaDat,plotGraph)
 disp('######   FitnessProcess   #########')
 %% FITNESSS ---------------------------------------------------------
         if isempty(gaDat.ObjfunPar)
-           FitnV = ObjfunChordFit(gaDat.populationSize,gaDat.Chrom,gaDat.mainImportInfo,gaDat);
+           FitnV = ObjfunChordFit(gaDat.populationSize,gaDat);
         else
             %{
             % no needed 
