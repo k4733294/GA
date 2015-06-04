@@ -20,12 +20,15 @@ for measureIndex = 1 : mainMeasureSize
         sizeOfSFCM = sampleFrameChoiceMatrix(1,1).sizeOfSFCM;
         sFCMChoice = mod(measureIndex,sizeOfSFCM);
         sampleFrameChoice.measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,sFCMChoice + 1);
+        sampleFrameChoice.measure(1,measureIndex).rhythmNum = sampleFrameChoiceMatrix(1,1).rhythmNum;
     % beatmatrix  have 1(choice from another sfc) in it    
     else
         sizeOfSFCM = sampleFrameChoiceMatrix(1,2).sizeOfSFCM;
         sFCMChoice = mod(measureIndex,sizeOfSFCM);
         sampleFrameChoice.measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,sFCMChoice + 1);
-    end  
+        sampleFrameChoice.measure(1,measureIndex).rhythmNum = sampleFrameChoiceMatrix(1,2).rhythmNum;
+    end
+        sampleFrameChoice.measure(1,measureIndex).patternVariance = 0;
 end
 sampleFrameChoice.chordLength = sampleFrameChoiceMatrix(1,1).chordLength;
 sampleFrameChoice.mixMapChoice = mixMapChoice;

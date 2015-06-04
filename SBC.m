@@ -5,7 +5,6 @@ if samplePropertiesChoice == 0
      sampleFrameChoice.tonal = gaDat.chordImportInfo(1,sampleNumChoice).tonal;
      sampleFrameChoice.chordLength = gaDat.chordImportInfo(1,sampleNumChoice).chordLength;
      sampleFrameChoice.midiString = gaDat.chordImportInfo(1,sampleNumChoice).midiString;
-     
      sizeCMImeasure = size(gaDat.chordImportInfo(1,sampleNumChoice).measure,2);
      sizeCMImeasureFix = fix(sizeCMImeasure/4);
      sizeCMImeasureMod = mod(sizeCMImeasure,4);

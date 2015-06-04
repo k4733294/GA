@@ -12,6 +12,7 @@ if randDoMutate <= 5
         for pChorusBeat = 1 : chordLength : sizeOfBeat
             samplePriorityNote = sfcNotesRank.measure(1,pChorusMeasure).beat(1,pChorusBeat).samplePriorityNote;
             sampleFrameChoice = PatternMutate(samplePriorityNote,sampleFrameChoice,pChorusMeasure,pChorusBeat,chordLength);
+            sampleFrameChoice.measure(1,pChorusMeasure).patternVariance = sampleFrameChoice.measure(1,pChorusMeasure).patternVariance+1;
         end
     end
 end

@@ -1,4 +1,7 @@
 function FitnV = ObjfunChordFit(populationSize,gaDat)
+sampleFrameChoice.measure(1,pChorusMeasure).patternVariance;
+sampleFrameChoice.measure(1,measureIndex).rhythmNum;
+
 FitnV = zeros(populationSize,1);
 
 gaDat = MainFitnessOperation(gaDat);
@@ -12,26 +15,31 @@ gaDat = MainFitnessOperation(gaDat);
      sfcDensityWeight = gaDat.Chrom(1,pPopu).sfcDensityWeight;
      sfcBassLevelWeight = gaDat.Chrom(1,pPopu).sfcBassLevelWeight;
      %%
-     if sfcDensityWeight > 0
+     if mainPitchWeight > 0       
          PitchDensityWeight = mainPitchWeight*sfcDensityWeight;
-         VelocityDensityWeight = mainVelocityWeight*sfcDensityWeight;
-     else
+         PitchBassLevelWeight = mainPitchWeight*sfcBassLevelWeight;
+     elseif mainPitchWeight == 0
          PitchDensityWeight = 0;
-         VelocityDensityWeight = 0;
+         PitchBassLevelWeight = 0;
+     else
+         PitchDensityWeight = -(mainPitchWeight*sfcDensityWeight);
+         PitchBassLevelWeight = -(mainPitchWeight*sfcBassLevelWeight);
      end
      
-     if sfcBassLevelWeight > 0
-         PitchBassLevelWeight = mainPitchWeight*sfcBassLevelWeight;
+     if mainVelocityWeight > 0
+         VelocityDensityWeight = mainVelocityWeight*sfcDensityWeight;
          VelocityBassLevelWeight = mainVelocityWeight*sfcBassLevelWeight;
-     else
-         PitchBassLevelWeight = 0;
+     elseif mainPitchWeight == 0
+         VelocityDensityWeight = 0;
          VelocityBassLevelWeight = 0;
+     else
+         VelocityDensityWeight = -(mainVelocityWeight*sfcDensityWeight);
+         VelocityBassLevelWeight = -(mainVelocityWeight*sfcBassLevelWeight);
      end
-     %%
-     chromFitness= (PitchDensityWeight + VelocityDensityWeight +PitchBassLevelWeight +VelocityBassLevelWeight)/4;
+     %% 
+     chromFitness= (PitchDensityWeight + PitchBassLevelWeight +VelocityDensityWeight +VelocityBassLevelWeight)/4;
      FitnV(pPopu,chromFitness) = chromFitness;
  end
- 
  
  %{
  %% One times templating created in this funtion
