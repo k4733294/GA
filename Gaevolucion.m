@@ -25,10 +25,6 @@ disp('######   FitnessProcess   #########')
 % CROSSOVER--------------------------------------------------------------------------------
 % Uniform crossover.
 %%{
-    %{
-    % give a fack SELCH result  pick up  from POPULATION pool certainly
-    % SelCh = gaDat.Chrom(1:2,:);   
-    %}
     SelCh = lxov(SelCh,gaDat.Pc,gaDat.alfa,gaDat.barsize);
 %}   
 %SELECTION for Mutation---------------------------------------------------------------

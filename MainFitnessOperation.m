@@ -62,7 +62,7 @@ mainVersePitchTotal =0;
  elseif mainVelocityWeight == 0
  else
     mainVelocityWeight = abs(mainVelocityWeight);
-    mainVelocityWeight = fix(mainVelocityWeight/6);
+    mainVelocityWeight = round(mainVelocityWeight/6);
     mainVelocityWeight = -mainVelocityWeight;
  end
  
@@ -72,7 +72,7 @@ mainVersePitchTotal =0;
   elseif mainPitchWeight ==0
   else
       mainPitchWeight = abs(mainPitchWeight);
-      mainPitchWeight = fix(mainPitchWeight/5);
+      mainPitchWeight = round(mainPitchWeight/5);
       mainPitchWeight = -mainPitchWeight;   
   end
  

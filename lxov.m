@@ -1,5 +1,29 @@
 function NewChrom =lxov(OldChrom, XOVR, alpha,barsize)
 
+%dialog change here
+%one (DIALOG)consist of 4 block (a block represent measure)
+
+choiceDialog = randi([1,2]);
+pointStart = 1;
+pointEnd = 1;
+
+if choiceDialog == 1 
+   pointStart = 1;
+   pointEnd = 4;
+else
+   pointStart = pointStart*4;  %4 represent the  how many BLOCK in one dialog
+   pointEnd = (pointStart+1)*4;
+   pointStart = pointStart+1; %forward the index  1 2 3 4   (4->"5") 6 7 8   (8->"9") 10 11 12
+end
+
+%cross CHROMSOME here
+temp=OldChrom(2,pointStart:pointEnd);
+OldChrom(2,pointStart:pointEnd)=OldChrom(1,pointStart:pointEnd);
+OldChrom(1,pointStart:pointEnd)=temp;
+
+
+NewChrom=OldChrom;
+
 % Linear crossover
 % Produce a new population by linear crossover and XOVR crossover probability
 %   NewChroms =lxov(OldChrom, XOVR, alpha, FieldDR)
@@ -50,32 +74,6 @@ OldChrom(Spointstart:Spointend,1)=temp;
 end
 %}
 
-%dialog change here
-%one (DIALOG)consist of 4 block (a block represent measure)
-
-choiceDialog = randi([1,2]);
-pointStart = 1;
-pointEnd = 1;
-
-if choiceDialog == 1 
-   pointStart = 1;
-   pointEnd = 4;
-else
-   pointStart = pointStart*4;  %4 represent the  how many BLOCK in one dialog
-   pointEnd = (pointStart+1)*4;
-   pointStart = pointStart+1; %forward the index  1 2 3 4   (4->"5") 6 7 8   (8->"9") 10 11 12
-end
-
-%cross CHROMSOME here
-temp=OldChrom(2,pointStart:pointEnd);
-OldChrom(2,pointStart:pointEnd)=OldChrom(1,pointStart:pointEnd);
-OldChrom(1,pointStart:pointEnd)=temp;
-
-
-NewChrom=OldChrom;
-
-
-
 %{
 x = size(OldChrom,1);   % Number of individuals and chromosome length
 npares = floor(x/2);    % Number of pairs
@@ -94,6 +92,7 @@ for i=1:npares
     end
 end
 %}
+
 %{
 function NewChrom =lxov(OldChrom, XOVR, alpha)
 % Linear crossover

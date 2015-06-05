@@ -17,9 +17,9 @@ if (nargin==3) %  No overlap -------------------
     %}
 elseif (nargin==4) % With overlap -----------------------------
 	% Indexes of new individuals
-    if (SEL_F=='rws')
-        indices=Rws2(FitnV,round(length(FitnV)*GGAP));
-    elseif (SEL_F=='sus')
+    if (SEL_F == 'rws')
+        indices=Rws(FitnV,round(length(FitnV)*GGAP));
+    elseif (SEL_F == 'sus')
         %indices=Sus2(FitnV,round(length(FitnV)*GGAP));
     else
         error('Incorrect selection method');
@@ -37,7 +37,7 @@ elseif (nargin==4) % With overlap -----------------------------
         SelCh=Chrom;
         SelCh(oldpos,:)=Chrom(indices,:);
     else % more childs than parents
-        SelCh=Chrom(indices).chromNotes;
+        SelCh=Chrom(1,indices);
         Indices=indices;
     end
 else

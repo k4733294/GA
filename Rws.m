@@ -1,4 +1,4 @@
-function NewChrlx=Rws2(FitnV,Nsel)
+function NewChrlx=Rws(FitnV,Nsel)
 
 choicednum=2;
 suma = sum(FitnV);

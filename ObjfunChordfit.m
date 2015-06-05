@@ -1,9 +1,5 @@
 function FitnV = ObjfunChordFit(populationSize,gaDat)
-sampleFrameChoice.measure(1,pChorusMeasure).patternVariance;
-sampleFrameChoice.measure(1,measureIndex).rhythmNum;
-
 FitnV = zeros(populationSize,1);
-
 gaDat = MainFitnessOperation(gaDat);
  for pPopu = 1 : populationSize
      gaDat = SFCFitnessOperation(gaDat,populationSize);
@@ -14,11 +10,13 @@ gaDat = MainFitnessOperation(gaDat);
  for pPopu = 1 : populationSize
      sfcDensityWeight = gaDat.Chrom(1,pPopu).sfcDensityWeight;
      sfcBassLevelWeight = gaDat.Chrom(1,pPopu).sfcBassLevelWeight;
+     SFCMusicalPatternSmoothFitnessOperationUse = 0;
      %%
      if mainPitchWeight > 0       
          PitchDensityWeight = mainPitchWeight*sfcDensityWeight;
          PitchBassLevelWeight = mainPitchWeight*sfcBassLevelWeight;
      elseif mainPitchWeight == 0
+         SFCMusicalPatternSmoothFitnessOperationUse = SFCMusicalPatternSmoothFitnessOperationUse+1;
          PitchDensityWeight = 0;
          PitchBassLevelWeight = 0;
      else
@@ -30,15 +28,31 @@ gaDat = MainFitnessOperation(gaDat);
          VelocityDensityWeight = mainVelocityWeight*sfcDensityWeight;
          VelocityBassLevelWeight = mainVelocityWeight*sfcBassLevelWeight;
      elseif mainPitchWeight == 0
+         SFCMusicalPatternSmoothFitnessOperationUse = SFCMusicalPatternSmoothFitnessOperationUse+1;
          VelocityDensityWeight = 0;
          VelocityBassLevelWeight = 0;
      else
          VelocityDensityWeight = -(mainVelocityWeight*sfcDensityWeight);
          VelocityBassLevelWeight = -(mainVelocityWeight*sfcBassLevelWeight);
      end
-     %% 
-     chromFitness= (PitchDensityWeight + PitchBassLevelWeight +VelocityDensityWeight +VelocityBassLevelWeight)/4;
-     FitnV(pPopu,chromFitness) = chromFitness;
+     gaDat = SFCMusicalPatternSmoothFitnessOperation(gaDat,populationSize);
+
+     %%
+     patternNameSmoothScore = gaDat.Chrom(1,pPopu).patternNameSmoothScore;
+     measureSmoothScore = gaDat.Chrom(1,pPopu).measureSmoothScore;
+     chromFitnessS = (patternNameSmoothScore+measureSmoothScore)/2;
+     chromFitnessPVDBL = (PitchDensityWeight + PitchBassLevelWeight +VelocityDensityWeight +VelocityBassLevelWeight)/4 ;
+     chromFitnessPVDBL = round(chromFitnessPVDBL);
+     
+     if SFCMusicalPatternSmoothFitnessOperationUse > 0
+         chromFitnessS = chromFitnessS*3;
+     else
+         chromFitnessS = chromFitnessS/3;
+         chromFitnessS = round(chromFitnessS);
+     end
+     
+     chromFitness = chromFitnessS + chromFitnessPVDBL;
+     FitnV(pPopu,1) = chromFitness;
  end
  
  %{

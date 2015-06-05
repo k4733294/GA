@@ -58,6 +58,7 @@ for pMeasure = 1 : chorusStart - 1
     end
 end
 sfcVerseDensityWeightAvg = sfcVerseDensityWeightTotal / verseSizeOfSFCNote;
+sfcVerseDensityWeightAvg = round(sfcVerseDensityWeightAvg);
 clearvars pMeasure pBeat pFix sizeOfSFCD sizeOfSFCBL pNote noteTrace noteWeightMapIndex 
 
 chorusSizeOfSFCNote = 0;
@@ -71,6 +72,7 @@ for pMeasure = chorusStart : chorusEnd
     end
 end
 sfcChorusDensityWeightAvg = sfcChorusDensityWeightTotal / chorusSizeOfSFCNote;
+sfcChorusDensityWeightAvg = round(sfcChorusDensityWeightAvg);
 clearvars pMeasure pBeat pFix sizeOfSFCD pNote noteTrace noteWeightMapIndex
 
 %% 
