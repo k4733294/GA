@@ -55,15 +55,29 @@ gaDat = MainFitnessOperation(gaDat);
      FitnV(pPopu,1) = chromFitness;
  end
  
+ [maxScore,maxIndex]=max(FitnV(:,1)); %[v,p] is [ value , position ]
+ [minScore,minIndex]=min(FitnV(:,1));
+ 
+ if maxScore >= gaDat.fxmax        % the new maximun replace previous one
+     gaDat.xmax=gaDat.Chrom(1,maxIndex);
+     gaDat.fxmax=maxScore;
+ end
+ 
+ if minScore <= gaDat.fxmin        % the new minimun replace previous one
+     gaDat.xmin=gaDat.Chrom(1,minIndex);
+     gaDat.fxmin=minScore;
+ end
+ 
  %{
  %% One times templating created in this funtion
 ObjV = inf(gaDat.BlockSize,gaDat.populationSize);
 ObjV(:,i) =  returnToObjV ;
+ %}
  % ######   Next   #########
 %%
 %Generation*******************************************************************
 % Best individual of the generation ---------------------------------------------------------
-%%{   
+%{   
     gaDat.ObjV = ObjV;
     sumObjV=sum(ObjV,1);
     [v,maxIndex]=max(sumObjV); %[v,p] is [ value , position ]
@@ -79,6 +93,7 @@ ObjV(:,i) =  returnToObjV ;
         gaDat.fxmin=x;
     end
 %}
+%{
 %? SumFitnessinChromesomeBeforeRanking---------------------------------
 %{
      for i = 1 : gaDat.populationsize  

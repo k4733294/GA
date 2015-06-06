@@ -81,8 +81,7 @@ gaDat.rhythm=[];
 y=0;
 x=0;
 figure;
-plotGraph=plot(x,y);
-
+%plotGraph=plot(x,y);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Main loop
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -93,7 +92,31 @@ gen=0;
 % -------------------------------------------
  gaDat= Crtrp(gaDat);
  %-------------------------------------------
- % Individuals of gaDat.indini are randomly added in the initial population
+% Algorithm Kernel using later 
+disp('######   StartGaAlgorithmHere   #########')
+while (gaDat.gen<gaDat.MAXGEN),
+    gaDat.gen = gen;
+    gaDat = Gaevolucion(gaDat);  
+   % Increase generation counter ------------------
+    gaDat.xmingen(:,gen+1)=gaDat.xmin;
+    gaDat.fxmingen(:,gen+1)=gaDat.fxmin;
+    gaDat.xmaxgen(:,gen+1)=gaDat.xmax;
+    gaDat.fxmaxgen(:,gen+1)=gaDat.fxmax;
+    gen=gen+1;
+end
+%export the garesult matix in to midi struct-------------------    
+%version = '_testMidiToMidiOutput';
+%Melodyexport(gaDat.mainImportInfo,version);
+gaDat.mainImportInfo.version = 'ver_gaFinish';
+ChromsomeExport(gaDat);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% End main loop
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Present final results
+t=toc;
+GaResults(gaDat,t)
+
+% Individuals of gaDat.indini are randomly added in the initial population
  %{
     disp('------------------------------------------------')
     disp('######   if when indini   #########')
@@ -103,40 +126,6 @@ gen=0;
     disp(['posicion0' num2str(posicion0)])
     disp('------------------------------------------------')
  %}
-% Algorithm Kernel using later 
-disp('######   StartGaAlgorithmHere   #########')
-while (gaDat.gen<gaDat.MAXGEN),
-    gaDat.gen=gen;
-    gaDat=Gaevolucion(gaDat,plotGraph);  
-   % Increase generation counter ------------------
-    gaDat.xmingen(:,gen+1)=gaDat.xmin;
-    gaDat.fxmingen(:,gen+1)=gaDat.fxmin;
-    gaDat.xmaxgen(:,gen+1)=gaDat.xmax;
-    gaDat.fxmaxgen(:,gen+1)=gaDat.fxmax;
-    gen=gen+1;
-end
-%export the garesult matix in to midi struct-------------------    
-%------num is version of file------------------------------
-minMainMelody = [];
-maxMainMelody = [];
-%%{
-%ATTATION every important part must unmute.  here is servival part
-for i = 1 : 20
-    for j = 1 : 16
-        minMainMelody(i,j) = gaDat.xmin(i+j);
-        maxMainMelody(i,j) = gaDat.xmax(i+j);
-    end
-end
-%}
-version = '_testMidiToMidiOutput';
-Melodyexport(gaDat.mainImportInfo,version);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% End main loop
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Present final results
-t=toc;
-GaResults(gaDat,t)
-
 % Disorder the population. 
 %{
 [kk,indi]=sort(rand(length(FitnV),1));

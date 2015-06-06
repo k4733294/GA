@@ -1,4 +1,4 @@
-function GaIteration(gaDat,plotGraph)
+function GaIteration(gaDat)
 %  Optional user task executed at the end of each iteration
 %
 

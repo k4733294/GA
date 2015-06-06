@@ -1,8 +1,15 @@
-function NewChrom =lxov(OldChrom, XOVR, alpha,barsize)
+function gaDat = lxov(selChXovFst,selChXovSnd,IndicesFst,IndicesSnd,gaDat)
+XOVR = gaDat.Pc;
+alpha = gaDat.alfa;
+
+mixMap = MixMapCreate();
+mixMapChoice = mixMapRandChoiced(mainMeasureNumProperty,mixMap);
+mixMapChoice = mixMapPartionWeight(mixMapChoice);
+gaDat = IxovExcute(mixMapChoice,selChXovSnd,selChXovFst,IndicesFst,IndicesSnd,gaDat);
 
 %dialog change here
 %one (DIALOG)consist of 4 block (a block represent measure)
-
+%{
 choiceDialog = randi([1,2]);
 pointStart = 1;
 pointEnd = 1;
@@ -23,7 +30,7 @@ OldChrom(1,pointStart:pointEnd)=temp;
 
 
 NewChrom=OldChrom;
-
+%}
 % Linear crossover
 % Produce a new population by linear crossover and XOVR crossover probability
 %   NewChroms =lxov(OldChrom, XOVR, alpha, FieldDR)
