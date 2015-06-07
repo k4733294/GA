@@ -13,7 +13,7 @@ else
 end
 %%
 %SELECTION for CROSSOVER---------------------------------------------------------
-% Stochastic Universal Sampling (SUS).
+%Stochastic Universal Sampling (SUS).
 %%{
 [selChXovFst,IndicesFst] = Select('rws',gaDat.Chrom,FitnV,1);
 [selChXovSnd,IndicesSnd] = Select('rws',gaDat.Chrom,FitnV,1);
@@ -22,6 +22,10 @@ end
 % Uniform crossover.
 %%{
 gaDat = lxov(selChXovFst,selChXovSnd,IndicesFst,IndicesSnd,gaDat);
+NewMeloPath = CreateNewFolderForMeloChrom(gaDat);
+version = strcat(NewMeloPath,'ixovProgressNum_',gaDat.gen,'_Chrom1_',IndicesFst,'_Chrom2_',IndicesSnd);
+Melodyexport(selChXovFst,version);
+Melodyexport(selChXovSnd,version);
 %}
 %SELECTION for Mutation---------------------------------------------------------------
 %Stochastic Universal Sampling (SUS).

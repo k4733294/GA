@@ -1,16 +1,25 @@
 function gaDat = AddtoChromesome(gaDat,populationPosition,pMeasure,sampleFrameChoice)
 
 %% Measure layer and below info we changed to which we create here
-gaDat.chromsome(1,populationPosition).measure(1,pMeasure).noteContent =  sampleFrameChoice.measure(1,pMeasure).noteContent;
-%% Beat layer and below info we changed to which we create here
-gaDat.chromsome(1,populationPosition).measure(1,pMeasure).beat = sampleFrameChoice.measure(1,pMeasure).beat;
+gaDat.chromsome(1,populationPosition).measure(1,pMeasure).noteContent = sampleFrameChoice.measure(1,pMeasure).noteContent;
+gaDat.chromsome(1,populationPosition).measure(1,pMeasure).beat =  sampleFrameChoice.measure(1,pMeasure).beat;
+gaDat.chromsome(1,populationPosition).measure(1,pMeasure).rhythm = sampleFrameChoice.measure(1,pMeasure).rhythm;
+gaDat.chromsome(1,populationPosition).measure(1,pMeasure).patternVariance =  sampleFrameChoice.measure(1,pMeasure).patternVariance;
 gaDat.chromsome(1,populationPosition).chordLength = sampleFrameChoice.chordLength;
-gaDat.chromsome(1,populationPosition).measure(1,pMeasure).patternVariance = sampleFrameChoice.measure(1,pMeasure).patternVariance;
-gaDat.chromsome(1,populationPosition).sizeOfSFCM = sampleFrameChoice.midiString;
+gaDat.chromsome(1,populationPosition).chordString1 = sampleFrameChoice.chordString1;
+gaDat.chromsome(1,populationPosition).chordString2 = sampleFrameChoice.chordString2;
+
+%% Beat layer and below info we changed to which we create here
+%{
 gaDat.sampleFrameChoice(1,populationPosition).measure(1,pMeasure).noteContent = sampleFrameChoice.measure(1,pMeasure).noteContent;
+gaDat.sampleFrameChoice(1,populationPosition).measure(1,pMeasure).beat = sampleFrameChoice.measure(1,pMeasure).beat;
+gaDat.sampleFrameChoice(1,populationPosition).measure(1,pMeasure).rhythm = sampleFrameChoice.measure(1,pMeasure).rhythm;
+gaDat.sampleFrameChoice(1,populationPosition).measure(1,pMeasure).patternVariance = sampleFrameChoice.measure(1,pMeasure).patternVariance;
 gaDat.sampleFrameChoice(1,populationPosition).chordLength = sampleFrameChoice.chordLength;
-gaDat.sampleFrameChoice.measure(1,pMeasure).patternVariance = sampleFrameChoice.measure(1,pMeasure).patternVariance;
-gaDat.sampleFrameChoice.midiString = sampleFrameChoice.midiString;
+gaDat.sampleFrameChoice(1,populationPosition).chordString1 = sampleFrameChoice.chordString1;
+gaDat.sampleFrameChoice(1,populationPosition).chordString2 = sampleFrameChoice.chordString2;
+%}
+
 
          
         

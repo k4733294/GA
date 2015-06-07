@@ -1,9 +1,19 @@
 %%  ////main melody import/////
-gaDat = MainMelodyImport(Num);
+
+%% fix chord deault import tempraly error
+load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatRollingInTheDeepNoStructFixAllnote.mat');
+chordImportInfo = gaDat.chordImportInfo;
+defaultImportInfo = gaDat.defaultImportInfo;
+clearvars gaDat
+%%
+whichMalodyImport = 1;
+gaDat = MainMelodyImport(whichMalodyImport);
 %%  ////sample import/////
-gaDat = ChordImport(gaDat);
+%gaDat = ChordImport(gaDat);
+gaDat.chordImportInfo = chordImportInfo;
 %%  ////default import/////
-gaDat = DefaultImport(gaDat);
+%gaDat = DefaultImport(gaDat);
+gaDat.defaultImportInfo = defaultImportInfo;
 %% ///algorithm conf//// 
 %some conf var get from MainMelodyImport
 gaDat = GaInitConf(gaDat);

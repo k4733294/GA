@@ -34,7 +34,7 @@ initial population rules
 
 %% import which track in midi file wewant
 
-%{
+%%{
 %%/////all variable must exist
 rhythmNum = 1;
 chordImportInfo(rhythmNum).Objfun='chordMelody';
@@ -56,7 +56,7 @@ chordImportInfo(rhythmNum).exportVersion=version;
 chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 Melodyexport(chordImportInfo(rhythmNum),version);
 %}
-%{
+%%{
 rhythmNum = 2;
 chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = 'feel-so-close.mid';
@@ -77,7 +77,7 @@ chordImportInfo(rhythmNum).exportVersion=version;
 chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 Melodyexport(chordImportInfo(rhythmNum),version);
 %}
-%{
+%%{
 rhythmNum = 3;
 chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = 'hardwell_Output.mid';
@@ -98,7 +98,7 @@ chordImportInfo(rhythmNum).exportVersion=version;
 chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 Melodyexport(chordImportInfo(rhythmNum),version);
 %}
-%{
+%%{
 rhythmNum = 4;
 chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = 'aviciiLevelsMelody.mid';
@@ -119,7 +119,7 @@ chordImportInfo(rhythmNum).exportVersion=version;
 chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 Melodyexport(chordImportInfo(rhythmNum),version);
 %}
-%{
+%%{
 %except added  have some error here so i try another way to import 
 rhythmNum = 5;
 chordImportInfo(rhythmNum).Objfun='chordMelody';
@@ -141,7 +141,7 @@ chordImportInfo(rhythmNum).exportVersion=version;
 chordImportInfo = Variabledefine(chordImportInfo,rhythmNum);
 Melodyexport(chordImportInfo(rhythmNum),version);
 %}
-%{
+%%{
 rhythmNum = 6;
 chordImportInfo(rhythmNum).Objfun='chordMelody';
 chordImportInfo(rhythmNum).midiString = 'tiesto-wasted_ft_matthew_koma.midi';

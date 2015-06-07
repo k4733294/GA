@@ -11,6 +11,6 @@ for i = 1 : csSize
     gaDat.chromsome(1,i).ticksPerQuarterNote = gaDat.mainImportInfo.ticksPerQuarterNote;
     csNum = int2str(i);
     version = strcat(NewMeloPath,'ChormSome',csNum);
-    Melodyexport(gaDat.chromsome(1,i),version);
+    Melodyexport(gaDat.chromsome(1,i),version{1});
 end
 

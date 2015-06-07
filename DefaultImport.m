@@ -16,7 +16,7 @@ initial population rules
 
 %% import which track in midi file wewant
 %%{
-rhythmNum = 1;
+rhythmNum = 21;
 defaultImportInfo(rhythmNum).Objfun='defaultMelody';
 defaultImportInfo(rhythmNum).midiString = 'default1.mid';
 defaultImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
@@ -37,7 +37,7 @@ defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
 Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
 %%{
-rhythmNum = 2;
+rhythmNum = 22;
 defaultImportInfo(rhythmNum).Objfun='defaultMelody';
 defaultImportInfo(rhythmNum).midiString = 'default2.mid';
 defaultImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
@@ -58,7 +58,7 @@ defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
 Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
 %%{
-rhythmNum = 3;
+rhythmNum = 23;
 defaultImportInfo(rhythmNum).Objfun='defaultMelody';
 defaultImportInfo(rhythmNum).midiString = 'default3.mid';
 defaultImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
@@ -79,7 +79,7 @@ defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
 Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
 %%{
-rhythmNum = 4;
+rhythmNum = 24;
 defaultImportInfo(rhythmNum).Objfun='defaultMelody';
 defaultImportInfo(rhythmNum).midiString = 'default4.mid';
 defaultImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
@@ -100,7 +100,7 @@ defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
 Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
 %%{
-rhythmNum = 5;
+rhythmNum = 25;
 defaultImportInfo(rhythmNum).Objfun='defaultMelody';
 defaultImportInfo(rhythmNum).midiString = 'default5.mid';
 defaultImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
@@ -121,7 +121,7 @@ defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
 Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
 %%{
-rhythmNum = 6;
+rhythmNum = 26;
 defaultImportInfo(rhythmNum).Objfun='defaultMelody';
 defaultImportInfo(rhythmNum).midiString = 'default6.mid';
 defaultImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody
@@ -142,7 +142,7 @@ defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
 Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
 %%{
-rhythmNum = 7;
+rhythmNum = 27;
 defaultImportInfo(rhythmNum).Objfun='defaultMelody';
 defaultImportInfo(rhythmNum).midiString = 'default7.mid';
 defaultImportInfo(rhythmNum).mainOrChord=1; % 0 = main melody 1=import chord melody

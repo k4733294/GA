@@ -26,6 +26,8 @@ gaDat.MAXGEN = 100;
 gaDat.NIND = numel(gaDat.mainImportInfo.notesInTheMeasure); 
 %% evaluation in the ranking function
 gaDat.rf = (1:gaDat.populationSize)';
+gaDat.dialogLength = 16;
+gaDat.patternLength = 4;
 
 
 %evaluation in the objfun  

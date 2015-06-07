@@ -78,9 +78,9 @@ gaDat.xmaxgen=[];
 gaDat.fxmaxgen=[];
 gaDat.gen=0;
 gaDat.rhythm=[];
-y=0;
-x=0;
-figure;
+%y=0;
+%x=0;
+%figure;
 %plotGraph=plot(x,y);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Main loop
@@ -90,7 +90,8 @@ tic;
 gen=0;
 % Initial population
 % -------------------------------------------
- gaDat= Crtrp(gaDat);
+ %gaDat= Crtrp(gaDat);
+ load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatRollingInTheDeepNoStructFixAllnoteForFitNessIxov.mat');
  %-------------------------------------------
 % Algorithm Kernel using later 
 disp('######   StartGaAlgorithmHere   #########')
