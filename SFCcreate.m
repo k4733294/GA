@@ -1,13 +1,13 @@
 function sampleFrameChoice = SFCcreate(mixMapChoice,gaDat)
 
 for i = 1 : 2
-%% rand choicing sample from importsamplebeat or defaultsamplebeat
-%   setting probability   importsamplebeat 20%  defautsamplebeat 80%
+    %% rand choicing sample from importsamplebeat or defaultsamplebeat
+    %   setting probability   importsamplebeat 20%  defautsamplebeat 80%
     samplePropertiesChoice = getRandSampleProperties();
-%% sample choiced
-%   choice which frame in that properties we want
+    %% sample choiced
+    %   choice which frame in that properties we want
     sampleNumChoice = SPC(gaDat,samplePropertiesChoice);
-%% choice Data Actually from 
+    %% choice Data Actually from
     sampleFrameChoiceMatrix(1,i) = SBC(gaDat,sampleNumChoice,samplePropertiesChoice);
 end
 
@@ -16,19 +16,25 @@ for measureIndex = 1 : mainMeasureSize
     %choice sel by measure is all zero (donothing) or have 1(choice from another sfc) in it
     measureChoice = max(mixMapChoice.measureMix(1,measureIndex).mixMap);
     % all zero (donothing)
-    if measureChoice == 0  
+    if measureChoice == 0
         sizeOfSFCM = sampleFrameChoiceMatrix(1,1).sizeOfSFCM;
         sFCMChoice = mod(measureIndex,sizeOfSFCM);
-        sampleFrameChoice.measure(1,measureIndex).beat = sampleFrameChoiceMatrix(1,1).measure(1,sFCMChoice + 1).beat;
-        sampleFrameChoice.measure(1,measureIndex).noteContent = sampleFrameChoiceMatrix(1,1).measure(1,sFCMChoice + 1).noteContent;
+        if sFCMChoice == 0
+            sFCMChoice = sampleFrameChoiceMatrix(1,1).sizeOfSFCM;
+        end
+        sampleFrameChoice.measure(1,measureIndex).beat = sampleFrameChoiceMatrix(1,1).measure(1,sFCMChoice).beat;
+        sampleFrameChoice.measure(1,measureIndex).noteContent = sampleFrameChoiceMatrix(1,1).measure(1,sFCMChoice).noteContent;
         sampleFrameChoice.measure(1,measureIndex).patternVariance = 0;
         sampleFrameChoice.measure(1,measureIndex).rhythm = sampleFrameChoiceMatrix(1,1).rhythm;
-    % beatmatrix  have 1(choice from another sfc) in it    
+        % beatmatrix  have 1(choice from another sfc) in it
     else
         sizeOfSFCM = sampleFrameChoiceMatrix(1,2).sizeOfSFCM;
         sFCMChoice = mod(measureIndex,sizeOfSFCM);
-        sampleFrameChoice.measure(1,measureIndex).beat = sampleFrameChoiceMatrix(1,2).measure(1,sFCMChoice + 1).beat;
-        sampleFrameChoice.measure(1,measureIndex).noteContent = sampleFrameChoiceMatrix(1,2).measure(1,sFCMChoice + 1).noteContent;
+        if sFCMChoice == 0
+            sFCMChoice = sampleFrameChoiceMatrix(1,1).sizeOfSFCM;
+        end
+        sampleFrameChoice.measure(1,measureIndex).beat = sampleFrameChoiceMatrix(1,2).measure(1,sFCMChoice).beat;
+        sampleFrameChoice.measure(1,measureIndex).noteContent = sampleFrameChoiceMatrix(1,2).measure(1,sFCMChoice).noteContent;
         sampleFrameChoice.measure(1,measureIndex).patternVariance = 0;
         sampleFrameChoice.measure(1,measureIndex).rhythm = sampleFrameChoiceMatrix(1,2).rhythm;
     end

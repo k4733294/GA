@@ -23,7 +23,15 @@ else
      sampleFrameChoice.tonal = gaDat.defaultImportInfo(1,sampleNumChoice).tonal;
      sampleFrameChoice.chordLength = gaDat.defaultImportInfo(1,sampleNumChoice).chordLength;
      sampleFrameChoice.midiString = gaDat.defaultImportInfo(1,sampleNumChoice).midiString;
-     sampleFrameChoice.sizeOfSFCM = size(gaDat.defaultImportInfo(1,sampleNumChoice).measure,2);
+     sizeDMImeasure = size(gaDat.defaultImportInfo(1,sampleNumChoice).measure,2);
+     sizeDMImeasureFix = fix(sizeDMImeasure/4);
+     sizeDMImeasureMod = mod(sizeDMImeasure,4);
+     if sizeDMImeasureFix <= 0
+         sizeOfSFCM = sizeDMImeasureMod;
+     else
+         sizeOfSFCM = sizeDMImeasureFix*4;
+     end
+     sampleFrameChoice.sizeOfSFCM = sizeOfSFCM;
      sampleFrameChoice.rhythm = gaDat.defaultImportInfo(1,sampleNumChoice).rhythm;
      %sampleFrameChoice.timeSignatureNumerator = gaDat.defaultImportInfo(1,sampleNumChoice).timeSignatureNumerator;
      %sampleFrameChoice.timeSignatureDenominator = gaDat.defaultImportInfo(1,sampleNumChoice).timeSignatureDenominator;

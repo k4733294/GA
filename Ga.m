@@ -66,8 +66,6 @@ if ~isfield(gaDat,'rf')
 end
 
 %%  Internal parameters
-gaDat.Chrom=[];
-gaDat.ObjV=[];
 gaDat.xmin=[];
 gaDat.fxmin=inf;
 gaDat.xmax=[];
@@ -77,37 +75,37 @@ gaDat.fxmingen=[];
 gaDat.xmaxgen=[];
 gaDat.fxmaxgen=[];
 gaDat.gen=0;
-gaDat.rhythm=[];
-%y=0;
-%x=0;
-%figure;
-%plotGraph=plot(x,y);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Main loop
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic;
 % Generation counter
-gen=0;
-% Initial population
-% -------------------------------------------
- %gaDat= Crtrp(gaDat);
- load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatRollingInTheDeepNoStructFixAllnoteForFitNessIxov.mat');
- %-------------------------------------------
-% Algorithm Kernel using later 
+gen= 1;
+% Initial population -------------------------------------------
+gaDat= Crtrp(gaDat);
+%load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatRollingInTheDeepNoStructFixAllnoteForFitNessIxov.mat');
+%gaDat.MAXGEN = 500;
+figure(1);
+figure(2);
+y=0; x=0;
+gaDat.plotGraph=plot(x,y);
+
+for i =1 : gaDat.populationSize
+    gaDat.chromsome(1,i ).ticksPerQuarterNote = gaDat.mainImportInfo.ticksPerQuarterNote;
+end
+% Algorithm Kernel using later-------------------------------------------
 disp('######   StartGaAlgorithmHere   #########')
 while (gaDat.gen<gaDat.MAXGEN),
     gaDat.gen = gen;
-    gaDat = Gaevolucion(gaDat);  
-   % Increase generation counter ------------------
-    gaDat.xmingen(:,gen+1)=gaDat.xmin;
-    gaDat.fxmingen(:,gen+1)=gaDat.fxmin;
-    gaDat.xmaxgen(:,gen+1)=gaDat.xmax;
-    gaDat.fxmaxgen(:,gen+1)=gaDat.fxmax;
-    gen=gen+1;
+    gaDat = Gaevolucion(gaDat);
+    % Increase generation counter
+    gaDat.xmingen(1,gen)=gaDat.xmin;
+    gaDat.fxmingen(1,gen)=gaDat.fxmin;
+    gaDat.xmaxgen(1,gen)=gaDat.xmax;
+    gaDat.fxmaxgen(1,gen)=gaDat.fxmax;
+    gen = gen + 1;
 end
-%export the garesult matix in to midi struct-------------------    
-%version = '_testMidiToMidiOutput';
-%Melodyexport(gaDat.mainImportInfo,version);
+%% Export the garesult matix in to midi struct-------------------
 gaDat.mainImportInfo.version = 'ver_gaFinish';
 ChromsomeExport(gaDat);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -117,16 +115,7 @@ ChromsomeExport(gaDat);
 t=toc;
 GaResults(gaDat,t)
 
-% Individuals of gaDat.indini are randomly added in the initial population
- %{
-    disp('------------------------------------------------')
-    disp('######   if when indini   #########')
-    disp()
-    disp('gadat indini'  , gaDat.indini)
-    disp(['nind0' num2str(nind0)])
-    disp(['posicion0' num2str(posicion0)])
-    disp('------------------------------------------------')
- %}
+
 % Disorder the population. 
 %{
 [kk,indi]=sort(rand(length(FitnV),1));

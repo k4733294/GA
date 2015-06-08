@@ -1,10 +1,10 @@
-function FitnV = ObjfunChordFit(populationSize,gaDat)
+function gaDat = ObjfunChordFit(populationSize,gaDat)
 FitnV = zeros(populationSize,1);
 gaDat = MainFitnessOperation(gaDat);
  for pPopu = 1 : populationSize
      gaDat = SFCFitnessOperation(gaDat,pPopu);
  end
- %% 
+ %%
  clearvars pPopu
  mainPitchWeight = gaDat.mainImportInfo.mainPitchWeight;
  mainVelocityWeight = gaDat.mainImportInfo.mainVelocityWeight;
@@ -13,7 +13,7 @@ gaDat = MainFitnessOperation(gaDat);
      sfcBassLevelWeight = gaDat.chromsome(1,pPopu).sfcBassLevelWeight;
      SFCMusicalPatternSmoothFitnessOperationUse = 0;
      %%
-     if mainPitchWeight > 0       
+     if mainPitchWeight > 0
          PitchDensityWeight = mainPitchWeight*sfcDensityWeight;
          PitchBassLevelWeight = mainPitchWeight*sfcBassLevelWeight;
      elseif mainPitchWeight == 0
@@ -24,7 +24,7 @@ gaDat = MainFitnessOperation(gaDat);
          PitchDensityWeight = -(mainPitchWeight*sfcDensityWeight);
          PitchBassLevelWeight = -(mainPitchWeight*sfcBassLevelWeight);
      end
-     a=1;
+     
      if mainVelocityWeight > 0
          VelocityDensityWeight = mainVelocityWeight*sfcDensityWeight;
          VelocityBassLevelWeight = mainVelocityWeight*sfcBassLevelWeight;
@@ -36,39 +36,39 @@ gaDat = MainFitnessOperation(gaDat);
          VelocityDensityWeight = -(mainVelocityWeight*sfcDensityWeight);
          VelocityBassLevelWeight = -(mainVelocityWeight*sfcBassLevelWeight);
      end
-     a=1;
-     gaDat = SFCMusicalPatternSmoothFitnessOperation(gaDat,populationSize);
-
+     
+     gaDat = SFCMusicalPatternSmoothFitnessOperation(gaDat,pPopu);
      %%
-     patternNameSmoothScore = gaDat.Chrom(1,pPopu).patternNameSmoothScore;
-     measureSmoothScore = gaDat.Chrom(1,pPopu).measureSmoothScore;  
+     patternNameSmoothScore = gaDat.chromsome(1,pPopu).patternNameSmoothScore;
+     measureSmoothScore = gaDat.chromsome(1,pPopu).measureSmoothScore;
      if mainPitchWeight ~= 0
          chromFitnessPVDBL = (PitchDensityWeight + PitchBassLevelWeight +VelocityDensityWeight +VelocityBassLevelWeight)/4 ;
          chromFitnessPVDBL = round(chromFitnessPVDBL);
          chromFitnessS = (patternNameSmoothScore + measureSmoothScore)/2;
          chromFitness = chromFitnessPVDBL + chromFitnessS;
+         chromFitness = round(chromFitness);
      else
          chromFitnessS = (patternNameSmoothScore + measureSmoothScore)/2;
          round(chromFitnessS);
          chromFitness = chromFitnessS;
      end
      FitnV(pPopu,1) = chromFitness;
-     a=1;
  end
+ gaDat.FitnV = FitnV;
  
- [maxScore,maxIndex]=max(FitnV(:,1)); %[v,p] is [ value , position ]
- [minScore,minIndex]=min(FitnV(:,1));
- a=1;
+ [maxScore,maxIndex] = max(FitnV(:,1)); %[v,p] is [ value , position ]
+ [minScore,minIndex] = min(FitnV(:,1));
+
  if maxScore >= gaDat.fxmax        % the new maximun replace previous one
-     gaDat.xmax=gaDat.Chrom(1,maxIndex);
-     gaDat.fxmax=maxScore;
+     gaDat.xmax = maxIndex;
+     gaDat.fxmax = maxScore;
  end
- a=1;
+
  if minScore <= gaDat.fxmin        % the new minimun replace previous one
-     gaDat.xmin=gaDat.Chrom(1,minIndex);
-     gaDat.fxmin=minScore;
+     gaDat.xmin = minIndex;
+     gaDat.fxmin = minScore;
  end
- a=1;
+
  %{
  %% One times templating created in this funtion
 ObjV = inf(gaDat.BlockSize,gaDat.populationSize);

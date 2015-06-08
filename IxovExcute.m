@@ -1,9 +1,9 @@
-function gaDat = IxovExcute(mixMapChoice,selChXovFst,selChXovSnd,IndicesFst,IndicesSnd,gaDat)
+function gaDat = IxovExcute(mixMapChoice,selChXov,indicesXov,gaDat)
 chorusPoint = gaDat.mainImportInfo.chorusPoint;
 chorusStart = chorusPoint(1,1);
 chorusEnd = chorusPoint(1,2);
-sampleFrameChoiceMatrix(1,1) = selChXovFst;
-sampleFrameChoiceMatrix(1,2) = selChXovSnd;
+sampleFrameChoiceMatrix(1,1) = selChXov(1,1);
+sampleFrameChoiceMatrix(1,2) = selChXov(1,2);
 
 verseOrChrousTrans = randi(10,1);
 if verseOrChrousTrans<5
@@ -17,23 +17,23 @@ for measureIndex = 1 : mainMeasureSize
     measureChoice = max(mixMapChoice.measureMix(1,measureIndex).mixMap);
     if tansVerseOnOrChrous == 0 %% verse trans
         if measureIndex < chorusStart || measureIndex > chorusEnd
-            sizeOfSFCM = sampleFrameChoiceMatrix(1,1).sizeOfSFCM;
-            sFCMChoice = mod(measureIndex,sizeOfSFCM);
             if measureChoice == 0
-                gaDat.Chrom(1,IndicesSnd).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,sFCMChoice + 1);
+                gaDat.chromsome(1,indicesXov(1,1)).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,measureIndex);
+                gaDat.chromsome(1,indicesXov(1,2)).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,measureIndex);
             else
-                gaDat.Chrom(1,IndicesSnd).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,sFCMChoice + 1);
+                gaDat.chromsome(1,indicesXov(1,1)).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,measureIndex);
+                gaDat.chromsome(1,indicesXov(1,2)).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,measureIndex);
             end
         end
     else %%chorus trans
         if measureIndex > chorusStart && measureIndex < chorusEnd
-            sizeOfSFCM = sampleFrameChoiceMatrix(1,1).sizeOfSFCM;
-            sFCMChoice = mod(measureIndex,sizeOfSFCM);
             if measureChoice == 0
-                gaDat.Chrom(1,IndicesFst).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,sFCMChoice + 1);
+                gaDat.chromsome(1,indicesXov(1,2)).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,measureIndex);
+                gaDat.chromsome(1,indicesXov(1,1)).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,measureIndex);
             else
-                gaDat.Chrom(1,IndicesFst).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,sFCMChoice + 1);
+                gaDat.chromsome(1,indicesXov(1,2)).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,measureIndex);
+                gaDat.chromsome(1,indicesXov(1,1)).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,measureIndex);
             end
-        end 
+        end
     end
 end

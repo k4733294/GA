@@ -1,12 +1,12 @@
-function gaDat = lxov(selChXovFst,selChXovSnd,IndicesFst,IndicesSnd,gaDat)
+function gaDat = lxov(selChXov,indicesXov,gaDat)
 XOVR = gaDat.Pc;
 alpha = gaDat.alfa;
-
+mainMeasureNumProperty = getMainMeasureNumProperty(gaDat);
 mixMap = MixMapCreate();
 mixMapChoice = mixMapRandChoiced(mainMeasureNumProperty,mixMap);
 mixMapChoice = mixMapPartionWeight(mixMapChoice);
-gaDat = IxovExcute(mixMapChoice,selChXovSnd,selChXovFst,IndicesFst,IndicesSnd,gaDat);
-
+gaDat = IxovExcute(mixMapChoice,selChXov,indicesXov,gaDat);
+gaDat = IxovRestruct(gaDat,indicesXov);
 %dialog change here
 %one (DIALOG)consist of 4 block (a block represent measure)
 %{

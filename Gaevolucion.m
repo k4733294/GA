@@ -3,7 +3,7 @@ function gaDat=Gaevolucion(gaDat)
 disp('######   FitnessProcess   #########')
 %% FITNESSS ---------------------------------------------------------
 if isempty(gaDat.ObjfunPar)
-    FitnV = ObjfunChordFit(gaDat.populationSize,gaDat);
+    gaDat = ObjfunChordFit(gaDat.populationSize,gaDat);
 else
     %{
             % no needed
@@ -15,17 +15,21 @@ end
 %SELECTION for CROSSOVER---------------------------------------------------------
 %Stochastic Universal Sampling (SUS).
 %%{
-[selChXovFst,IndicesFst] = Select('rws',gaDat.Chrom,FitnV,1);
-[selChXovSnd,IndicesSnd] = Select('rws',gaDat.Chrom,FitnV,1);
+FitnV = gaDat.FitnV;
+[selChXov,indicesXov] = Select('rws',gaDat.chromsome,FitnV,1);
 %}
 % CROSSOVER--------------------------------------------------------------------------------
 % Uniform crossover.
 %%{
-gaDat = lxov(selChXovFst,selChXovSnd,IndicesFst,IndicesSnd,gaDat);
+gaDat = lxov(selChXov,indicesXov,gaDat);
 NewMeloPath = CreateNewFolderForMeloChrom(gaDat);
-version = strcat(NewMeloPath,'ixovProgressNum_',gaDat.gen,'_Chrom1_',IndicesFst,'_Chrom2_',IndicesSnd);
-Melodyexport(selChXovFst,version);
-Melodyexport(selChXovSnd,version);
+genStr = num2str(gaDat.gen);
+indicesXov1Str = num2str(indicesXov(1,1));
+indicesXov2Str = num2str(indicesXov(1,2));
+version = strcat(NewMeloPath,'ixovProgressNum_',genStr,'_Chrom1_',indicesXov1Str,'_',indicesXov2Str);
+Melodyexport(gaDat.chromsome(1,indicesXov(1,1)),version{1});
+version = strcat(NewMeloPath,'ixovProgressNum_',genStr,'_Chrom2_',indicesXov1Str,'_',indicesXov2Str);
+Melodyexport(gaDat.chromsome(1,indicesXov(1,2)),version{1});
 %}
 %SELECTION for Mutation---------------------------------------------------------------
 %Stochastic Universal Sampling (SUS).
@@ -42,7 +46,7 @@ SelCh = Mutbga(selChMuta,gaDat.FieldD,[gaDat.Pm 1]); % Codificaci???n Real.
  %% struct to  ixov  and mutbga inside
 %gaDat.Chrom(IndicesFst,:) = gaDat.selChXovFst;
 % Optional additional task required by user
-sampleFrameChoice = SFCRestruct(sampleFrameChoice);
+
 %{
 %ATTATION every important part must unmute.  here is servival part
 minMainMelody = [];
