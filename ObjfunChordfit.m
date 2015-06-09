@@ -63,7 +63,6 @@ gaDat = MainFitnessOperation(gaDat);
      gaDat.xmax = maxIndex;
      gaDat.fxmax = maxScore;
  end
-
  if minScore <= gaDat.fxmin        % the new minimun replace previous one
      gaDat.xmin = minIndex;
      gaDat.fxmin = minScore;

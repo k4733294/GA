@@ -22,6 +22,7 @@ FitnV = gaDat.FitnV;
 % Uniform crossover.
 %%{
 gaDat = lxov(selChXov,indicesXov,gaDat);
+%{
 NewMeloPath = CreateNewFolderForMeloChrom(gaDat);
 genStr = num2str(gaDat.gen);
 indicesXov1Str = num2str(indicesXov(1,1));
@@ -31,10 +32,11 @@ Melodyexport(gaDat.chromsome(1,indicesXov(1,1)),version{1});
 version = strcat(NewMeloPath,'ixovProgressNum_',genStr,'_Chrom2_',indicesXov1Str,'_',indicesXov2Str);
 Melodyexport(gaDat.chromsome(1,indicesXov(1,2)),version{1});
 %}
+%}
 %SELECTION for Mutation---------------------------------------------------------------
 %Stochastic Universal Sampling (SUS).
 %{
-[selChMuta,IndicesMuta] = Select('rws',gaDat.Chrom,FitnV,1);
+[selChMuta,IndicesMuta] = Select('rws',gaDat.chromsome,FitnV,1);
 %}
 %% MUTATION----------------------------------------------------------------------------------
 %{
