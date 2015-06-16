@@ -1,5 +1,5 @@
 function gaDat = ObjfunChordFit(populationSize,gaDat)
-FitnV = zeros(populationSize,1);
+fitnV = zeros(populationSize,1);
 gaDat = MainFitnessOperation(gaDat);
  for pPopu = 1 : populationSize
      gaDat = SFCFitnessOperation(gaDat,pPopu);
@@ -52,12 +52,13 @@ gaDat = MainFitnessOperation(gaDat);
          round(chromFitnessS);
          chromFitness = chromFitnessS;
      end
-     FitnV(pPopu,1) = chromFitness;
+     fitnV(pPopu,1) = chromFitness;
  end
- gaDat.FitnV = FitnV;
+ gaDat.fitnV = fitnV;
+ gaDat.fitnVTotal = sum(fitnV(:,1));
  
- [maxScore,maxIndex] = max(FitnV(:,1)); %[v,p] is [ value , position ]
- [minScore,minIndex] = min(FitnV(:,1));
+ [maxScore,maxIndex] = max(fitnV(:,1)); %[v,p] is [ value , position ]
+ [minScore,minIndex] = min(fitnV(:,1));
 
  if maxScore >= gaDat.fxmax        % the new maximun replace previous one
      gaDat.xmax = maxIndex;

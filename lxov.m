@@ -1,6 +1,8 @@
 function gaDat = lxov(selChXov,indicesXov,gaDat)
+
 XOVR = gaDat.Pc;
 alpha = gaDat.alfa;
+
 mainMeasureNumProperty = getMainMeasureNumProperty(gaDat);
 mixMap = MixMapCreate();
 mixMapChoice = mixMapRandChoiced(mainMeasureNumProperty,mixMap);

@@ -5,6 +5,7 @@ disp('------------------------------------------------')
 disp(['Iteration: ' num2str(gaDat.gen)])
 disp(['   minChromIndex: ' mat2str(gaDat.xmin) ' -- minScore: ',num2str(gaDat.fxmin)])
 disp(['   maxChromIndex: ' mat2str(gaDat.xmax) ' -- maxScore: ',num2str(gaDat.fxmax)])
+disp(['   TotalFitnessScore: ' mat2str(gaDat.fitnVTotal) ])
 
 lineGraphDataX = gaDat.gen;
 %lineGraphDataY = gaDat.fxmax;
@@ -23,6 +24,12 @@ xlabel('GenTimes') % x-axis label
 ylabel('MinFitnessScore') % y-axis label
 plot(lineGraphDataX,gaDat.fxmin,':ks');
 hold off
-%set(gaDat.plotGraph,'XData' ,lineGraphDataX);
-%set(gaDat.plotGraph,'YData',lineGraphDataY);
+drawnow
+hold on
+figure(3)
+title('TotalFitnessRevo')
+xlabel('GenTimes') % x-axis label
+ylabel('TotalFitnessScore') % y-axis label
+plot(lineGraphDataX,gaDat.fitnVTotal,':ks');
+hold off
 drawnow

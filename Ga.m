@@ -3,8 +3,8 @@ function gaDat=Ga(g)
 %% Basic Genetic Algorithm
 % 
 % 
-%    gaDat=ga(gaDat)
-%    gaDat : Data structure used by the algorithm.
+%gaDat=ga(gaDat)
+%gaDat : Data structure used by the algorithm.
 %    
 % Data structure:
 % Parameters that have to be defined by user
@@ -74,7 +74,13 @@ gaDat.xmingen=[];
 gaDat.fxmingen=[];
 gaDat.xmaxgen=[];
 gaDat.fxmaxgen=[];
+gaDat.fitnesstotalmaxgen=[];
 gaDat.gen=0;
+figure(1);
+figure(2);
+figure(3);
+y=0; x=0;
+gaDat.plotGraph=plot(x,y);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Main loop
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -85,11 +91,6 @@ gen= 1;
 gaDat= Crtrp(gaDat);
 %load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatRollingInTheDeepNoStructFixAllnoteForFitNessIxov.mat');
 %gaDat.MAXGEN = 500;
-figure(1);
-figure(2);
-y=0; x=0;
-gaDat.plotGraph=plot(x,y);
-
 for i =1 : gaDat.populationSize
     gaDat.chromsome(1,i ).ticksPerQuarterNote = gaDat.mainImportInfo.ticksPerQuarterNote;
 end
@@ -103,6 +104,7 @@ while (gaDat.gen<gaDat.MAXGEN),
     gaDat.fxmingen(1,gen)=gaDat.fxmin;
     gaDat.xmaxgen(1,gen)=gaDat.xmax;
     gaDat.fxmaxgen(1,gen)=gaDat.fxmax;
+    gaDat.fitnesstotalmaxgen(1,gen)=gaDat.fitnVTotal;
     gen = gen + 1;
 end
 %% Export the garesult matix in to midi struct-------------------

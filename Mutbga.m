@@ -1,4 +1,4 @@
-function NewChrom=Mutbga(OldChrom,FieldDR,MutOpt)
+function gaDat = Mutbga(selChMuta,IndicesMuta,gaDat)
 % Mutation function
 % Real coded mutation. 
 % Mutation is produced adding a low random value
@@ -8,7 +8,67 @@ function NewChrom=Mutbga(OldChrom,FieldDR,MutOpt)
 %         MutOpt(1)=mutation probability (0 to 1).
 %         MutOpt(2)=compression of the mutation value (0 to 1).
 %         default MutOpt(1)=1/Nvar y MutOpt(2)=1
+pm = gaDat.Pm;
+pm = pm*100;
+chorusPoint = gaDat.mainImportInfo.chorusPoint;
+startChorus = chorusPoint(1,1);
+endChorus = chorusPoint(1,2);
+startMeasre = 0;
+endMeasure = 0;
+%%do Muta Or not
+mutaActRand = randi([1 100],1);
+%% 1 make note length be long passing from same length 
+%    2 make note length be long passing from randNoteLength
+%    3 make note length be short passing from same length
+%    4 make note length be short passing from randNoteLength
+%randMode = randi([1 4],1);
+randMode = 3;
+%%{
+%% 1  1/2note length
+%    2   1/4note length
+%    3   1/8note length
+%    4   1/16note length
+%{
+randNoteLengthMode = randi([1 4],1);
+NoteLengthMatrix = [1 2 3 4 ;8 4 2 1] ;
+randNoteLength = NoteLengthMatrix(2,randNoteLengthMode);
+%}
+randNoteLength = 2;
+%}
+%% 1 verse do 
+%    2 chrous do
+randVerseOrChrous = randi([1 2],1);
+%%
+mutaAct = 1;
+%{
+if mutaActRand <= pm
+    mutaAct = 1;
+end
+%}
 
+sizeOfMeasure= size(selChMuta(1,1).measure,2);
+if randVerseOrChrous == 1
+    startMeasre = 1;
+    endMeasure = sizeOfMeasure;
+else
+    startMeasre = startChorus;
+    endMeasure = endChorus;
+end
+
+if mutaAct == 1
+    for pMeasure = startMeasre : endMeasure
+        if randVerseOrChrous ==1 && pMeasure < endChorus && pMeasure > startChorus
+            continue
+        else
+            gaDat = PatternMutbga(gaDat,pMeasure,IndicesMuta,randNoteLength,randMode);
+            gaDat.chromsome(1,IndicesMuta(1,1)).measure(1,pMeasure).patternVariance = gaDat.chromsome(1,IndicesMuta(1,1)).measure(1,pMeasure).patternVariance+1;
+        end
+    end
+end
+
+gaDat = MutaRestruct(gaDat,IndicesMuta);
+
+%{
 if (nargin==3)
     pm=MutOpt(1);
     shr=MutOpt(2);
@@ -20,15 +80,12 @@ else
 end
 
 for i = 1 : 2
-    
 whoNeedMut = randi([1 320],1,1);
 OldChrom(whoNeedMut,i) = randi([36 84],1,1);
-
 end
 
 NewChrom = OldChrom;
 
-%{
 Nind=size(OldChrom,1);
 m1=0.5-(1-pm)*0.5;
 m2=0.5+(1-pm)*0.5;

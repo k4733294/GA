@@ -10,13 +10,18 @@ disp('------------------------------------------------')
 disp(['  total time:  ' num2str(t)])
 
 x = 1 : gaDat.gen;
-figure(3)
+figure(4)
 title('MaxFitnessRevoFinalReport')
 xlabel('GenTimes') % x-axis label
 ylabel('MaxFitnessScore') % y-axis label
 plot(x,gaDat.fxmaxgen,':ks');
-figure(4)
+figure(5)
 title('MinFitnessRevoFinalReport')
 xlabel('GenTimes') % x-axis label
 ylabel('MinFitnessScore') % y-axis label
 plot(x,gaDat.fxmingen,':ks');
+figure(6)
+title('FitnessTotalRevoFinalReport')
+xlabel('GenTimes') % x-axis label
+ylabel('FitnessTotalScore') % y-axis label
+plot(x,gaDat.fitnesstotalmaxgen,':ks');
