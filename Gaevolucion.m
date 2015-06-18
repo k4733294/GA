@@ -1,5 +1,5 @@
-function gaDat=Gaevolucion()
-load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatRollingInTheDeepNoStructFixAllnoteForFitNessIxov.mat');
+function gaDat=Gaevolucion(gaDat)
+%load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatRollingInTheDeepNoStructFixAllnoteForFitNessIxov.mat');
 disp('######   FitnessProcess   #########')
 %% FITNESSS ---------------------------------------------------------
 %%{
@@ -16,13 +16,13 @@ end
 %%
 %SELECTION for CROSSOVER---------------------------------------------------------
 %Stochastic Universal Sampling (SUS).
-%{
+%%{
 fitnV = gaDat.fitnV;
 [selChXov,indicesXov] = Select('rws',gaDat.chromsome,fitnV,1);
 %}
 % CROSSOVER--------------------------------------------------------------------------------
 % Uniform crossover.
-%{
+%%{
 gaDat = lxov(selChXov,indicesXov,gaDat);
 %{
 %%Export every ixov result about 2 chromsome

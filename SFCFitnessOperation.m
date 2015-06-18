@@ -104,6 +104,7 @@ clearvars pMeasure pBeat pFix sizeOfSFCD pNote noteTrace noteWeightMapIndex
 
 %%
 sfcDensityWeight = sfcChorusDensityWeightAvg - sfcVerseDensityWeightAvg;
+sfcDensityWeight = sfcDensityWeight/10;
 %% got sfcVerseBassLevelTotal
 verseSizeOfSFCNote = 0;
 sfcVerseBassLevelTotal =0;

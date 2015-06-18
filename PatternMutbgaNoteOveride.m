@@ -1,5 +1,5 @@
- function gaDat = PatternMutbga(gaDat,pMeasure,IndicesMuta,randNoteLength,randMode)
- IndicesMutaChoice = IndicesMuta(1,1);
+function gaDat = PatternMutbgaNoteOveride(gaDat,pMeasure,IndicesMuta,randNoteLength,randMode)
+IndicesMutaChoice = IndicesMuta(1,1);
  octave = 12;
  maxMeasureLength = 16;
  maxPatternLength = 64;
@@ -41,6 +41,7 @@
          noteLenVari  = noteLengthCreate;
      end
      %%
+     %{
      noteAddIndex = noteContent(noteAddIndexs(nAIndex,1),1);
      noteAddPitch = noteContent(noteAddIndexs(nAIndex,1),5);
      
@@ -70,6 +71,7 @@
          % find result is empty
          %have no same ptich note will ctrical after propably
      end
+     %}
      %%------------------------------------------------
      %%------------------------------------------------
      switch randMode
@@ -198,5 +200,3 @@
          
      end
  end
- 
- 

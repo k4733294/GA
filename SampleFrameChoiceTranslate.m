@@ -46,6 +46,8 @@ sPNoteInMA = musicalAlphabet(1,sPNoteInMAIndex);
 %% fix sPNoteInMA mPNoteInMA have some note not in standard Musical alphabet
 findMPNoteInMA = find(musicalAlphabetExtend(1,:) == mPNoteInMA,1,'first');
 if isempty(findMPNoteInMA) == 0
+    pMeasure
+    pBeat
     mPNoteInMA = MainNoteAlphabetFix(musicalAlphabet,mPNoteInMAIndex,mainTonal);
     disp('warning SampleFrameChoiceTranslate Line:61');
     disp('warning mainPriorityNote not in the standard musicalAlphabet \n');

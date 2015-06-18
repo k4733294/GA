@@ -1,4 +1,4 @@
-function gaDat=Ga(g) 
+function gaDat=Ga() 
 
 %% Basic Genetic Algorithm
 % 
@@ -27,19 +27,20 @@ function gaDat=Ga(g)
 % Universitat Polit???cnica de Val???ncia.
 % http://cpoh.upv.es
 % (c) CPOH  1995 - 2012
-
+%{
 if nargin==1
     gaDat=g;
 else
     error('It is necessary to pass a data structure: gaDat.FieldD and gaDat.Objfun')
 end
+%}
 %%  If the parameter doesn't exist in the data structure it is created with the default value
 %{
 if ~isfield(gaDat,'NVAR')
     gaDat.NVAR=size(gaDat.FieldD,2);
 end
 %}
-
+%{
 if ~isfield(gaDat,'MAXGEN')
     gaDat.MAXGEN=gaDat.NVAR*20+10;
 end
@@ -64,7 +65,7 @@ end
 if ~isfield(gaDat,'rf')
    gaDat.rf= (1:gaDat.NIND)';
 end
-
+%}
 %%  Internal parameters
 gaDat.xmin=[];
 gaDat.fxmin=inf;
@@ -86,14 +87,17 @@ gaDat.plotGraph=plot(x,y);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic;
 % Generation counter
-gen= 1;
+gen = 1;
 % Initial population -------------------------------------------
-gaDat= Crtrp(gaDat);
-%load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatRollingInTheDeepNoStructFixAllnoteForFitNessIxov.mat');
+%gaDat = Crtrp(gaDat);
+load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/main_c-rpg_Vocal_CrtrpFinish.mat');
 %gaDat.MAXGEN = 500;
+a=1;
+%{
 for i =1 : gaDat.populationSize
     gaDat.chromsome(1,i ).ticksPerQuarterNote = gaDat.mainImportInfo.ticksPerQuarterNote;
 end
+%}
 % Algorithm Kernel using later-------------------------------------------
 disp('######   StartGaAlgorithmHere   #########')
 while (gaDat.gen<gaDat.MAXGEN),
@@ -108,7 +112,7 @@ while (gaDat.gen<gaDat.MAXGEN),
     gen = gen + 1;
 end
 %% Export the garesult matix in to midi struct-------------------
-gaDat.mainImportInfo.version = 'ver_gaFinish';
+gaDat.mainImportInfo.version = 'ver500withMutbga_gaFinish';
 ChromsomeExport(gaDat);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % End main loop

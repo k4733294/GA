@@ -14,15 +14,26 @@ for inbeat = pChorusBeat : pChorusBeat + chordLength - 1
     end
     for nAIndex = 1 : sizeOfNoteAddIndexs
         %% pull out note we need and fix note octave info represent big bass
+        %{
         noteLengthCreate = sampleFrameChoice.measure(1,pChorusMeasure).beat(1,inbeat).noteContent(noteAddIndexs(nAIndex,1),3);
         if noteLengthCreate> maxBeatLength
             noteLengthCreate = maxBeatLength;
         end
-        notePropertyCreate = size(sampleFrameChoice.measure(1,pChorusMeasure).beat(1,inbeat).noteContent(noteAddIndexs(nAIndex,1),:),2);
-        noteAdd = zeros(noteLengthCreate,notePropertyCreate);
+        %notePropertyCreate = size(sampleFrameChoice.measure(1,pChorusMeasure).beat(1,inbeat).noteContent(noteAddIndexs(nAIndex,1),:),2);
+        %noteAdd = zeros(noteLengthCreate,notePropertyCreate);
+        %}
         noteAdd = sampleFrameChoice.measure(1,pChorusMeasure).beat(1,inbeat).noteContent(noteAddIndexs(nAIndex,1),:);
         noteAdd(1,4) = 2;
+        
+        %noteAddIndexExceedCheck = noteAdd(1,1) + noteAdd(1,3)- 1;
+        %if  noteAddIndexExceedCheck > 16
+        %noteAdd(1,3) = noteLengthCreate - noteAdd(1,1) + 1;
+        %end
         noteAdd(1,5) = samplePriorityNote + octave*2;
+        if noteAdd(1,3) <= 0
+            disp('nodeAddError');
+        end
+        %{
         if noteLengthCreate > 1
             for noteLength = 2 : noteAdd(1,3)
                 noteAdd(noteLength,:) = sampleFrameChoice.measure(1,pChorusMeasure).beat(1,inbeat).noteContent(noteAddIndexs(nAIndex,1),:);
@@ -32,10 +43,11 @@ for inbeat = pChorusBeat : pChorusBeat + chordLength - 1
                 noteAdd(noteLength,5) = samplePriorityNote + octave*2;
             end
         end
-
+        %}
         inBeatFix = inbeat;
         inBeatUse = 0;
-        for noteAddloopIndex = 1 : noteLengthCreate
+        %{
+        for noteAddloopIndex = 1 : noteAdd(1,3)
              %% got the timeslide info for we insert node
             timeNow = noteAdd(noteAddloopIndex,1);
             findBeat = 0;
@@ -48,6 +60,9 @@ for inbeat = pChorusBeat : pChorusBeat + chordLength - 1
                     findBeat = 1;
                 end
             end
+        %}
+            timeNow = noteAdd(1,1);
+            timeNowIndexs = find(sampleFrameChoice.measure(1,pChorusMeasure).beat(1,inBeatFix).noteContent(:,1) == timeNow);
             timeInsert = timeNowIndexs(end,1);
             %% first part is above of noteAdd
             tempFromStart = sampleFrameChoice.measure(1,pChorusMeasure).beat(1,inBeatFix).noteContent(1: timeInsert ,:);
@@ -63,8 +78,8 @@ for inbeat = pChorusBeat : pChorusBeat + chordLength - 1
                     noteAddIndexs(endOfSame + 1 : end,1) = noteAddIndexs(endOfSame + 1 : end,1) + 1;
                 end
                 %% append both of two parts and noteAdd insert
-                sampleFrameChoice.measure(1,pChorusMeasure).beat(1,inBeatFix).noteContent = [tempFromStart ; noteAdd(noteAddloopIndex,:) ; tempFromInserted];
+                sampleFrameChoice.measure(1,pChorusMeasure).beat(1,inBeatFix).noteContent = [tempFromStart ; noteAdd(1,:) ; tempFromInserted];
             end
-        end
+       % end
     end
 end

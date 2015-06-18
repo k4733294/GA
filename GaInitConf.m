@@ -8,9 +8,9 @@ gaDat.Objfun='Objfunchordfit';
 
 %% //////adjust///////////
 %the population pool
-gaDat.populationSize = 100;
+gaDat.populationSize = 150;
 %how many time will generate
-gaDat.MAXGEN = 2000;
+gaDat.MAXGEN = 500;
 %tonal means : major note  default  65F 64E 62D 60C 59B 57A 55G 
 
 %% createmeasureLengthNoteNum total length of the chrosome  is the same length with others 

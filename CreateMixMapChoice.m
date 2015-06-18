@@ -7,7 +7,7 @@ if partOfFix <= 1
         partOfMixMapChoice(1,1).mixMap(1,1 : partOfInsert) = partTemplate(1,1 : partOfInsert);
     end
 else
-    for partOfFixIndex = 1 : partOfFix - 1
+    for partOfFixIndex = 1 : partOfFix-1
         partOfMixMapChoice(1,partOfFixIndex).mixMap = partTemplate;
     end
 end

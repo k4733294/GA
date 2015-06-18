@@ -6,7 +6,7 @@ chordImportInfo = gaDat.chordImportInfo;
 defaultImportInfo = gaDat.defaultImportInfo;
 clearvars gaDat
 %%
-whichMalodyImport = 1;
+whichMalodyImport = 13;
 gaDat = MainMelodyImport(whichMalodyImport);
 %%  ////sample import/////
 %gaDat = ChordImport(gaDat);

@@ -1,7 +1,7 @@
 function gaDat = MainMelodyImport(whichMalodyImport)
 
 %% ////mainMelodyimport////
-mainImportInfo.version = 'ver1';
+mainImportInfo.version = 'ver500withMutbga_gaBedore';
 switch whichMalodyImport
     %% mainmelody create to GADat , make the ga caculating
     %%{
@@ -140,7 +140,7 @@ switch whichMalodyImport
         mainImportInfo.trackName = 'main_YouAreTheEyesOfMe_wo_Chord_Output';
         %}
         %%{
-    case 7
+    case 8
         mainImportInfo.Objfun='mainMelody';
         mainImportInfo.midiString = 'sugar_-_maroon_5_(arr._by_fonzi_m)_wo_Chord.mid';
         mainImportInfo.mainOrChord=1; % 0 = main melody 1=import chord melody
@@ -237,10 +237,10 @@ switch whichMalodyImport
         %%{
     case 13
         mainImportInfo.Objfun='mainMelody';
-        mainImportInfo.midiString = 'c-rpg_Vocal_LogicFormat.mid';
+        mainImportInfo.midiString = 'c-rpg_Vocal_LogicFormatFix.mid';
         mainImportInfo.mainOrChord=1; % 0 = main melody 1=import chord melody
         mainImportInfo.track=1;
-        mainImportInfo.howManyMeasureWeWant=256;
+        mainImportInfo.howManyMeasureWeWant=252;
         mainImportInfo.whichMeasureWeStart=1;
         mainImportInfo.rhythm=1;
         mainImportInfo.forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true
@@ -259,4 +259,4 @@ trackTitle = strcat(mainImportInfo.trackName,mainImportInfo.version);
 mainImportInfo.exportVersion=trackTitle;
 trackTitle = strcat(pwd,'/GA/GA_result/',trackTitle);
 Melodyexport(mainImportInfo,trackTitle);
-gaDat.mainImportInfo=mainImportInfo;
+ gaDat.mainImportInfo=mainImportInfo;
