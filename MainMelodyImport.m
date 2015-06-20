@@ -85,7 +85,7 @@ switch whichMalodyImport
         %%{
     case 5
         mainImportInfo.Objfun='mainMelody';
-        mainImportInfo.midiString = 'Wiz Khalifa-See_You_Again_feat._Charlie_Puth_w:o_Chord_logicFormat.mid';
+        mainImportInfo.midiString = 'Wiz Khalifa-See_You_Again_feat._Charlie_Puth_wo_Chord_logicFormat.mid';
         mainImportInfo.mainOrChord=1; % 0 = main melody 1=import chord melody
         mainImportInfo.track=1;
         mainImportInfo.howManyMeasureWeWant=152;
