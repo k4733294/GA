@@ -7,9 +7,10 @@ totalOfPatternMix = 0;
 sizeOfMeasureMix = size(mixMapChoice.measureMix,2);
 totalOfMeasureMix = 0;
 
-for dialogMixIndex = 1 : sizeOfDialogMix %%every count num of totalOfDialogMix is Pattern we have
-    totalOfDialogMix = size(mixMapChoice.dialogMix(1,dialogMixIndex).mixMap,2) + totalOfDialogMix;
-end
+%for dialogMixIndex = 1 : sizeOfDialogMix %%every count num of totalOfDialogMix is Pattern we have
+    %totalOfDialogMix = size(mixMapChoice.dialogMix(1,dialogMixIndex).mixMap,2) + totalOfDialogMix;
+    totalOfDialogMix = size(mixMapChoice.patternMix,2)+ totalOfDialogMix;
+%end
 for patternMixIndex = 1 : sizeOfPatternMix %%every count num of totalOfPatternMix is Measure we have
     totalOfPatternMix = size(mixMapChoice.patternMix(1,patternMixIndex).mixMap,2) + totalOfPatternMix;
 end

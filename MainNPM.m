@@ -38,5 +38,6 @@ for i = 1 : sizeM
        %% sort the notesRank here
        notesRank = RankingTopNotesInBeat(notesRank,i,j);
    end
+   notesRank.measre(1,i).beat(1,sizeB).rank = [];
 
 end

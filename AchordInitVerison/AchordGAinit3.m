@@ -10,7 +10,7 @@ clearvars gaDat
 %some conf var get from MainMelodyImport
 gaDat = GaInitConf();
 %%
-whichMalodyImport = 4;
+whichMalodyImport = 3;
 gaDat = MainMelodyImport(whichMalodyImport,gaDat);
 %%  ////sample import/////
 %gaDat = ChordImport(gaDat);
