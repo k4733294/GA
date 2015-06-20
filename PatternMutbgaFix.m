@@ -113,6 +113,7 @@ function selChMuta = PatternMutbgaFix(selChMuta,gaDat,pMeasure,IndicesMuta,randN
                  end
              end
              noteAddStarts = find(noteAdd(:,3)~=0);
+             sizeOfNoteAddStarts= size(noteAddStarts,1);
          end
      end
      noteLenVari = size(noteAdd,1);
