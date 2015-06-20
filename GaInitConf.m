@@ -1,5 +1,7 @@
-function gaDat = GaInitConf(gaDat)
+function gaDat = GaInitConf()
 
+gaDat.gaVersion = 'ver2000withMutbga_gaBedore';
+gaDat.gaVersionFinish = 'ver2000withMutbga_gaFinish';
 gaDat.Objfun='Objfunchordfit';
 %gaDat.Objfun='objfun_schwefel';
 %lb=[-500 -500];
@@ -10,12 +12,12 @@ gaDat.Objfun='Objfunchordfit';
 %the population pool
 gaDat.populationSize = 150;
 %how many time will generate
-gaDat.MAXGEN = 500;
+gaDat.MAXGEN = 2000;
 %tonal means : major note  default  65F 64E 62D 60C 59B 57A 55G 
 
 %% createmeasureLengthNoteNum total length of the chrosome  is the same length with others 
 % ATTATION --- here we need to change the evalute variable
-gaDat.NIND = numel(gaDat.mainImportInfo.notesInTheMeasure); 
+%gaDat.NIND = numel(gaDat.mainImportInfo.notesInTheMeasure); 
 %% evaluation in the ranking function
 gaDat.rf = (1:gaDat.populationSize)';
 gaDat.dialogLength = 16;

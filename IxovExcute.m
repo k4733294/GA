@@ -1,4 +1,4 @@
-function gaDat = IxovExcute(mixMapChoice,selChXov,indicesXov,gaDat)
+function selChXov = IxovExcute(mixMapChoice,selChXov,indicesXov,gaDat)
 chorusPoint = gaDat.mainImportInfo.chorusPoint;
 chorusStart = chorusPoint(1,1);
 chorusEnd = chorusPoint(1,2);
@@ -18,21 +18,21 @@ for measureIndex = 1 : mainMeasureSize
     if tansVerseOnOrChrous == 0 %% verse trans
         if measureIndex < chorusStart || measureIndex > chorusEnd
             if measureChoice == 0
-                gaDat.chromsome(1,indicesXov(1,1)).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,measureIndex);
-                gaDat.chromsome(1,indicesXov(1,2)).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,measureIndex);
+                selChXov(1,1).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,measureIndex);
+                selChXov(1,2).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,measureIndex);
             else
-                gaDat.chromsome(1,indicesXov(1,1)).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,measureIndex);
-                gaDat.chromsome(1,indicesXov(1,2)).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,measureIndex);
+                selChXov(1,1).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,measureIndex);
+                selChXov(1,2).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,measureIndex);
             end
         end
     else %%chorus trans
         if measureIndex > chorusStart && measureIndex < chorusEnd
             if measureChoice == 0
-                gaDat.chromsome(1,indicesXov(1,2)).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,measureIndex);
-                gaDat.chromsome(1,indicesXov(1,1)).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,measureIndex);
+                selChXov(1,2).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,measureIndex);
+                selChXov(1,1).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,measureIndex);
             else
-                gaDat.chromsome(1,indicesXov(1,2)).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,measureIndex);
-                gaDat.chromsome(1,indicesXov(1,1)).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,measureIndex);
+                selChXov(1,2).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,measureIndex);
+                selChXov(1,1).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,measureIndex);
             end
         end
     end

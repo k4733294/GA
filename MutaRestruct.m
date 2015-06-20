@@ -1,4 +1,4 @@
-function gaDat = MutaRestruct(gaDat,IndicesMuta)
+function selChXov = MutaRestruct(selChXov,gaDat,IndicesMuta)
 
 %{
  %%do not change the struct flowing of below step
@@ -7,10 +7,11 @@ function gaDat = MutaRestruct(gaDat,IndicesMuta)
  %}
 
 %% measure struct Comparing to up Level 
-noteTrack = ChordStructCompare(gaDat.chromsome(1,IndicesMuta(1,1)),0);
-gaDat.chromsome(1,IndicesMuta(1,1)).notesInTheMeasure = noteTrack;
+noteTrack = ChordStructCompare(selChXov,0);
+selChXov.notesInTheMeasure = noteTrack;
 
 %% measure struct Comparing to down level
-gaDat = NoteTableToBarBeatStruct(gaDat,IndicesMuta);
+selChXov = NoteTableToBarBeatStruct4SelChXov(selChXov,gaDat,IndicesMuta);
+%gaDat = NoteTableToBarBeatStruct(gaDat,IndicesMuta);
 
 

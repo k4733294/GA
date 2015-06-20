@@ -33,3 +33,12 @@ ylabel('TotalFitnessScore') % y-axis label
 plot(lineGraphDataX,gaDat.fitnVTotal,':ks');
 hold off
 drawnow
+hold on
+figure(4)
+title('EveryFitnessProgressMap')
+if size(gaDat.fitnVGen,2) ~= 1
+    meshc(gaDat.fitnVGen);
+    axis tight
+end
+hold off
+drawnow

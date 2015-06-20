@@ -1,7 +1,7 @@
-function gaDat = MainMelodyImport(whichMalodyImport)
+function gaDat = MainMelodyImport(whichMalodyImport,gaDat)
 
 %% ////mainMelodyimport////
-mainImportInfo.version = 'ver500withMutbga_gaBedore';
+mainImportInfo.version = gaDat.gaVersion ;
 switch whichMalodyImport
     %% mainmelody create to GADat , make the ga caculating
     %%{

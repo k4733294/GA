@@ -1,4 +1,4 @@
-function gaDat=Ga() 
+function gaDat=Ga(g) 
 
 %% Basic Genetic Algorithm
 % 
@@ -27,7 +27,7 @@ function gaDat=Ga()
 % Universitat Polit???cnica de Val???ncia.
 % http://cpoh.upv.es
 % (c) CPOH  1995 - 2012
-%{
+%%{
 if nargin==1
     gaDat=g;
 else
@@ -39,17 +39,10 @@ end
 if ~isfield(gaDat,'NVAR')
     gaDat.NVAR=size(gaDat.FieldD,2);
 end
-%}
-%{
-if ~isfield(gaDat,'MAXGEN')
-    gaDat.MAXGEN=gaDat.NVAR*20+10;
-end
 if ~isfield(gaDat,'NIND')
     gaDat.NIND=gaDat.NVAR*50;
 end  
-if ~isfield(gaDat,'alfa')
-    gaDat.alfa=0;
-end
+%}
 if ~isfield(gaDat,'Pc')
     gaDat.Pc=0.9;
 end
@@ -59,12 +52,20 @@ end
 if ~isfield(gaDat,'ObjfunPar')
     gaDat.ObjfunPar=[];
 end
+if ~isfield(gaDat,'MAXGEN')
+    gaDat.MAXGEN=gaDat.NVAR*20+10;
+end
+if ~isfield(gaDat,'alfa')
+    gaDat.alfa=0;
+end
 if ~isfield(gaDat,'indini')
     gaDat.indini=[];
 end
 if ~isfield(gaDat,'rf')
    gaDat.rf= (1:gaDat.NIND)';
 end
+
+
 %}
 %%  Internal parameters
 gaDat.xmin=[];
@@ -77,11 +78,6 @@ gaDat.xmaxgen=[];
 gaDat.fxmaxgen=[];
 gaDat.fitnesstotalmaxgen=[];
 gaDat.gen=0;
-figure(1);
-figure(2);
-figure(3);
-y=0; x=0;
-gaDat.plotGraph=plot(x,y);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Main loop
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -89,10 +85,12 @@ tic;
 % Generation counter
 gen = 1;
 % Initial population -------------------------------------------
-%gaDat = Crtrp(gaDat);
-load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/main_c-rpg_Vocal_CrtrpFinish.mat');
+gaDat = Crtrp(gaDat);
+%load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/johnLegenAllOfMeFinishCrtrp2000.mat');
+NewMeloPath = CreateNewFolderForMeloChrom(gaDat);
+savePath = strcat(NewMeloPath,'.mat');
+save(savePath{1},'gaDat');
 %gaDat.MAXGEN = 500;
-a=1;
 %{
 for i =1 : gaDat.populationSize
     gaDat.chromsome(1,i ).ticksPerQuarterNote = gaDat.mainImportInfo.ticksPerQuarterNote;
@@ -112,7 +110,10 @@ while (gaDat.gen<gaDat.MAXGEN),
     gen = gen + 1;
 end
 %% Export the garesult matix in to midi struct-------------------
-gaDat.mainImportInfo.version = 'ver500withMutbga_gaFinish';
+gaDat.mainImportInfo.version = gaDat.gaVersionFinish;
+NewMeloPath = CreateNewFolderForMeloChrom(gaDat);
+savePath = strcat(NewMeloPath,'.mat');
+save(savePath{1},'gaDat');
 ChromsomeExport(gaDat);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % End main loop

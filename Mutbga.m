@@ -1,4 +1,4 @@
-function gaDat = Mutbga(selChMuta,IndicesMuta,gaDat)
+function selChMutaChoice = Mutbga(selChMutaChoice,IndicesMuta,gaDat)
 %{
 % Mutation function
 % Real coded mutation. 
@@ -48,7 +48,7 @@ if mutaActRand <= pm
 end
 %}
 
-sizeOfMeasure= size(selChMuta(1,1).measure,2);
+sizeOfMeasure= size(selChMutaChoice.measure,2);
 if randVerseOrChrous == 1
     startMeasre = 1;
     endMeasure = sizeOfMeasure;
@@ -61,20 +61,20 @@ if mutaAct == 1
     for pMeasure = startMeasre : endMeasure
         if randVerseOrChrous == 1 
             if pMeasure < endChorus && pMeasure > startChorus
-                gaDat = PatternMutbgaFix(gaDat,pMeasure,IndicesMuta,randNoteLength,randMode);
+                selChMutaChoice = PatternMutbgaFix(selChMutaChoice,gaDat,pMeasure,IndicesMuta,randNoteLength,randMode);
                 %gaDat = PatternMutbga(gaDat,pMeasure,IndicesMuta,randNoteLength,randMode);
-                gaDat.chromsome(1,IndicesMuta(1,1)).measure(1,pMeasure).patternVariance = gaDat.chromsome(1,IndicesMuta(1,1)).measure(1,pMeasure).patternVariance+1;
+                selChMutaChoice.measure(1,pMeasure).patternVariance = selChMutaChoice.measure(1,pMeasure).patternVariance+1;
             else
                 continue
             end
         else
-            gaDat = PatternMutbgaFix(gaDat,pMeasure,IndicesMuta,randNoteLength,randMode);
-            gaDat.chromsome(1,IndicesMuta(1,1)).measure(1,pMeasure).patternVariance = gaDat.chromsome(1,IndicesMuta(1,1)).measure(1,pMeasure).patternVariance+1;
+            selChMutaChoice = PatternMutbgaFix(selChMutaChoice,gaDat,pMeasure,IndicesMuta,randNoteLength,randMode);
+            selChMutaChoice.measure(1,pMeasure).patternVariance = selChMutaChoice.measure(1,pMeasure).patternVariance+1;
         end
     end
 end
+selChMutaChoice = MutaRestruct(selChMutaChoice,gaDat,IndicesMuta);
 
-gaDat = MutaRestruct(gaDat,IndicesMuta);
 
 %{
 if (nargin==3)

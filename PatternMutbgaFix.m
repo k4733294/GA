@@ -1,22 +1,22 @@
-function gaDat = PatternMutbgaFix(gaDat,pMeasure,IndicesMuta,randNoteLength,randMode)
- IndicesMutaChoice = IndicesMuta(1,1);
+function selChMuta = PatternMutbgaFix(selChMuta,gaDat,pMeasure,IndicesMuta,randNoteLength,randMode)
+ IndicesMutaChoice = IndicesMuta;
  maxMeasureLength = 16;
  maxPatternLength = 64;
- sizeOfMeasure = size(gaDat.chromsome(1,IndicesMutaChoice).measure,2);
- noteContent = gaDat.chromsome(1,IndicesMutaChoice).measure(1,pMeasure).noteContent;
+ sizeOfMeasure = size(selChMuta.measure,2);
+ noteContent = selChMuta.measure(1,pMeasure).noteContent;
  noteAddIndexs = find(noteContent(:,3)~=0);
  sizeOfNoteAddIndexs = size(noteAddIndexs,1);
  noteAddCreateNotDo = zeros(1,1000);
  noteLenVari = 0;
  for nAIndex = 1 : sizeOfNoteAddIndexs
-    findNoteAddCreate = isempty(find(noteAddCreateNotDo(1,:) == noteAddIndexs(nAIndex,1),1));
-     if findNoteAddCreate ~=0
-         continue
-     end
      if nAIndex > sizeOfNoteAddIndexs
          break
      end
-     noteContent = gaDat.chromsome(1,IndicesMutaChoice).measure(1,pMeasure).noteContent;
+     findNoteAddCreate = isempty(find(noteAddCreateNotDo(1,:) == noteAddIndexs(nAIndex,1),1));
+     if findNoteAddCreate ==0
+         continue
+     end
+     noteContent = selChMuta.measure(1,pMeasure).noteContent;
      %% pull out note we need and fix note octave info represent big bass
      noteLengthCreate = noteContent(noteAddIndexs(nAIndex,1),3);
      notePropertyCreate = size(noteContent(noteAddIndexs(nAIndex,1),:),2);
@@ -79,13 +79,13 @@ function gaDat = PatternMutbgaFix(gaDat,pMeasure,IndicesMuta,randNoteLength,rand
      %%------------------------------------------------
      switch randMode
          case 1
-             noteAdd = SameLengPlus(gaDat,IndicesMutaChoice,noteLenVari,notePropertyCreate,pMeasure,noteAddIndexs,nAIndex,noteLengthCreate,randNoteLength);
+             noteAdd = SameLengPlus(selChMuta,gaDat,IndicesMutaChoice,noteLenVari,notePropertyCreate,pMeasure,noteAddIndexs,nAIndex,noteLengthCreate,randNoteLength);
          case 2
-             noteAdd = DiffLengthPlus(gaDat,IndicesMutaChoice,noteLenVari,notePropertyCreate,pMeasure,noteAddIndexs,nAIndex,noteLengthCreate,randNoteLength);
+             noteAdd = DiffLengthPlus(selChMuta,gaDat,IndicesMutaChoice,noteLenVari,notePropertyCreate,pMeasure,noteAddIndexs,nAIndex,noteLengthCreate,randNoteLength);
          case 3
-             noteAdd = SameLengPlus(gaDat,IndicesMutaChoice,noteLenVari,notePropertyCreate,pMeasure,noteAddIndexs,nAIndex,noteLengthCreate,randNoteLength);
+             noteAdd = SameLengPlus(selChMuta,gaDat,IndicesMutaChoice,noteLenVari,notePropertyCreate,pMeasure,noteAddIndexs,nAIndex,noteLengthCreate,randNoteLength);
          case 4
-             noteAdd = DiffLengthPlus(gaDat,IndicesMutaChoice,noteLenVari,notePropertyCreate,pMeasure,noteAddIndexs,nAIndex,noteLengthCreate,randNoteLength);
+             noteAdd = DiffLengthPlus(selChMuta,gaDat,IndicesMutaChoice,noteLenVari,notePropertyCreate,pMeasure,noteAddIndexs,nAIndex,noteLengthCreate,randNoteLength);
      end
      %%------------------------------------------------
      %%let end of measure length do not exceed mainimport length
@@ -95,25 +95,30 @@ function gaDat = PatternMutbgaFix(gaDat,pMeasure,IndicesMuta,randNoteLength,rand
      end
      %}
      if pMeasure == sizeOfMeasure
-         IndexEndOfMeasure = gaDat.chromsome(1,IndicesMutaChoice).measure(1,pMeasure).noteContent(end,1);
-         noteAddIndexExceed = noteAdd(1,1)+noteAdd(1,3)-1;
-         if  noteAddIndexExceed > IndexEndOfMeasure
-             fixIndex = IndexEndOfMeasure - noteAdd(1,1);
-             if fixIndex <= 0
-                 disp('fixIndex <= 0');
+         IndexEndOfMeasure = selChMuta.measure(1,pMeasure).noteContent(end,1);
+         noteAddStarts = find(noteAdd(:,3)~=0);
+         sizeOfNoteAddStarts= size(noteAddStarts,1);
+         for nASIndex = 1 : sizeOfNoteAddStarts
+             noteAddIndexExceed = noteAdd(noteAddStarts(nASIndex,1),1)+noteAdd(noteAddStarts(nASIndex,1),3)-1;
+             if  noteAddIndexExceed > IndexEndOfMeasure
+                 fixIndex = IndexEndOfMeasure - noteAdd(noteAddStarts(nASIndex,1),1) + 1;
+                 if fixIndex <= 0
+                     disp('fixIndex <= 0');
+                 end
+                 noteAdd(noteAddStarts(nASIndex,1),3) = fixIndex;
+                 if nASIndex ~= sizeOfNoteAddStarts
+                     noteAdd(noteAddStarts(nASIndex,1) + fixIndex : noteAddStarts(nASIndex + 1,1)-1 ,:) = [];
+                 else
+                     noteAdd(noteAddStarts(nASIndex,1)+ fixIndex : end,:) = [];
+                 end
              end
-             noteAdd(1,3) = fixIndex;
-             noteAdd(fixIndex+1:end,:) = [];
-             noteLenVari = fixIndex;
+             noteAddStarts = find(noteAdd(:,3)~=0);
          end
-         %{
-     else
-         noteLenVari = noteAdd(1,3);
-         %}
      end
-     
+     noteLenVari = size(noteAdd,1);
      %%------------------------------------------------
      inMeasureFix = pMeasure;
+     timeInsert = 0;
      %inMeasureUse = 0;
      for noteAddloopIndex = 1 : noteLenVari
          %{
@@ -121,13 +126,8 @@ function gaDat = PatternMutbgaFix(gaDat,pMeasure,IndicesMuta,randNoteLength,rand
              break
          end
          %}
-         if noteAdd(noteAddloopIndex,3) ~= 0
-             noteAddCreateNotDoNonZeroIndex = find(noteAddCreateNotDo(1,:) == 0,1);
-             noteAddCreateNotDo(1,noteAddCreateNotDoNonZeroIndex) = timeNowIndexs;
-         end
-         
          timeNow = noteAdd(noteAddloopIndex,1);
-         if timeNow > gaDat.chromsome(1,IndicesMutaChoice).measure(1,inMeasureFix).noteContent(end,1)
+         if timeNow > selChMuta.measure(1,inMeasureFix).noteContent(end,1)
              inMeasureForward = fix(timeNow/maxMeasureLength);
              inMeasureForwardMod = mod(timeNow,maxMeasureLength);
              if inMeasureForwardMod == 0
@@ -148,15 +148,15 @@ function gaDat = PatternMutbgaFix(gaDat,pMeasure,IndicesMuta,randNoteLength,rand
              %%
              %inMeasureUse = 1;
          end
-         timeNowIndexs = find(gaDat.chromsome(1,IndicesMutaChoice).measure(1,inMeasureFix).noteContent(:,1) == timeNow);
-         timeNowIndexs(:,2) = gaDat.chromsome(1,IndicesMutaChoice).measure(1,inMeasureFix).noteContent(timeNowIndexs(:,1),5);
+         timeNowIndexs = find(selChMuta.measure(1,inMeasureFix).noteContent(:,1) == timeNow);
+         timeNowIndexs(:,2) = selChMuta.measure(1,inMeasureFix).noteContent(timeNowIndexs(:,1),5);
          IndexAlreadyNote = find(timeNowIndexs(:,2) == noteAdd(noteAddloopIndex,5));
-    
          %% got the timeslide info for we insert node
          if isempty(IndexAlreadyNote) == 0
+             %{
              nowTimeNoteIndex = timeNowIndexs(IndexAlreadyNote(1,1),1);
              if noteAdd(noteAddloopIndex,3) ~= 0
-                 if gaDat.chromsome(1,IndicesMutaChoice).measure(1,inMeasureFix).noteContent(nowTimeNoteIndex,3) == 0
+                 if selChMuta.measure(1,inMeasureFix).noteContent(nowTimeNoteIndex,3) == 0
                      %{
                  inMeasureFix ~= pMeasure &&
                  if noteAdd(noteAddloopIndex,3) == 0
@@ -166,14 +166,14 @@ function gaDat = PatternMutbgaFix(gaDat,pMeasure,IndicesMuta,randNoteLength,rand
                  noteLenVari = noteAddloopIndex;
                      %}
                      %noteAddIndexs(nowTimeNoteIndex,:) = [];
-                 else
                  end
              else
              end
-             gaDat.chromsome(1,IndicesMutaChoice).measure(1,inMeasureFix).noteContent(timeNowIndexs(IndexAlreadyNote(1,1),1),:) = noteAdd(noteAddloopIndex,:);
+             %}
+             selChMuta.measure(1,inMeasureFix).noteContent(timeNowIndexs(IndexAlreadyNote(1,1),1),:) = noteAdd(noteAddloopIndex,:);
              multiIndexAlreadyNote = size(IndexAlreadyNote,1);
              if multiIndexAlreadyNote > 1
-                 gaDat.chromsome(1,IndicesMutaChoice).measure(1,inMeasureFix).noteContent(timeNowIndexs(IndexAlreadyNote(2:end,1),1),:) = [];
+                 selChMuta.measure(1,inMeasureFix).noteContent(timeNowIndexs(IndexAlreadyNote(2:end,1),1),:) = [];
                  %{
                  if inMeasureUse ~= 1
                      TimeOfNoteAddIndexs(:,1) = gaDat.chromsome(1,IndicesMutaChoice).measure(1,inMeasureFix).noteContent(noteAddIndexs(:,1),1);
@@ -193,10 +193,10 @@ function gaDat = PatternMutbgaFix(gaDat,pMeasure,IndicesMuta,randNoteLength,rand
          else
              timeInsert = timeNowIndexs(end,1);
              %% first part is above of noteAdd
-             tempFromStart = gaDat.chromsome(1,IndicesMutaChoice).measure(1,inMeasureFix).noteContent(1: timeInsert,:);
+             tempFromStart = selChMuta.measure(1,inMeasureFix).noteContent(1: timeInsert,:);
              %% second part is belowd of noteAdd
              % one of +1 is noteAdd
-             tempFromInserted = gaDat.chromsome(1,IndicesMutaChoice).measure(1,inMeasureFix).noteContent(timeInsert + 1 : end,:);
+             tempFromInserted = selChMuta.measure(1,inMeasureFix).noteContent(timeInsert + 1 : end,:);
              %{
              if inMeasureUse ~= 1
                  %%
@@ -208,17 +208,29 @@ function gaDat = PatternMutbgaFix(gaDat,pMeasure,IndicesMuta,randNoteLength,rand
                  %noteAddIndexs(endOfSame : end,1) = noteAddIndexs(endOfSame : end,1) + 1;
              end
              %}
-             gaDat.chromsome(1,IndicesMutaChoice).measure(1,inMeasureFix).noteContent = [tempFromStart ; noteAdd(noteAddloopIndex,:) ; tempFromInserted];
+             selChMuta.measure(1,inMeasureFix).noteContent = [tempFromStart ; noteAdd(noteAddloopIndex,:) ; tempFromInserted];
          end
-         noteAddIndexs = find(gaDat.chromsome(1,IndicesMutaChoice).measure(1,pMeasure).noteContent(:,3)~=0);
+         %% if notesAdd got the new start note , added to indexNotDo pool ,prevent already mutated note then muta again.
+         if noteAdd(noteAddloopIndex,3) ~= 0
+             if timeInsert~=0
+                 noteAddCreateNotDoNonZeroIndex = find(noteAddCreateNotDo(1,:) == 0,1);
+                 noteAddCreateNotDo(1,noteAddCreateNotDoNonZeroIndex) = timeInsert+1;
+                 timeInsert = 0;
+             end
+         end
+         %%{ 
+         %% check the index is work perfect
+         noteAddIndexs = find(selChMuta.measure(1,pMeasure).noteContent(:,3)~=0);
          sizeOfNoteAddIndexs = size(noteAddIndexs,1);
-         checkNoteAddIndexs = find(gaDat.chromsome(1,IndicesMutaChoice).measure(1,pMeasure).noteContent(:,3)~=0);
+         checkNoteAddIndexs = find(selChMuta.measure(1,pMeasure).noteContent(:,3)~=0);
          IndexMap =  find((checkNoteAddIndexs == noteAddIndexs)==1);
          sizeIndexMap = size(IndexMap,1);
          sizeCheckNoteAddIndexs = size(checkNoteAddIndexs,1);
          if sizeCheckNoteAddIndexs ~= sizeIndexMap
              disp('indexerror');
          end
+         %}
+         
          inMeasureFix = pMeasure;
          %inMeasureUse = 0;
      end

@@ -11,13 +11,13 @@ gaDat = MainFitnessOperation(gaDat);
  for pPopu = 1 : populationSize
      sfcDensityWeight = gaDat.chromsome(1,pPopu).sfcDensityWeight;
      sfcBassLevelWeight = gaDat.chromsome(1,pPopu).sfcBassLevelWeight;
-     SFCMusicalPatternSmoothFitnessOperationUse = 0;
+     %SFCMusicalPatternSmoothFitnessOperationUse = 0;
      %%
      if mainPitchWeight > 0
          PitchDensityWeight = mainPitchWeight*sfcDensityWeight;
          PitchBassLevelWeight = mainPitchWeight*sfcBassLevelWeight;
      elseif mainPitchWeight == 0
-         SFCMusicalPatternSmoothFitnessOperationUse = SFCMusicalPatternSmoothFitnessOperationUse+1;
+         %SFCMusicalPatternSmoothFitnessOperationUse = SFCMusicalPatternSmoothFitnessOperationUse+1;
          PitchDensityWeight = 0;
          PitchBassLevelWeight = 0;
      else
@@ -29,7 +29,7 @@ gaDat = MainFitnessOperation(gaDat);
          VelocityDensityWeight = mainVelocityWeight*sfcDensityWeight;
          VelocityBassLevelWeight = mainVelocityWeight*sfcBassLevelWeight;
      elseif mainPitchWeight == 0
-         SFCMusicalPatternSmoothFitnessOperationUse = SFCMusicalPatternSmoothFitnessOperationUse+1;
+         %SFCMusicalPatternSmoothFitnessOperationUse = SFCMusicalPatternSmoothFitnessOperationUse+1;
          VelocityDensityWeight = 0;
          VelocityBassLevelWeight = 0;
      else
@@ -52,10 +52,18 @@ gaDat = MainFitnessOperation(gaDat);
          round(chromFitnessS);
          chromFitness = chromFitnessS;
      end
+     %{
+     %%if any fitness score less then 10 ,give a normal score 10 for sel
+     %%choice 
+     if chromFitness <= 10
+         chromFitness = 10;
+     end
+     %}
      fitnV(pPopu,1) = chromFitness;
  end
  gaDat.fitnV = fitnV;
  gaDat.fitnVTotal = sum(fitnV(:,1));
+ gaDat.fitnVGen(:,gaDat.gen) = fitnV(:,1);
  
  [maxScore,maxIndex] = max(fitnV(:,1)); %[v,p] is [ value , position ]
  [minScore,minIndex] = min(fitnV(:,1));

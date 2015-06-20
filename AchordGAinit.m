@@ -5,18 +5,18 @@ load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatRollingInTheDeepNoStru
 chordImportInfo = gaDat.chordImportInfo;
 defaultImportInfo = gaDat.defaultImportInfo;
 clearvars gaDat
+%% ///algorithm conf//// 
+%some conf var get from MainMelodyImport
+gaDat = GaInitConf();
 %%
-whichMalodyImport = 13;
-gaDat = MainMelodyImport(whichMalodyImport);
+whichMalodyImport = 2;
+gaDat = MainMelodyImport(whichMalodyImport,gaDat);
 %%  ////sample import/////
 %gaDat = ChordImport(gaDat);
 gaDat.chordImportInfo = chordImportInfo;
 %%  ////default import/////
 %gaDat = DefaultImport(gaDat);
 gaDat.defaultImportInfo = defaultImportInfo;
-%% ///algorithm conf//// 
-%some conf var get from MainMelodyImport
-gaDat = GaInitConf(gaDat);
 %%  ////Execute GA/////
 gaDat = Ga(gaDat);
 % Result are 
