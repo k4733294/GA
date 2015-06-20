@@ -99,6 +99,9 @@ function selChMuta = PatternMutbgaFix(selChMuta,gaDat,pMeasure,IndicesMuta,randN
          noteAddStarts = find(noteAdd(:,3)~=0);
          sizeOfNoteAddStarts= size(noteAddStarts,1);
          for nASIndex = 1 : sizeOfNoteAddStarts
+             if nASIndex > sizeOfNoteAddStarts
+                 continue
+             end
              noteAddIndexExceed = noteAdd(noteAddStarts(nASIndex,1),1)+noteAdd(noteAddStarts(nASIndex,1),3)-1;
              if  noteAddIndexExceed > IndexEndOfMeasure
                  fixIndex = IndexEndOfMeasure - noteAdd(noteAddStarts(nASIndex,1),1) + 1;
