@@ -87,6 +87,7 @@ function selChMuta = PatternMutbgaFix(selChMuta,gaDat,pMeasure,IndicesMuta,randN
          case 4
              noteAdd = DiffLengthPlus(selChMuta,gaDat,IndicesMutaChoice,noteLenVari,notePropertyCreate,pMeasure,noteAddIndexs,nAIndex,noteLengthCreate,randNoteLength);
      end
+     noteAddtemp = noteAdd;
      %%------------------------------------------------
      %%let end of measure length do not exceed mainimport length
      %{
@@ -105,30 +106,33 @@ function selChMuta = PatternMutbgaFix(selChMuta,gaDat,pMeasure,IndicesMuta,randN
              noteAddIndexExceed = noteAdd(noteAddStarts(nASIndex,1),1)+noteAdd(noteAddStarts(nASIndex,1),3)-1;
              if  noteAddIndexExceed > IndexEndOfMeasure
                  fixIndex = IndexEndOfMeasure - noteAdd(noteAddStarts(nASIndex,1),1) + 1;
-                 if fixIndex <= 0
-                     disp('fixIndex <= 0');
-                 end
-                 noteAdd(noteAddStarts(nASIndex,1),3) = fixIndex;
-                 if nASIndex ~= sizeOfNoteAddStarts
-                     noteAdd(noteAddStarts(nASIndex,1) + fixIndex : noteAddStarts(nASIndex + 1,1)-1 ,:) = [];
+                 if fixIndex > 0
+                     noteAdd(noteAddStarts(nASIndex,1),3) = fixIndex;
+                     if nASIndex ~= sizeOfNoteAddStarts
+                         noteAdd(noteAddStarts(nASIndex,1) + fixIndex : noteAddStarts(nASIndex + 1,1)-1 ,:) = [];
+                     else
+                         noteAdd(noteAddStarts(nASIndex,1)+ fixIndex : end,:) = [];
+                     end
+                 elseif fixIndex < 0
+                     disp('fixIndex < 0');
+                     noteAdd(noteAddStarts(nASIndex,1),:) = [];
                  else
-                     noteAdd(noteAddStarts(nASIndex,1)+ fixIndex : end,:) = [];
                  end
              end
              noteAddStarts = find(noteAdd(:,3)~=0);
              sizeOfNoteAddStarts= size(noteAddStarts,1);
          end
          startExceed =  find(noteAdd(:,1) > IndexEndOfMeasure,1,'first');
-         if isempty(startExceed)~=0
+         if isempty(startExceed)==0
                noteAdd(startExceed : end,:) = [];
          end
      end
-     noteLenVari = size(noteAdd,1);
      %%------------------------------------------------
+     noteAddloop = size(noteAdd,1);
      inMeasureFix = pMeasure;
      timeInsert = 0;
      %inMeasureUse = 0;
-     for noteAddloopIndex = 1 : noteLenVari
+     for noteAddloopIndex = 1 : noteAddloop
          %{
          if noteAddloopIndex > noteLenVari
              break
