@@ -59,10 +59,12 @@ mainVersePitchTotal =0;
  mainChorusPitchTotal =0;
  clearvars pMeasure pBeat pFix sizeOfMainNote
  for pMeasure = chorusStart : chorusEnd
-    sizeOfMainNote = size(gaDat.mainImportInfo.measure(1,pMeasure).mainMeasureStatus,1);
-    chorusSizeOfMainNote = chorusSizeOfMainNote + sizeOfMainNote;
-    mainChorusVelocityTotal = sum(gaDat.mainImportInfo.measure(1,pMeasure).mainMeasureStatus(:,1)) + mainChorusVelocityTotal;
-    mainChorusPitchTotal = sum(gaDat.mainImportInfo.measure(1,pMeasure).mainMeasureStatus(:,2)) + mainChorusPitchTotal;
+     sizeOfMainNote = size(gaDat.mainImportInfo.measure(1,pMeasure).mainMeasureStatus,1);
+     chorusSizeOfMainNote = chorusSizeOfMainNote + sizeOfMainNote;
+     if sizeOfMainNote ~=0
+         mainChorusVelocityTotal = sum(gaDat.mainImportInfo.measure(1,pMeasure).mainMeasureStatus(:,1)) + mainChorusVelocityTotal;
+         mainChorusPitchTotal = sum(gaDat.mainImportInfo.measure(1,pMeasure).mainMeasureStatus(:,2)) + mainChorusPitchTotal;
+     end
  end
  mainChorusVelocityAvg = mainChorusVelocityTotal / chorusSizeOfMainNote;
  mainChorusVelocityAvg = round(mainChorusVelocityAvg);

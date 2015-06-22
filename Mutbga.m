@@ -41,8 +41,8 @@ randNoteLength = NoteLengthMatrix(2,randNoteLengthMode);
 %    2 chrous do
 randVerseOrChrous = randi([1 2],1);
 %%
-mutaAct = 1;
-%{
+%mutaAct = 1;
+%%{
 if mutaActRand <= pm
     mutaAct = 1;
 end

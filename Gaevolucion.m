@@ -71,13 +71,13 @@ fitnV(minIndex,1) = NaN;
 [~,minIndex2] = min(fitnV(:,1));
 fitnV(minIndex,1) = minScore;
 gaDat.fitnV = fitnV;
-if minIndex > 0
-    gaDat.chromsome(1,indicesXov(1,1)) = selChXov(1,1);
-    gaDat.chromsome(1,indicesXov(1,2)) = selChXov(1,2);
-else
+%if minIndex > 0
+    %gaDat.chromsome(1,indicesXov(1,1)) = selChXov(1,1);
+    %gaDat.chromsome(1,indicesXov(1,2)) = selChXov(1,2);
+%else
     gaDat.chromsome(1,minIndex) = selChXov(1,1);
     gaDat.chromsome(1,minIndex2) = selChXov(1,2);
-end
+%end
 
 %{
 %ATTATION every important part must unmute.  here is servival part

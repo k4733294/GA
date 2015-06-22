@@ -22,7 +22,7 @@ gaDat.MAXGEN = 2000;
 gaDat.rf = (1:gaDat.populationSize)';
 gaDat.dialogLength = 16;
 gaDat.patternLength = 4;
- gaDat.Pm={0.5};     
+ gaDat.Pm={0.2};     
 
 %evaluation in the objfun  
 %ub = ones(1,psize)*107; % maxium  to octave-3 / C1    middle c is 4 (remember)
