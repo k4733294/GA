@@ -17,6 +17,7 @@ startChorus = chorusPoint(1,1);
 endChorus = chorusPoint(1,2);
 startMeasre = 0;
 endMeasure = 0;
+mutaAct = 0;
 %%do Muta Or not
 mutaActRand = randi([1 100],1);
 %% 1 make note length be long passing from same length 
