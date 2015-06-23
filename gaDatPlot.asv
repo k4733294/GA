@@ -1,0 +1,30 @@
+function gaDatPlot(gaDat)
+
+gen = gaDat.gen;
+gaDat.xmingen(1,gen)=gaDat.xmin;
+gaDat.fxmingen(1,gen)=gaDat.fxmin;
+gaDat.xmaxgen(1,gen)=gaDat.xmax;
+gaDat.fxmaxgen(1,gen)=gaDat.fxmax;
+gaDat.fitnesstotalmaxgen(1,gen)=gaDat.fitnVTotal;
+gaDat.linGen(1,gen)
+
+lineGraphDataX = gaDat.gen;
+%lineGraphDataY = gaDat.fxmax;
+figure(1)
+title('MaxFitnessRevo')
+xlabel('GenTimes') % x-axis label
+ylabel('MaxFitnessScore') % y-axis label
+plot(gaDat.linGen(1,gen),gaDat.fxmaxgen(1,gen),':ks');
+drawnow
+figure(2)
+title('MinFitnessRevo')
+xlabel('GenTimes') % x-axis label
+ylabel('MinFitnessScore') % y-axis label
+plot(lineGraphDataX,gaDat.fxmin,':ks');
+drawnow
+figure(3)
+title('TotalFitnessRevo')
+xlabel('GenTimes') % x-axis label
+ylabel('TotalFitnessScore') % y-axis label
+plot(lineGraphDataX,gaDat.fitnVTotal,':ks');
+drawnow

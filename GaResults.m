@@ -9,27 +9,28 @@ disp(['   xmin: ' mat2str(gaDat.xmin)])
 disp('------------------------------------------------')
 disp(['  total time:  ' num2str(t)])
 
-x = 1 : gaDat.gen;
 figure(4)
 title('MaxFitnessRevoFinalReport')
 xlabel('GenTimes') % x-axis label
 ylabel('MaxFitnessScore') % y-axis label
-plot(x,gaDat.fxmaxgen,':ks');
+plot(gaDat.linGen(1,:),gaDat.fxmaxgen,':ks');
 drawnow
 figure(5)
 title('MinFitnessRevoFinalReport')
 xlabel('GenTimes') % x-axis label
 ylabel('MinFitnessScore') % y-axis label
-plot(x,gaDat.fxmingen,':ks');
+plot(gaDat.linGen(1,:),gaDat.fxmingen,':ks');
 drawnow
 figure(6)
 title('FitnessTotalRevoFinalReport')
 xlabel('GenTimes') % x-axis label
 ylabel('FitnessTotalScore') % y-axis label
-plot(x,gaDat.fitnesstotalmaxgen,':ks');
+plot(gaDat.linGen(1,:),gaDat.fitnesstotalmaxgen,':ks');
 drawnow
+%{
 figure(7)
 title('EveryFitnessProgressMapFinalReport')
 meshc(gaDat.fitnVGen);
 axis tight
 drawnow
+%}

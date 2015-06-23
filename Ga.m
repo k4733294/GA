@@ -78,6 +78,7 @@ gaDat.xmaxgen=[];
 gaDat.fxmaxgen=[];
 gaDat.fitnesstotalmaxgen=[];
 gaDat.gen=0;
+gaDat.linGen = linspace(1,gaDat.MAXGEN,gaDat.MAXGEN);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Main loop
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -106,7 +107,8 @@ while (gaDat.gen<gaDat.MAXGEN),
     gaDat.fxmingen(1,gen)=gaDat.fxmin;
     gaDat.xmaxgen(1,gen)=gaDat.xmax;
     gaDat.fxmaxgen(1,gen)=gaDat.fxmax;
-    gaDat.fitnesstotalmaxgen(1,gen)=gaDat.fitnVTotal;
+    gaDat.fitnessTotalgen(1,gen)=gaDat.fitnVTotal;
+    gaDatPlot(gaDat);
     gen = gen + 1;
 end
 %% Export the garesult matix in to midi struct-------------------
