@@ -25,7 +25,7 @@ figure(6)
 title('FitnessTotalRevoFinalReport')
 xlabel('GenTimes') % x-axis label
 ylabel('FitnessTotalScore') % y-axis label
-plot(gaDat.linGen(1,:),gaDat.fitnesstotalmaxgen,':ks');
+plot(gaDat.linGen(1,:),gaDat.fitnessTotalgen(1,1:gen),':ks');
 drawnow
 %{
 figure(7)
