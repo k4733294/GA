@@ -1,7 +1,7 @@
 function gaDat = GaInitConf()
 
-gaDat.gaVersion = 'ver2000withMutbga_gaBedore';
-gaDat.gaVersionFinish = 'ver2000withMutbga_gaFinish';
+gaDat.gaVersion = 'ver2000_gaBedore';
+gaDat.gaVersionFinish = 'ver2000_gaFinish';
 gaDat.Objfun='Objfunchordfit';
 %gaDat.Objfun='objfun_schwefel';
 %lb=[-500 -500];

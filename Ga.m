@@ -43,6 +43,7 @@ if ~isfield(gaDat,'NIND')
     gaDat.NIND=gaDat.NVAR*50;
 end  
 %}
+%%{
 if ~isfield(gaDat,'Pc')
     gaDat.Pc=0.9;
 end
@@ -64,7 +65,7 @@ end
 if ~isfield(gaDat,'rf')
    gaDat.rf= (1:gaDat.NIND)';
 end
-
+%}
 
 %}
 %%  Internal parameters
@@ -88,10 +89,10 @@ gen = 1;
 % Initial population -------------------------------------------
 gaDat = Crtrp(gaDat);
 %load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/johnLegenAllOfMeFinishCrtrp2000.mat');
+%load('C:\Users\lab1421\Documents\MATLAB\GA\struct_data\johnLegenAllOfMeFinishCrtrp2000.mat');
 NewMeloPath = CreateNewFolderForMeloChrom(gaDat);
-savePath = strcat(NewMeloPath,'.mat');
+savePath = strcat(NewMeloPath,'gaDatBefore.mat');
 save(savePath{1},'gaDat');
-%gaDat.MAXGEN = 500;
 %{
 for i =1 : gaDat.populationSize
     gaDat.chromsome(1,i ).ticksPerQuarterNote = gaDat.mainImportInfo.ticksPerQuarterNote;
@@ -113,8 +114,8 @@ while (gaDat.gen<gaDat.MAXGEN),
 end
 %% Export the garesult matix in to midi struct-------------------
 gaDat.mainImportInfo.version = gaDat.gaVersionFinish;
-NewMeloPath = CreateNewFolderForMeloChrom(gaDat);
-savePath = strcat(NewMeloPath,'.mat');
+newMeloPath = CreateNewFolderForMeloChrom(gaDat);
+savePath = strcat(newMeloPath,'gaDatFinal.mat');
 save(savePath{1},'gaDat');
 ChromsomeExport(gaDat);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -122,7 +123,7 @@ ChromsomeExport(gaDat);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Present final results
 t=toc;
-GaResults(gaDat,t)
+GaResults(gaDat,t,newMeloPath)
 
 
 % Disorder the population. 

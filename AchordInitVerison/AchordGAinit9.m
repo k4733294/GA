@@ -1,8 +1,8 @@
 %%  ////main melody import/////
 
 %% fix chord deault import tempraly error
-load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatRollingInTheDeepNoStructFixAllnote.mat');
-%load('C:\Users\lab1421\Documents\MATLAB\GA\struct_data\gaDatRollingInTheDeepNoStructFixAllnote.mat');
+%load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/gaDatRollingInTheDeepNoStructFixAllnote.mat');
+load('C:\Users\lab1421\Documents\MATLAB\GA\struct_data\gaDatRollingInTheDeepNoStructFixAllnote.mat');
 chordImportInfo = gaDat.chordImportInfo;
 defaultImportInfo = gaDat.defaultImportInfo;
 clearvars gaDat
