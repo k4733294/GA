@@ -1,9 +1,9 @@
-function NewMeloPath = CreateNewFolderForMeloChrom(gaDat)
+function NewMeloPath = CreateNewFolderForMeloChrom(gaDat,gaVersion)
 
 midiString = gaDat.mainImportInfo.midiString;
 midiStringSplit = strsplit(midiString,'.');
 MeloTitle = midiStringSplit(1,1);
-meloVersion = gaDat.mainImportInfo.version;
+meloVersion = gaVersion;
 
 prevPath = strcat(pwd,'/GA/GA_result/');
 currentPath = strcat(MeloTitle,'_',meloVersion,'/');
@@ -17,4 +17,3 @@ else
 disp('chromCrateSampleFolder Exist Then Donothing');    
 disp(NewMeloPath{1});
 end
-a=1;

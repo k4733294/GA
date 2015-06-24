@@ -34,7 +34,7 @@ defaultImportInfo(rhythmNum).chordLength=2;
 version = 'default1_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
-Melodyexport(defaultImportInfo(rhythmNum),version);
+%Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
 %%{
 rhythmNum = 22;
@@ -55,7 +55,7 @@ defaultImportInfo(rhythmNum).chordLength=2;
 version = 'default2_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
-Melodyexport(defaultImportInfo(rhythmNum),version);
+%Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
 %%{
 rhythmNum = 23;
@@ -76,7 +76,7 @@ defaultImportInfo(rhythmNum).chordLength=2;
 version = 'default3_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
-Melodyexport(defaultImportInfo(rhythmNum),version);
+%Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
 %%{
 rhythmNum = 24;
@@ -97,7 +97,7 @@ defaultImportInfo(rhythmNum).chordLength=2;
 version = 'default4_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
-Melodyexport(defaultImportInfo(rhythmNum),version);
+%Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
 %%{
 rhythmNum = 25;
@@ -118,7 +118,7 @@ defaultImportInfo(rhythmNum).chordLength=2;
 version = 'default5_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
-Melodyexport(defaultImportInfo(rhythmNum),version);
+%Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
 %%{
 rhythmNum = 26;
@@ -139,7 +139,7 @@ defaultImportInfo(rhythmNum).chordLength=2;
 version = 'default6_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
-Melodyexport(defaultImportInfo(rhythmNum),version);
+%Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
 %%{
 rhythmNum = 27;
@@ -160,7 +160,7 @@ defaultImportInfo(rhythmNum).chordLength=2;
 version = 'default7_Output';
 defaultImportInfo(rhythmNum).exportVersion=version;
 defaultImportInfo = Variabledefine(defaultImportInfo,rhythmNum);
-Melodyexport(defaultImportInfo(rhythmNum),version);
+%Melodyexport(defaultImportInfo(rhythmNum),version);
 %}
 
 gaDat.defaultImportInfo=defaultImportInfo;

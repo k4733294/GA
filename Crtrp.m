@@ -63,7 +63,6 @@ for populationPosition = 1 : populationSize
             gaDat = AddtoChromesome(gaDat,populationPosition,pMeasure,sampleFrameChoice);
     end
 end
- gaDat = ChromsomeExport(gaDat);
 %{
     %% loop detail:
     bar is loop unit

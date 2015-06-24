@@ -1,7 +1,6 @@
-function gaDat = MainMelodyImport(whichMalodyImport,gaDat)
+function gaDat = MainMelodyImport(whichMalodyImport)
 
 %% ////mainMelodyimport////
-mainImportInfo.version = gaDat.gaVersion ;
 switch whichMalodyImport
     %% mainmelody create to GADat , make the ga caculating
     %%{
@@ -255,8 +254,5 @@ switch whichMalodyImport
         %}
 end
 mainImportInfo = Variabledefine(mainImportInfo,1);
-trackTitle = strcat(mainImportInfo.trackName,mainImportInfo.version);
-mainImportInfo.exportVersion=trackTitle;
-trackTitle = strcat(pwd,'/GA/GA_result/',trackTitle);
-Melodyexport(mainImportInfo,trackTitle);
  gaDat.mainImportInfo=mainImportInfo;
+ 

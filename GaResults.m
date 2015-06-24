@@ -11,6 +11,7 @@ disp(['   xmin: ' mat2str(gaDat.xmax)])
 disp('------------------------------------------------')
 disp(['  total time:  ' num2str(t)])
 
+osSys = gaDat.osSysNow;
 figure(4)
 plot(gaDat.linGen(1,1:end),gaDat.fxmaxgen(1,1:end),':ks');
 title('MaxFitnessRevoFinalReport')
@@ -18,7 +19,9 @@ xlabel('GenTimes') % x-axis label
 ylabel('MaxFitnessScore') % y-axis label
 fig4set = figure(4);
 savePath = strcat(newMeloPath,'gaMax');
-saveas(fig4set,savePath{1},'emf')
+if osSys == 0
+    saveas(fig4set,savePath{1},'emf')
+end
 saveas(fig4set,savePath{1},'fig')
 drawnow
 
@@ -29,7 +32,9 @@ xlabel('GenTimes') % x-axis label
 ylabel('MinFitnessScore') % y-axis label
 fig4set = figure(5);
 savePath = strcat(newMeloPath,'gaMin');
-saveas(fig4set,savePath{1},'emf')
+if osSys == 0
+    saveas(fig4set,savePath{1},'emf')
+end
 saveas(fig4set,savePath{1},'fig')
 drawnow
 
@@ -40,7 +45,9 @@ xlabel('GenTimes') % x-axis label
 ylabel('FitnessTotalScore') % y-axis label
 fig4set = figure(6);
 savePath = strcat(newMeloPath,'gaTotal');
-saveas(fig4set,savePath{1},'emf')
+if osSys == 0
+    saveas(fig4set,savePath{1},'emf')
+end
 saveas(fig4set,savePath{1},'fig')
 drawnow
 %{

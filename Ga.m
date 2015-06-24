@@ -90,9 +90,10 @@ gen = 1;
 gaDat = Crtrp(gaDat);
 %load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/johnLegenAllOfMeFinishCrtrp2000.mat');
 %load('C:\Users\lab1421\Documents\MATLAB\GA\struct_data\johnLegenAllOfMeFinishCrtrp2000.mat');
-NewMeloPath = CreateNewFolderForMeloChrom(gaDat);
-savePath = strcat(NewMeloPath,'gaDatBefore.mat');
+%NewMeloPath = CreateNewFolderForMeloChrom(gaDat);
+savePath = strcat(gaDat.newMeloPathBefore,'gaDatBefore.mat');
 save(savePath{1},'gaDat');
+gaDat = ChromsomeExport(gaDat,gaDat.newMeloPathBefore);
 %{
 for i =1 : gaDat.populationSize
     gaDat.chromsome(1,i ).ticksPerQuarterNote = gaDat.mainImportInfo.ticksPerQuarterNote;
@@ -113,11 +114,9 @@ while (gaDat.gen<gaDat.MAXGEN),
     gen = gen + 1;
 end
 %% Export the garesult matix in to midi struct-------------------
-gaDat.mainImportInfo.version = gaDat.gaVersionFinish;
-newMeloPath = CreateNewFolderForMeloChrom(gaDat);
-savePath = strcat(newMeloPath,'gaDatFinal.mat');
+savePath = strcat(gaDat.newMeloPathFinish,'gaDatFinal.mat');
 save(savePath{1},'gaDat');
-ChromsomeExport(gaDat);
+gaDat = ChromsomeExport(gaDat,gaDat.newMeloPathFinish);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % End main loop
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
