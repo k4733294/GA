@@ -77,7 +77,7 @@ gaDat.xmingen=[];
 gaDat.fxmingen=[];
 gaDat.xmaxgen=[];
 gaDat.fxmaxgen=[];
-gaDat.fitnesstotalmaxgen=[];
+gaDat.fitnessTotalgen=[];
 gaDat.gen=0;
 gaDat.linGen = linspace(1,gaDat.MAXGEN,gaDat.MAXGEN);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -88,9 +88,11 @@ tic;
 gen = 1;
 % Initial population -------------------------------------------
 gaDat = Crtrp(gaDat);
+%{
 %load('/Users/hooshuu/Documents/MATLAB/GA/struct_data/johnLegenAllOfMeFinishCrtrp2000.mat');
 %load('C:\Users\lab1421\Documents\MATLAB\GA\struct_data\johnLegenAllOfMeFinishCrtrp2000.mat');
 %NewMeloPath = CreateNewFolderForMeloChrom(gaDat);
+%}
 savePath = strcat(gaDat.newMeloPathBefore,'gaDatBefore.mat');
 save(savePath{1},'gaDat');
 gaDat = ChromsomeExport(gaDat,gaDat.newMeloPathBefore);
@@ -122,7 +124,7 @@ gaDat = ChromsomeExport(gaDat,gaDat.newMeloPathFinish);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Present final results
 t=toc;
-GaResults(gaDat,t,newMeloPath)
+GaResults(gaDat,t,gaDat.newMeloPathFinish)
 
 
 % Disorder the population. 
