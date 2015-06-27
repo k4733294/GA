@@ -104,6 +104,20 @@ clearvars pMeasure pBeat pFix sizeOfSFCD pNote noteTrace noteWeightMapIndex
 
 %%
 sfcDensityWeight = sfcChorusDensityWeightAvg - sfcVerseDensityWeightAvg;
+sfcDensityWeightVar = sfcChorusDensityWeightAvg/sfcVerseDensityWeightAvg;
+%%{
+if sfcChorusDensityWeightAvg > 512
+    sfcDensityWeight = sfcDensityWeight*0.1;
+end
+if sfcDensityWeightVar>10
+    sfcDensityWeight = sfcDensityWeight*0.3;
+elseif sfcDensityWeightVar > 9 && sfcDensityWeightVar <= 10
+    sfcDensityWeight = sfcDensityWeight*0.4;
+elseif sfcDensityWeightVar > 8 && sfcDensityWeightVar <= 9
+    sfcDensityWeight = sfcDensityWeight*0.6;
+else
+end
+%}
 sfcDensityWeight = sfcDensityWeight/10;
 %% got sfcVerseBassLevelTotal
 verseSizeOfSFCNote = 0;
@@ -154,6 +168,26 @@ sfcChorusBassLevelAvg = round(sfcChorusBassLevelAvg);
 clearvars pMeasure pBeat pFix sizeOfSFCNote
 %%
 sfcBassLevelWeight = sfcChorusBassLevelAvg - sfcVerseBassLevelAvg;
+%%
+if gaDat.gen >1
+    if pPopu == gaDat.indicesXov(1,1)
+        gaDat.sfcDensityWeightVar1 = sfcDensityWeightVar;
+        gaDat.sfcChorusDensityWeightAvg1 = sfcChorusDensityWeightAvg;
+        gaDat.sfcVerseDensityWeightAvg1 = sfcVerseDensityWeightAvg;
+        gaDat.sfcBassLevelWeight1 = sfcBassLevelWeight;
+        sfcChorusDensityWeightAvg
+        sfcVerseDensityWeightAvg
+    end
+    if pPopu == gaDat.indicesXov(1,2)
+        gaDat.sfcDensityWeightVar2 = sfcDensityWeightVar;
+        gaDat.sfcChorusDensityWeightAvg2 = sfcChorusDensityWeightAvg;
+        gaDat.sfcVerseDensityWeightAvg2 = sfcVerseDensityWeightAvg;
+        gaDat.sfcBassLevelWeight2 = sfcBassLevelWeight;
+        sfcChorusDensityWeightAvg
+        sfcVerseDensityWeightAvg
+    end
+end
+
 %%
 gaDat.chromsome(1,pPopu).sfcDensityWeight = sfcDensityWeight;
 gaDat.chromsome(1,pPopu).sfcBassLevelWeight = sfcBassLevelWeight;

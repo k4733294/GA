@@ -19,6 +19,7 @@ end
 %%{
 fitnV = gaDat.fitnV;
 [selChXov,indicesXov] = Select('rws',gaDat.chromsome,fitnV,1);
+gaDat.indicesXov = indicesXov;
 %}
 % CROSSOVER--------------------------------------------------------------------------------
 % Uniform crossover.

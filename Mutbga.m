@@ -32,8 +32,8 @@ randMode = randi([1 4],1);
 %    3   1/8note length
 %    4   1/16note length
 %%{
-randNoteLengthMode = randi([1 4],1);
-NoteLengthMatrix = [1 2 3 4 ;8 4 2 1] ;
+randNoteLengthMode = randi([1 3],1);
+NoteLengthMatrix = [1 2 3  ;8 4 2 ] ;
 randNoteLength = NoteLengthMatrix(2,randNoteLengthMode);
 %}
 %randNoteLength = 2;

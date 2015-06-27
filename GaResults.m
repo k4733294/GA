@@ -50,6 +50,45 @@ if osSys == 0
 end
 saveas(fig4set,savePath{1},'fig')
 drawnow
+
+if osSys == 0
+    fig4set = figure(7);
+    savePath = strcat(newMeloPath,'sfcDensityWeightVarGen');
+    saveas(fig4set,savePath{1},'emf')
+    fig4set = figure(8);
+    savePath = strcat(newMeloPath,'patternNameSmoothScoreGen');
+    saveas(fig4set,savePath{1},'emf')
+    fig4set = figure(9);
+    savePath = strcat(newMeloPath,'measureSmoothScoreGen');
+    saveas(fig4set,savePath{1},'emf')
+    fig4set = figure(10);
+    savePath = strcat(newMeloPath,'sfcBassLevelWeightGen');
+    saveas(fig4set,savePath{1},'emf')
+    fig4set = figure(11);
+    savePath = strcat(newMeloPath,'sfcChorusDensityWeightAvgGen');
+    saveas(fig4set,savePath{1},'emf')
+    fig4set = figure(12);
+    savePath = strcat(newMeloPath,'sfcVerseDensityWeightAvgGen');
+    saveas(fig4set,savePath{1},'emf')
+end
+fig4set = figure(7);
+savePath = strcat(newMeloPath,'sfcDensityWeightVarGen');
+saveas(fig4set,savePath{1},'fig')
+fig4set = figure(8);
+savePath = strcat(newMeloPath,'patternNameSmoothScoreGen');
+saveas(fig4set,savePath{1},'fig')
+fig4set = figure(9);
+savePath = strcat(newMeloPath,'measureSmoothScoreGen');
+saveas(fig4set,savePath{1},'fig')
+fig4set = figure(10);
+savePath = strcat(newMeloPath,'sfcBassLevelWeightGen');
+saveas(fig4set,savePath{1},'fig')
+fig4set = figure(11);
+savePath = strcat(newMeloPath,'sfcChorusDensityWeightAvgGen');
+saveas(fig4set,savePath{1},'fig')
+fig4set = figure(12);
+savePath = strcat(newMeloPath,'sfcVerseDensityWeightAvgGen');
+saveas(fig4set,savePath{1},'fig')
 %{
 figure(7)
 title('EveryFitnessProgressMapFinalReport')

@@ -48,10 +48,28 @@ gaDat = MainFitnessOperation(gaDat);
          chromFitness = chromFitnessPVDBL + chromFitnessS;
          chromFitness = round(chromFitness);
      else
-         chromFitnessS = (patternNameSmoothScore + measureSmoothScore)/2;
+         chromFitnessS = (patternNameSmoothScore*patternNameSmoothScore + measureSmoothScore*measureSmoothScore)/2;
          round(chromFitnessS);
          chromFitness = chromFitnessS;
      end
+     %%{
+     if gaDat.gen >1
+         if pPopu == gaDat.indicesXov(1,1)
+             disp('FitnessOutput1');
+             %sfcDensityWeightVar = gaDat.sfcDensityWeightVar;
+             %sfcDensityWeightVar
+             mainPitchWeight
+             mainVelocityWeight
+             gaDat.patternNameSmoothScore1 = patternNameSmoothScore;
+             gaDat.measureSmoothScore1 = measureSmoothScore;
+         end
+         if pPopu == gaDat.indicesXov(1,2)
+              disp('FitnessOutput2');
+              gaDat.patternNameSmoothScore2 = patternNameSmoothScore;
+             gaDat.measureSmoothScore2 = measureSmoothScore;
+         end
+     end
+     %}
      %{
      %%if any fitness score less then 10 ,give a normal score 10 for sel
      %%choice 
@@ -68,14 +86,14 @@ gaDat = MainFitnessOperation(gaDat);
  [maxScore,maxIndex] = max(fitnV(:,1)); %[v,p] is [ value , position ]
  [minScore,minIndex] = min(fitnV(:,1));
 
- if maxScore >= gaDat.fxmax        % the new maximun replace previous one
+% if maxScore >= gaDat.fxmax        % the new maximun replace previous one
      gaDat.xmax = maxIndex;
      gaDat.fxmax = maxScore;
- end
- if minScore <= gaDat.fxmin        % the new minimun replace previous one
+ %end
+ %if minScore <= gaDat.fxmin        % the new minimun replace previous one
      gaDat.xmin = minIndex;
      gaDat.fxmin = minScore;
- end
+ %end
 
  %{
  %% One times templating created in this funtion

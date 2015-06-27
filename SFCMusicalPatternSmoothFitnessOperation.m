@@ -24,7 +24,7 @@ end
 %% evalute measureSmoothScore 
 sizeOfPatternNS = size(patternNameSmooth);
 measureSmoothScore = 0;
-MeasureSmoothScoreMap = [1 2 3 4 ; -1 2 -1 2];
+MeasureSmoothScoreMap = [1 2 3 4 ; -1 1 -1 2];
 for patternIndex = 1 : sizeOfPatternNS(1,1)
     measureSmooth = patternNameSmooth(patternIndex,:);
     diffMeasureRhythm = unique(measureSmooth);
@@ -50,19 +50,19 @@ for patternIndex = 1 : sizeOfPatternNS(1,1) - 1
         if patternVarianceSmoothDetermine == 0
             patternNameSmoothScoreAdd = 5;
         elseif patternVarianceSmoothDetermine == 1
-            patternNameSmoothScoreAdd = 5*1.2;
+            patternNameSmoothScoreAdd = 5*2;
         end
     else
         if patternVarianceSmoothDetermine == 1
             patternNameSmoothScoreAdd = -1;
         elseif patternVarianceSmoothDetermine == 0
-            patternNameSmoothScoreAdd = -1*1.2;
+            patternNameSmoothScoreAdd = -1*2;
         end
     end
     if mod(patternIndex,4) == 0
-        patternNameSmoothScore = patternNameSmoothScore - patternNameSmoothScoreAdd;
+        patternNameSmoothScore = patternNameSmoothScore - patternNameSmoothScoreAdd*2;
     else
-        patternNameSmoothScore = patternNameSmoothScore + patternNameSmoothScoreAdd;
+        patternNameSmoothScore = patternNameSmoothScore + patternNameSmoothScoreAdd*2;
     end
 end
 patternNameSmoothScore = round(patternNameSmoothScore);

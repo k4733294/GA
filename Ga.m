@@ -80,6 +80,7 @@ gaDat.fxmaxgen=[];
 gaDat.fitnessTotalgen=[];
 gaDat.gen=0;
 gaDat.linGen = linspace(1,gaDat.MAXGEN,gaDat.MAXGEN);
+ gaDat.sfcDensityWeightVarGen = [];
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Main loop
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -112,6 +113,20 @@ while (gaDat.gen<gaDat.MAXGEN),
     gaDat.xmaxgen(1,gen)=gaDat.xmax;
     gaDat.fxmaxgen(1,gen)=gaDat.fxmax;
     gaDat.fitnessTotalgen(1,gen)=gaDat.fitnVTotal;
+    if gen>1
+        gaDat.sfcDensityWeightVarGen1(1,gen) = gaDat.sfcDensityWeightVar1;
+        gaDat.sfcDensityWeightVarGen2(1,gen) = gaDat.sfcDensityWeightVar2;
+        gaDat.patternNameSmoothScoreGen1(1,gen) = gaDat.patternNameSmoothScore1;
+        gaDat.patternNameSmoothScoreGen2(1,gen) = gaDat.patternNameSmoothScore2;
+        gaDat.measureSmoothScoreGen1(1,gen) = gaDat.measureSmoothScore1;
+        gaDat.measureSmoothScoreGen2(1,gen) = gaDat.measureSmoothScore2;
+        gaDat.sfcBassLevelWeightGen1(1,gen) = gaDat.sfcBassLevelWeight1;
+        gaDat.sfcBassLevelWeightGen2(1,gen) = gaDat.sfcBassLevelWeight2;
+        gaDat.sfcChorusDensityWeightAvgGen1(1,gen) = gaDat.sfcChorusDensityWeightAvg1;
+        gaDat.sfcChorusDensityWeightAvgGen2(1,gen) = gaDat.sfcChorusDensityWeightAvg2;
+        gaDat.sfcVerseDensityWeightAvgGen1(1,gen) = gaDat.sfcVerseDensityWeightAvg1;
+        gaDat.sfcVerseDensityWeightAvgGen2(1,gen) = gaDat.sfcVerseDensityWeightAvg2;
+    end
     gaDatPlot(gaDat);
     gen = gen + 1;
 end
