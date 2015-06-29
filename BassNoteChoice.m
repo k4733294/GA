@@ -46,8 +46,9 @@ for n = 1 : indexNotes
 end
 
 %In general, you can generate N random numbers in the interval [a,b] with the formula r = a + (b-a).*rand(N,1).
-bassNoteChoice = -0.01*(1-0.01).*rand();
+bassNoteChoice = 1*(1-0.01).*rand();
 WheelMatrix = sfcNPMatrix.beat(1,pBeat).rank(:,7);
-samplePriorityNoteIndex = Binarysearch(WheelMatrix,bassNoteChoice,indexNotes+1);
+WheelMatrix = WheelMatrix';
+samplePriorityNoteIndex = Binarysearch(WheelMatrix,bassNoteChoice);
 samplePriorityNote = sfcNPMatrix.beat(1,pBeat).rank(samplePriorityNoteIndex,4);
 sfcNPMatrix.beat(1,pBeat).samplePriorityNote = samplePriorityNote;

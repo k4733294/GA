@@ -1,37 +1,8 @@
-function find=Binarysearch(sumfit,search,Nsel)
+function selFinVfind = Binarysearch(sumFit,search)
 
-low = 1;
-high = Nsel - 1;
-
-while(low <= high)
-    mid = (low + high) / 2;
-    mid = int16(mid);
-    if (sumfit(mid) > search)
-         if (mid == low)
-              find = mid ; 
-            break
-        else    
-            midlow= mid - 1;
-            if (sumfit(midlow) < search)
-                find = mid ; 
-            break
-            end
-        end
-        high = mid - 1;
-    elseif (sumfit(mid) < search)
-        if(mid == high)
-            find = high;
-            break
-        else
-            midlow= mid + 1;
-            if (sumfit(midlow) > search)
-                find = mid ; 
-            break
-            end
-        end
-        low = mid + 1;
-    else
-        find = mid;
-        break
-    end
+findSearch = sumFit(1,:) >= search;
+sumFitFindIndex = find(findSearch(1,:) == 1 ,1, 'first');
+selFinVfind = sumFitFindIndex;
+if selFinVfind == 1
+    selFinVfind= 1;
 end

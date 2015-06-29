@@ -168,6 +168,11 @@ sfcChorusBassLevelAvg = round(sfcChorusBassLevelAvg);
 clearvars pMeasure pBeat pFix sizeOfSFCNote
 %%
 sfcBassLevelWeight = sfcChorusBassLevelAvg - sfcVerseBassLevelAvg;
+if sfcBassLevelWeight >= 50
+    sfcBassLevelWeight = sfcBassLevelWeight*0.1;
+elseif sfcBassLevelWeight > 40 && sfcBassLevelWeight < 50
+    sfcBassLevelWeight = sfcBassLevelWeight*0.8;
+end
 %%
 if gaDat.gen >1
     if pPopu == gaDat.indicesXov(1,1)
