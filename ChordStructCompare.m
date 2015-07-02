@@ -40,4 +40,3 @@ for k = 1 : cSmSize
     noteIndexTotal = noteIndexTotal + noteIndex ;
     noteInpStart = noteInpEnd + 1;
 end
-a=1;

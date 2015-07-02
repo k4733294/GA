@@ -41,13 +41,13 @@ gaDat = MainFitnessOperation(gaDat);
      %%
      patternNameSmoothScore = gaDat.chromsome(1,pPopu).patternNameSmoothScore;
      measureSmoothScore = gaDat.chromsome(1,pPopu).measureSmoothScore;
-     if mainPitchWeight ~= 0 && mainVelocityWeight ~= 0
+     if mainPitchWeight ~= 0 || mainVelocityWeight ~= 0
          chromFitnessPVDBL = (PitchDensityWeight + PitchBassLevelWeight +VelocityDensityWeight +VelocityBassLevelWeight)/4 ;
          chromFitnessPVDBL = round(chromFitnessPVDBL);
          chromFitnessS = (patternNameSmoothScore + measureSmoothScore)/2;
          chromFitness = chromFitnessPVDBL + chromFitnessS;
          chromFitness = round(chromFitness);
-     else
+     elseif mainPitchWeight == 0 && mainVelocityWeight == 0
          chromFitnessS = (patternNameSmoothScore*patternNameSmoothScore + measureSmoothScore*measureSmoothScore)/2;
          round(chromFitnessS);
          chromFitness = chromFitnessS;

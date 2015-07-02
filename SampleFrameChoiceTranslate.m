@@ -54,6 +54,8 @@ if isempty(findMPNoteInMA) == 0
 end
 findSPNoteInMA = find(musicalAlphabetExtend(1,:)  == sPNoteInMA,1,'first');
 if isempty(findSPNoteInMA) == 0
+    pMeasure
+    pBeat
     sPNoteInMA = MainNoteAlphabetFix(musicalAlphabet,sPNoteInMAIndex,mainTonal);
     disp('warning SampleFrameChoiceTranslate Line:67');
     disp('warning samplePriorityNote not in the standard musicalAlphabet \n');

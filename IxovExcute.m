@@ -26,13 +26,13 @@ for measureIndex = 1 : mainMeasureSize
             end
         end
     else %%chorus trans
-        if measureIndex > chorusStart && measureIndex < chorusEnd
+        if measureIndex >= chorusStart && measureIndex <= chorusEnd
             if measureChoice == 0
-                selChXov(1,2).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,measureIndex);
-                selChXov(1,1).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,measureIndex);
-            else
-                selChXov(1,2).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,measureIndex);
                 selChXov(1,1).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,measureIndex);
+                selChXov(1,2).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,measureIndex);
+            else
+                selChXov(1,1).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,2).measure(1,measureIndex);
+                selChXov(1,2).measure(1,measureIndex) = sampleFrameChoiceMatrix(1,1).measure(1,measureIndex);
             end
         end
     end

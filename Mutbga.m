@@ -61,10 +61,10 @@ end
 if mutaAct == 1
     for pMeasure = startMeasre : endMeasure
         if randVerseOrChrous == 1 
-            if pMeasure < endChorus && pMeasure > startChorus
+            if pMeasure < endChorus || pMeasure > startChorus
                 selChMutaChoice = PatternMutbgaFix(selChMutaChoice,gaDat,pMeasure,IndicesMuta,randNoteLength,randMode);
-                %gaDat = PatternMutbga(gaDat,pMeasure,IndicesMuta,randNoteLength,randMode);
                 selChMutaChoice.measure(1,pMeasure).patternVariance = selChMutaChoice.measure(1,pMeasure).patternVariance+1;
+                %gaDat = PatternMutbga(gaDat,pMeasure,IndicesMuta,randNoteLength,randMode);
             else
                 continue
             end

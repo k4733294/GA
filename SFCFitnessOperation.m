@@ -34,7 +34,7 @@ for pMeasure = 1 : totalNumMainMeasure
     for pSFCNote = 1 : sizeOfSFCNote
         % find Bass lower then c4 and not 0 and check the velocity not 0
         noteTrace = chrom(1,pPopu).measure(1,pMeasure).noteContent(pSFCNote,5);
-        if noteTrace <= 48 && noteTrace ~=0 && chrom(1,pPopu).measure(1,pMeasure).noteContent(pSFCNote,6) ~= 0
+        if noteTrace <= 48 && noteTrace >= 12 && chrom(1,pPopu).measure(1,pMeasure).noteContent(pSFCNote,6) ~= 0
             sfcMeasureBassLevelTrace(pSFCNote - pFix,1) = chrom(1,pPopu).measure(1,pMeasure).noteContent(pSFCNote,5);
         else
             pFix = pFix + 1;
@@ -170,8 +170,10 @@ clearvars pMeasure pBeat pFix sizeOfSFCNote
 sfcBassLevelWeight = sfcChorusBassLevelAvg - sfcVerseBassLevelAvg;
 if sfcBassLevelWeight >= 50
     sfcBassLevelWeight = sfcBassLevelWeight*0.1;
-elseif sfcBassLevelWeight > 40 && sfcBassLevelWeight < 50
+elseif sfcBassLevelWeight >= 40 && sfcBassLevelWeight < 50
     sfcBassLevelWeight = sfcBassLevelWeight*0.8;
+elseif sfcBassLevelWeight > 30 && sfcBassLevelWeight < 40
+    sfcBassLevelWeight = sfcBassLevelWeight*0.6;
 end
 %%
 if gaDat.gen >1

@@ -70,7 +70,7 @@ if gaDat.gen > 1
     drawnow
     
     figure(12)
-    plot(gaDat.linGen(1,2:gen),gaDat.sfcVerseDensityWeightAvgGen1(1,2:gen),gaDat.linGen(1,2:gen),gaDat.sfcVerseDensityWeightAvgGen1(1,2:gen));
+    plot(gaDat.linGen(1,2:gen),gaDat.sfcVerseDensityWeightAvgGen1(1,2:gen),gaDat.linGen(1,2:gen),gaDat.sfcVerseDensityWeightAvgGen2(1,2:gen));
     legend('sfcVerseDensityWeightAvgGen1','sfcVerseDensityWeightAvgGen2')
     legend boxoff
     box off
