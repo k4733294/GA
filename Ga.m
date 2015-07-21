@@ -127,6 +127,14 @@ while (gaDat.gen<gaDat.MAXGEN),
         gaDat.sfcVerseDensityWeightAvgGen1(1,gen) = gaDat.sfcVerseDensityWeightAvg1;
         gaDat.sfcVerseDensityWeightAvgGen2(1,gen) = gaDat.sfcVerseDensityWeightAvg2;
     end
+    if gen == 500 || gen == 1000 || gen == 1500
+        gaVersionFinishTemp = strcat('ver2000_pm0.1_gaFinish_',int2str(gen));
+        newMeloPathFinishTemp = CreateNewFolderForMeloChrom(gaDat,gaVersionFinishTemp);
+        gaDat.newMeloPathFinishTemp = newMeloPathFinishTemp;
+        savePath = strcat(gaDat.newMeloPathFinishTemp,'gaDatFinal.mat');
+        save(savePath{1},'gaDat');
+        gaDat = ChromsomeExport(gaDat,gaDat.newMeloPathFinishTemp);
+    end
     gaDatPlot(gaDat);
     gen = gen + 1;
 end

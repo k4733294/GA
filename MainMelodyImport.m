@@ -252,6 +252,27 @@ switch whichMalodyImport
         mainImportInfo.chorusPoint = [35 ,58];
         mainImportInfo.trackName = 'main_c-rpg_Vocal_Output';
         %}
+             %%{
+    case 14
+        mainImportInfo.Objfun='mainMelody';
+        mainImportInfo.midiString = 'Cyndi Lauper-Time After Time.mid';
+        mainImportInfo.mainOrChord=1; % 0 = main melody 1=import chord melody
+        mainImportInfo.track=1;
+        mainImportInfo.howManyMeasureWeWant=140;
+        mainImportInfo.whichMeasureWeStart=1;
+        mainImportInfo.rhythm=1;
+        mainImportInfo.forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true
+        mainImportInfo.cosDenominator=4;
+        mainImportInfo.cosNumerator=4;
+        mainImportInfo.forcecosTonal = 1; %%force use the cosTonal 1 = true
+        mainImportInfo.cosTonal(1,1)= 1;
+        mainImportInfo.cosTonal(2,1)= 0;
+        mainImportInfo.chordLength=2; %how many beat of chord
+        mainImportInfo.chorusPoint = [10,22];
+        mainImportInfo.trackName = 'main_Cyndi Lauper-Time After Time_Output';
+        %}
+        
+        
 end
 mainImportInfo = Variabledefine(mainImportInfo,1);
  gaDat.mainImportInfo=mainImportInfo;
