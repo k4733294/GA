@@ -308,6 +308,24 @@ switch whichMalodyImport
         mainImportInfo.chorusPoint = [28,33];
         mainImportInfo.trackName = 'main_houseOfRisingSunChord_Output';
         %}
+          case 17
+        mainImportInfo.Objfun='mainMelody';
+        mainImportInfo.midiString = 'houseOfRisingSunChord.mid';
+        mainImportInfo.mainOrChord=0; % 0 = main melody 1=import chord melody
+        mainImportInfo.track=1;
+        mainImportInfo.howManyMeasureWeWant=174;
+        mainImportInfo.whichMeasureWeStart=1;
+        mainImportInfo.rhythm=1;
+        mainImportInfo.forcecosDeNu = 1; %%force use the cosDenominator cosNumerator 1 = true
+        mainImportInfo.cosDenominator=4;
+        mainImportInfo.cosNumerator=4;
+        mainImportInfo.forcecosTonal = 1; %%force use the cosTonal 1 = true
+        mainImportInfo.cosTonal(1,1)= 4;
+        mainImportInfo.cosTonal(2,1)= 1;
+        mainImportInfo.chordLength=2; %how many beat of chord
+        mainImportInfo.chorusPoint = [28,33];
+        mainImportInfo.trackName = 'main_houseOfRisingSunChord_Output';
+        %}
         
 end
 mainImportInfo = Variabledefine(mainImportInfo,1);
