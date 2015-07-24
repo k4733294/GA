@@ -36,7 +36,8 @@ partOfMixMapChoice = CreateMixMapChoice(patternFix,measureDoesNotFullOfPattern,m
 mixMapChoice.patternMix = partOfMixMapChoice;
 %% Create mixMapChoice beatMix Struct
 % fix the beat may not full content in measure like 1 beat in measure
-measureFix = fix(numMainMeasureBeat/4);
+%measureFix = fix(numMainMeasureBeat/4);
+measureFix = 44;
 beatDoesNotFullOfMeasure = mod(numMainMeasureBeat,4);
 if measureDoesNotFullOfPattern ~= 0
     beatDoesNotFullOfMeasure = beatDoesNotFullOfMeasure+1;
