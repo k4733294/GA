@@ -308,7 +308,7 @@ switch whichMalodyImport
         mainImportInfo.chorusPoint = [28,33];
         mainImportInfo.trackName = 'main_houseOfRisingSunChord_Output';
         %}
-          case 17
+          case 18
         mainImportInfo.Objfun='mainMelody';
         mainImportInfo.midiString = 'houseOfRisingSunChord.mid';
         mainImportInfo.mainOrChord=0; % 0 = main melody 1=import chord melody
@@ -324,7 +324,7 @@ switch whichMalodyImport
         mainImportInfo.cosTonal(2,1)= 1;
         mainImportInfo.chordLength=2; %how many beat of chord
         mainImportInfo.chorusPoint = [28,33];
-        mainImportInfo.trackName = 'main_houseOfRisingSunChord_Output';
+        mainImportInfo.trackName = 'main_houseOfRisingSunChord2_Output';
         %}
         
 end

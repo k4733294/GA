@@ -9,7 +9,12 @@ for i = 1 : sizeM
    for j = 1:chordLength:sizeB
        notesRank.measre(1,i).beat(1,j).rank = zeros(100,2);   
        notesRankContentInBeat = notesRank.measre(1,i).beat(1,j).rank;
+       checkBeat = size(gaDat.mainImportInfo.measure(1,i).beat,2);
+       if j+chordLength-1 <= checkBeat
        notesNonSort = gaDat.mainImportInfo.measure(1,i).beat(1,j:j+chordLength-1).noteContent;
+       else
+       notesNonSort = gaDat.mainImportInfo.measure(1,i).beat(1,j).noteContent;
+       end
        sizeNInBar = size(notesNonSort,1);
        %loop note
        for k = 1 : sizeNInBar
